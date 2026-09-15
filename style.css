@@ -648,6 +648,112 @@ img{max-width:100%;}
 }
 #back-to-top.show{opacity:1; visibility:visible; transform:translateY(0);}
 
+/* ============ HAKI DEL RE / CONQUEROR'S HAKI ============ */
+.haki-btn{
+  margin-top:1.2rem;
+  display:inline-flex; align-items:center; gap:.6rem;
+  background:linear-gradient(135deg, #2a0a3a, #1a0520);
+  border:1px solid #7a2fb5;
+  color:#d9b8ff;
+  padding:.8rem 1.4rem;
+  border-radius:30px;
+  font-size:.9rem;
+  font-family:var(--font-title);
+  font-weight:600;
+  cursor:pointer;
+  box-shadow:0 0 18px rgba(122,47,181,.35);
+  transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.haki-btn:hover{
+  transform:translateY(-3px);
+  box-shadow:0 0 30px rgba(122,47,181,.6);
+  background:linear-gradient(135deg, #3a0f4f, #220730);
+}
+.haki-btn:active{transform:translateY(0) scale(.97);}
+.haki-btn.discharging{pointer-events:none; opacity:.6;}
+
+.haki-overlay{
+  position:fixed; inset:0;
+  z-index:9998;
+  display:flex; align-items:center; justify-content:center;
+  pointer-events:none;
+  opacity:0;
+  background:radial-gradient(circle at 50% 50%, rgba(40,0,60,0) 0%, rgba(10,0,15,0) 60%);
+}
+.haki-overlay.active{
+  animation:haki-flash-bg .9s ease-out forwards;
+}
+@keyframes haki-flash-bg{
+  0%{background:radial-gradient(circle at 50% 50%, rgba(60,0,90,0) 0%, rgba(0,0,0,0) 100%); opacity:0;}
+  15%{background:radial-gradient(circle at 50% 50%, rgba(90,10,140,.55) 0%, rgba(5,0,10,.65) 70%); opacity:1;}
+  100%{background:radial-gradient(circle at 50% 50%, rgba(60,0,90,0) 0%, rgba(0,0,0,0) 100%); opacity:0;}
+}
+
+.haki-ring{
+  position:absolute;
+  width:60px; height:60px;
+  border-radius:50%;
+  border:3px solid rgba(190,120,255,.8);
+  box-shadow:0 0 30px rgba(150,60,220,.6);
+  opacity:0;
+  transform:scale(0);
+}
+.haki-overlay.active .haki-ring-1{animation:haki-ring-expand .9s ease-out forwards;}
+.haki-overlay.active .haki-ring-2{animation:haki-ring-expand .9s ease-out .08s forwards;}
+.haki-overlay.active .haki-ring-3{animation:haki-ring-expand .9s ease-out .16s forwards;}
+@keyframes haki-ring-expand{
+  0%{opacity:.9; transform:scale(0);}
+  70%{opacity:.5;}
+  100%{opacity:0; transform:scale(22);}
+}
+
+.haki-bolts{
+  position:absolute;
+  width:min(70vw, 500px);
+  height:min(70vw, 500px);
+  opacity:0;
+  pointer-events:none;
+}
+.haki-overlay.active .haki-bolts{animation:haki-bolts-flash .6s steps(1) forwards;}
+@keyframes haki-bolts-flash{
+  0%, 100%{opacity:0;}
+  10%, 30%, 50%{opacity:1;}
+  20%, 40%, 60%{opacity:0;}
+}
+.bolt{
+  fill:none;
+  stroke:#e9d1ff;
+  stroke-width:2.5;
+  stroke-linejoin:round;
+  filter:drop-shadow(0 0 6px #b366ff);
+}
+
+.haki-caption{
+  position:absolute;
+  font-family:var(--font-display);
+  font-size:clamp(1.4rem, 5vw, 2.6rem);
+  letter-spacing:6px;
+  color:#e9d1ff;
+  text-shadow:0 0 20px #a83ee8, 0 0 40px #6a1a9a;
+  opacity:0;
+}
+.haki-overlay.active .haki-caption{animation:haki-caption-pop .9s ease-out forwards;}
+@keyframes haki-caption-pop{
+  0%{opacity:0; transform:scale(.6);}
+  25%{opacity:1; transform:scale(1.08);}
+  40%{opacity:1; transform:scale(1);}
+  80%{opacity:1;}
+  100%{opacity:0; transform:scale(1.03);}
+}
+
+@keyframes haki-screen-shake{
+  10%,90%{transform:translate3d(-1px,0,0);}
+  20%,80%{transform:translate3d(2px,0,0);}
+  30%,50%,70%{transform:translate3d(-4px,1px,0);}
+  40%,60%{transform:translate3d(4px,-1px,0);}
+}
+body.haki-shaking{animation:haki-screen-shake .5s cubic-bezier(.36,.07,.19,.97) both;}
+
 /* ============ RESPONSIVE ============ */
 @media (max-width:800px){
   .hero-grid{grid-template-columns:1fr; text-align:center;}

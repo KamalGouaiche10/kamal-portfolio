@@ -187,4 +187,31 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  /* ---------- HAKI DEL RE / CONQUEROR'S HAKI ---------- */
+  const hakiBtn = document.getElementById('haki-btn');
+  const hakiOverlay = document.getElementById('haki-overlay');
+  if (hakiBtn && hakiOverlay) {
+    hakiBtn.addEventListener('click', () => {
+      if (hakiBtn.classList.contains('discharging')) return;
+      hakiBtn.classList.add('discharging');
+
+      hakiOverlay.classList.remove('active');
+      // force reflow so the animation can restart on repeated clicks
+      void hakiOverlay.offsetWidth;
+      hakiOverlay.classList.add('active');
+
+      if (!prefersReducedMotion) {
+        document.body.classList.remove('haki-shaking');
+        void document.body.offsetWidth;
+        document.body.classList.add('haki-shaking');
+      }
+
+      setTimeout(() => {
+        hakiOverlay.classList.remove('active');
+        document.body.classList.remove('haki-shaking');
+        hakiBtn.classList.remove('discharging');
+      }, 950);
+    });
+  }
+
 });
