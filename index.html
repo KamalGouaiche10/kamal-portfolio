@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kamal Gouaiche | Full-Stack & Mobile Developer</title>
+<meta name="description" content="Portfolio di Kamal Gouaiche - Full-Stack & Mobile Developer">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel:wght@400;600;900&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☠️</text></svg>">
+</head>
+<body>
+
+<!-- Loading screen -->
+<div id="loader">
+  <div class="loader-content">
+    <div class="loader-skull">☠</div>
+    <p class="loader-text">Issando la Jolly Roger...</p>
+  </div>
+</div>
+
+<!-- Ocean background canvas -->
+<canvas id="ocean-canvas"></canvas>
+
+<!-- Navbar -->
+<header class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a href="#hero" class="nav-logo">☠ KG</a>
+    <nav class="nav-links" id="nav-links">
+      <a href="#hero" data-i="01">Ciurma</a>
+      <a href="#about" data-i="02">Log Pose</a>
+      <a href="#experience" data-i="03">Diario di Bordo</a>
+      <a href="#projects" data-i="04">Tesori</a>
+      <a href="#skills" data-i="05">Frutti del Diavolo</a>
+      <a href="#education" data-i="06">Addestramento</a>
+      <a href="#contact" data-i="07">Den Den Mushi</a>
+    </nav>
+    <button id="nav-toggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- HERO / WANTED POSTER -->
+<section id="hero" class="section hero">
+  <div class="hero-bg-rays"></div>
+  <div class="wanted-poster">
+    <div class="poster-nail tl"></div>
+    <div class="poster-nail tr"></div>
+    <div class="poster-nail bl"></div>
+    <div class="poster-nail br"></div>
+    <p class="poster-wanted">WANTED</p>
+    <p class="poster-subtitle">DEAD OR HIRED</p>
+    <div class="poster-photo">
+      <span class="poster-initials">KG</span>
+    </div>
+    <h1 class="poster-name">KAMAL GOUAICHE</h1>
+    <p class="poster-role">"Full-Stack & Mobile Developer"</p>
+    <p class="poster-bounty">₿ 999.000.000</p>
+    <p class="poster-footnote">Marina Informatica — Università del Piemonte Orientale</p>
+  </div>
+  <a href="#about" class="scroll-cue" aria-label="Scorri">
+    <span>Salpa con me</span>
+    <div class="scroll-arrow">⌄</div>
+  </a>
+</section>
+
+<!-- ABOUT / LOG POSE -->
+<section id="about" class="section about">
+  <h2 class="section-title"><span class="title-mark">Cap. 01</span>Il Log Pose</h2>
+  <div class="about-grid">
+    <div class="logpose">
+      <div class="logpose-ring">
+        <div class="logpose-needle"></div>
+        <div class="logpose-center">☠</div>
+      </div>
+    </div>
+    <div class="about-text">
+      <p>Laureando in Informatica presso l'Università del Piemonte Orientale, con esperienza concreta nello sviluppo software full-stack, mobile e sistemi distribuiti. Ho progettato e realizzato applicazioni reali occupandomi di backend, cloud, mobile e intelligenza artificiale.</p>
+      <p>Ho recentemente concluso un tirocinio curriculare di 3 mesi presso <strong>Koodit S.r.l.</strong>, dove mi sono occupato in autonomia del completo rinnovamento del sistema principale dell'azienda, curando la migrazione dall'architettura basata su Laravel/PHP e React a una nuova soluzione basata su Python/FastAPI e Next.js.</p>
+      <p>Sono attualmente alla ricerca di un'opportunità di lavoro che mi permetta di mettere a frutto creatività tecnica e capacità di affrontare progetti complessi.</p>
+      <div class="about-tags">
+        <span>Albano Vercellese, Vercelli, Italia</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE / SHIP LOG -->
+<section id="experience" class="section experience">
+  <h2 class="section-title"><span class="title-mark">Cap. 02</span>Diario di Bordo</h2>
+  <div class="timeline">
+    <div class="timeline-line"></div>
+    <article class="timeline-entry">
+      <div class="timeline-dot">☠</div>
+      <div class="timeline-card">
+        <div class="timeline-head">
+          <h3>Koodit S.r.l. — Full Stack Developer</h3>
+          <span class="timeline-date">2026 · 3 mesi (Tirocinio Curriculare)</span>
+        </div>
+        <ul>
+          <li>Rinnovamento completo e autonomo del sistema principale dell'azienda.</li>
+          <li>Migrazione dell'architettura applicativa da Laravel/PHP e React a Python/FastAPI e Next.js.</li>
+          <li>Gestione end-to-end del progetto di migrazione: analisi del sistema esistente, riprogettazione backend e frontend, testing e messa in produzione.</li>
+        </ul>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- PROJECTS / TREASURE CHESTS -->
+<section id="projects" class="section projects">
+  <h2 class="section-title"><span class="title-mark">Cap. 03</span>Isole del Tesoro</h2>
+  <p class="section-subtitle">Ogni progetto è un'isola conquistata nel Grand Line del codice.</p>
+  <div class="treasure-grid" id="treasure-grid">
+
+    <article class="chest" data-tags="Python,FastAPI,Streamlit,SQLite,SQLAlchemy,ChromaDB,RAG,LLM,Agno">
+      <div class="chest-lid">🗺️</div>
+      <div class="chest-body">
+        <div class="chest-head">
+          <h3>StudyCoach</h3>
+          <span class="chest-date">Apr 2026 – Lug 2026</span>
+        </div>
+        <p class="chest-tagline">AI-Powered Adaptive Learning Platform</p>
+        <p>Piattaforma di apprendimento basata su intelligenza artificiale progettata per trasformare il materiale di studio in un'esperienza interattiva, personalizzata e adattiva.</p>
+        <ul>
+          <li>Pipeline RAG con embeddings locali e ChromaDB per generare domande e sessioni di studio personalizzate.</li>
+          <li>Architettura multi-agent con Agno: Guide Agent, Eval Agent e Contest Agent.</li>
+          <li>Adaptive Engine che analizza le performance e adatta dinamicamente le domande successive.</li>
+          <li>Generazione automatica di report e appunti personalizzati per il ripasso.</li>
+        </ul>
+        <div class="chest-stack">
+          <span>Python</span><span>FastAPI</span><span>Streamlit</span><span>SQLite</span><span>SQLAlchemy</span><span>ChromaDB</span><span>RAG</span><span>LLM</span><span>Agno</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="chest" data-tags="Kotlin,MVVM,Coroutines,StateFlow,Firebase,Firestore,Google Maps">
+      <div class="chest-lid">🏝️</div>
+      <div class="chest-body">
+        <div class="chest-head">
+          <h3>MiCasaEsTuCasa</h3>
+          <span class="chest-date">2026</span>
+        </div>
+        <p class="chest-tagline">App Mobile Android</p>
+        <p>Applicazione Android nativa per la gestione di affitti brevi e transitori: i proprietari pubblicano e gestiscono immobili, gli affittuari cercano e prenotano soggiorni, lasciano recensioni e comunicano tramite una chat integrata.</p>
+        <ul>
+          <li>Ricerca avanzata, gestione prenotazioni, recensioni, messaggistica real-time con immagini, notifiche push, integrazione Google Maps e dashboard amministrativa.</li>
+          <li>Architettura MVVM con Kotlin Coroutines, StateFlow e LiveData per dati asincroni e real-time.</li>
+          <li>Backend serverless su Firebase/Firestore, con Firebase Storage e Cloud Messaging.</li>
+        </ul>
+        <div class="chest-stack">
+          <span>Kotlin</span><span>MVVM</span><span>Coroutines</span><span>StateFlow</span><span>Firebase</span><span>Firestore</span><span>Google Maps</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="chest" data-tags="Java,RMI,UML,Agile">
+      <div class="chest-lid">⚔️</div>
+      <div class="chest-body">
+        <div class="chest-head">
+          <h3>EventHub</h3>
+          <span class="chest-date">2025 – 2026</span>
+        </div>
+        <p class="chest-tagline">Piattaforma per Eventi</p>
+        <p>Sistema distribuito per la gestione di eventi sviluppato in Java con architettura RMI, con ruoli distinti per organizzatori e utenti. Progetto di Ingegneria del Software sviluppato con metodologia Agile e documentazione UML.</p>
+        <div class="chest-stack">
+          <span>Java</span><span>RMI</span><span>UML</span><span>Agile</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="chest" data-tags="Node.js,JavaScript,HTML5/CSS3,REST API">
+      <div class="chest-lid">🍖</div>
+      <div class="chest-body">
+        <div class="chest-head">
+          <h3>Speedy Website</h3>
+          <span class="chest-date">2025</span>
+        </div>
+        <p class="chest-tagline">Delivery Food</p>
+        <p>Applicazione web completa per la gestione di un servizio di delivery food, con pannelli dedicati per amministratori, ristoratori e clienti. Frontend in HTML5/CSS3 e backend Node.js con API REST.</p>
+        <div class="chest-stack">
+          <span>Node.js</span><span>JavaScript</span><span>HTML5/CSS3</span><span>REST API</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="chest" data-tags="Java,Compilatori,Analisi sintattica">
+      <div class="chest-lid">📜</div>
+      <div class="chest-body">
+        <div class="chest-head">
+          <h3>Compilator AC/DC</h3>
+          <span class="chest-date">2026</span>
+        </div>
+        <p class="chest-tagline">Compilatore Java</p>
+        <p>Compilatore che traduce il linguaggio AC in codice DC, con fasi di analisi lessicale, sintattica e traduzione del codice. Progetto accademico avanzato sull'architettura dei linguaggi.</p>
+        <div class="chest-stack">
+          <span>Java</span><span>Compilatori</span><span>Analisi sintattica</span>
+        </div>
+      </div>
+    </article>
+
+    <article class="chest" data-tags="PostgreSQL,PLpgSQL,SQL">
+      <div class="chest-lid">💎</div>
+      <div class="chest-body">
+        <div class="chest-head">
+          <h3>Progetto Database</h3>
+          <span class="chest-date">2025</span>
+        </div>
+        <p class="chest-tagline">Teoria e SQL</p>
+        <p>Progettazione e implementazione di database relazionali con PLpgSQL: dalla modellazione ER alla scrittura di procedure e query complesse in PostgreSQL.</p>
+        <div class="chest-stack">
+          <span>PostgreSQL</span><span>PLpgSQL</span><span>SQL</span>
+        </div>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<!-- SKILLS / DEVIL FRUITS -->
+<section id="skills" class="section skills">
+  <h2 class="section-title"><span class="title-mark">Cap. 04</span>I Frutti del Diavolo</h2>
+  <p class="section-subtitle">Ogni potere sbloccato lungo la rotta.</p>
+
+  <div class="fruit-groups">
+    <div class="fruit-group">
+      <h3><span class="fruit-icon">🍈</span> Linguaggi</h3>
+      <div class="fruit-pills">
+        <span>Java</span><span>Python</span><span>JavaScript</span><span>TypeScript</span><span>Kotlin</span><span>C</span><span>Swift</span><span>SQL</span>
+      </div>
+    </div>
+    <div class="fruit-group">
+      <h3><span class="fruit-icon">🍇</span> Web & Backend</h3>
+      <div class="fruit-pills">
+        <span>Node.js</span><span>Express.js</span><span>FastAPI</span><span>REST API</span><span>HTML5/CSS3</span><span>EJS</span><span>Next.js</span>
+      </div>
+    </div>
+    <div class="fruit-group">
+      <h3><span class="fruit-icon">🍊</span> Cloud & Database</h3>
+      <div class="fruit-pills">
+        <span>Firebase</span><span>Firestore</span><span>Google Cloud</span><span>PostgreSQL</span><span>SQLite</span><span>SQLAlchemy</span><span>ChromaDB</span>
+      </div>
+    </div>
+    <div class="fruit-group">
+      <h3><span class="fruit-icon">🍎</span> Mobile</h3>
+      <div class="fruit-pills">
+        <span>Android (Kotlin)</span><span>MVVM</span><span>Coroutines</span><span>iOS (Swift)</span>
+      </div>
+    </div>
+    <div class="fruit-group">
+      <h3><span class="fruit-icon">🍄</span> AI & Automazione</h3>
+      <div class="fruit-pills">
+        <span>Prompt Engineering</span><span>RAG</span><span>LLM / Chatbot AI</span><span>Machine Learning</span><span>Agno (multi-agent)</span>
+      </div>
+    </div>
+    <div class="fruit-group">
+      <h3><span class="fruit-icon">🍒</span> Strumenti & Metodi</h3>
+      <div class="fruit-pills">
+        <span>Git / GitHub / GitLab</span><span>Agile / Scrum</span><span>UML</span><span>Linux</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="haki-block">
+    <h3 class="haki-title">☠ Lingue Parlate <span>(Haki della Conversazione)</span></h3>
+    <div class="haki-bars">
+      <div class="haki-bar"><span class="haki-label">Italiano</span><div class="haki-track"><div class="haki-fill" style="--pct:100%">Fluente</div></div></div>
+      <div class="haki-bar"><span class="haki-label">Arabo</span><div class="haki-track"><div class="haki-fill" style="--pct:100%">Madrelingua</div></div></div>
+      <div class="haki-bar"><span class="haki-label">Inglese</span><div class="haki-track"><div class="haki-fill" style="--pct:75%">B2</div></div></div>
+      <div class="haki-bar"><span class="haki-label">Francese</span><div class="haki-track"><div class="haki-fill" style="--pct:55%">B1</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="section education">
+  <h2 class="section-title"><span class="title-mark">Cap. 05</span>Addestramento</h2>
+  <div class="edu-scroll">
+    <div class="edu-entry">
+      <div class="edu-icon">🎓</div>
+      <div>
+        <h3>Università del Piemonte Orientale</h3>
+        <p class="edu-role">Laurea Triennale in Informatica</p>
+        <span class="edu-date">2023 – in corso</span>
+      </div>
+    </div>
+    <div class="edu-entry">
+      <div class="edu-icon">📘</div>
+      <div>
+        <h3>Liceo Scientifico</h3>
+        <p class="edu-role">Diploma di Maturità Scientifica</p>
+        <span class="edu-date">2020</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT / DEN DEN MUSHI -->
+<section id="contact" class="section contact">
+  <h2 class="section-title"><span class="title-mark">Cap. 06</span>Chiamata al Den Den Mushi</h2>
+  <p class="section-subtitle">Pronto a salpare insieme? Contattami!</p>
+  <div class="mushi-wrap">
+    <div class="mushi">
+      <div class="mushi-face">
+        <div class="mushi-eyes"><span></span><span></span></div>
+        <div class="mushi-mouth"></div>
+      </div>
+      <div class="mushi-shell">🐌</div>
+    </div>
+    <div class="contact-links">
+      <a href="mailto:gouaichekamal@gmail.com" class="contact-btn">
+        <span class="contact-ico">✉️</span> gouaichekamal@gmail.com
+      </a>
+      <a href="tel:+393207574291" class="contact-btn">
+        <span class="contact-ico">📞</span> +39 320 757 4291
+      </a>
+      <a href="#" class="contact-btn" id="github-link">
+        <span class="contact-ico">🐙</span> GitHub
+      </a>
+      <a href="#" class="contact-btn" id="linkedin-link">
+        <span class="contact-ico">💼</span> LinkedIn
+      </a>
+      <span class="contact-btn contact-location">
+        <span class="contact-ico">📍</span> Albano Vercellese, Vercelli, Italia
+      </span>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <p>☠ Fatto con codice, caffè e Haki dell'Osservazione — © <span id="year"></span> Kamal Gouaiche</p>
+  <p class="footer-sub">"L'unica cosa che non posso rubare è il cuore delle persone." — ma il tuo prossimo progetto, sì.</p>
+</footer>
+
+<button id="back-to-top" aria-label="Torna su">⌃</button>
+
+<script src="script.js"></script>
+</body>
+</html>
