@@ -29,14 +29,14 @@
   <div class="nav-inner">
     <a href="#hero" class="nav-logo">☠ KG</a>
     <nav class="nav-links" id="nav-links">
-      <a href="#hero" data-i="01">Ciurma</a>
-      <a href="#about" data-i="02">Log Pose</a>
-      <a href="#experience" data-i="03">Diario di Bordo</a>
-      <a href="#projects" data-i="04">Tesori</a>
-      <a href="#skills" data-i="05">Frutti del Diavolo</a>
-      <a href="#education" data-i="06">Addestramento</a>
-      <a href="#cv" data-i="07">Pergamena</a>
-      <a href="#contact" data-i="08">Den Den Mushi</a>
+      <a href="#hero" data-i="01"><span class="nav-text"><span class="nav-label">Home</span><span class="nav-sub">Ciurma</span></span></a>
+      <a href="#about" data-i="02"><span class="nav-text"><span class="nav-label">Chi Sono</span><span class="nav-sub">Log Pose</span></span></a>
+      <a href="#experience" data-i="03"><span class="nav-text"><span class="nav-label">Esperienza</span><span class="nav-sub">Diario di Bordo</span></span></a>
+      <a href="#projects" data-i="04"><span class="nav-text"><span class="nav-label">Progetti</span><span class="nav-sub">Tesori</span></span></a>
+      <a href="#skills" data-i="05"><span class="nav-text"><span class="nav-label">Competenze</span><span class="nav-sub">Frutti del Diavolo</span></span></a>
+      <a href="#education" data-i="06"><span class="nav-text"><span class="nav-label">Istruzione</span><span class="nav-sub">Addestramento</span></span></a>
+      <a href="#cv" data-i="07"><span class="nav-text"><span class="nav-label">CV</span><span class="nav-sub">Pergamena</span></span></a>
+      <a href="#contact" data-i="08"><span class="nav-text"><span class="nav-label">Contatti</span><span class="nav-sub">Den Den Mushi</span></span></a>
     </nav>
     <button id="nav-toggle" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -138,12 +138,11 @@
           <span class="chest-date">Apr 2026 – Lug 2026</span>
         </div>
         <p class="chest-tagline">AI-Powered Adaptive Learning Platform</p>
-        <p>Piattaforma di apprendimento basata su intelligenza artificiale progettata per trasformare il materiale di studio in un'esperienza interattiva, personalizzata e adattiva.</p>
+        <p>Piattaforma AI che trasforma i materiali di studio in sessioni di ripasso interattive e personalizzate.</p>
         <ul>
-          <li>Pipeline RAG con embeddings locali e ChromaDB per generare domande e sessioni di studio personalizzate.</li>
-          <li>Architettura multi-agent con Agno: Guide Agent, Eval Agent e Contest Agent.</li>
-          <li>Adaptive Engine che analizza le performance e adatta dinamicamente le domande successive.</li>
-          <li>Generazione automatica di report e appunti personalizzati per il ripasso.</li>
+          <li>Pipeline RAG con ChromaDB per generare domande su misura dai contenuti caricati.</li>
+          <li>Architettura multi-agent con Agno: Guide, Eval e Contest Agent.</li>
+          <li>Adaptive Engine che regola la difficoltà in base alle performance.</li>
         </ul>
         <div class="chest-stack">
           <span>Python</span><span>FastAPI</span><span>Streamlit</span><span>SQLite</span><span>SQLAlchemy</span><span>ChromaDB</span><span>RAG</span><span>LLM</span><span>Agno</span>
@@ -159,11 +158,11 @@
           <span class="chest-date">2026</span>
         </div>
         <p class="chest-tagline">App Mobile Android</p>
-        <p>Applicazione Android nativa per la gestione di affitti brevi e transitori: i proprietari pubblicano e gestiscono immobili, gli affittuari cercano e prenotano soggiorni, lasciano recensioni e comunicano tramite una chat integrata.</p>
+        <p>App Android per affitti brevi: ricerca, prenotazione, recensioni e chat in un'unica piattaforma.</p>
         <ul>
-          <li>Ricerca avanzata, gestione prenotazioni, recensioni, messaggistica real-time con immagini, notifiche push, integrazione Google Maps e dashboard amministrativa.</li>
-          <li>Architettura MVVM con Kotlin Coroutines, StateFlow e LiveData per dati asincroni e real-time.</li>
-          <li>Backend serverless su Firebase/Firestore, con Firebase Storage e Cloud Messaging.</li>
+          <li>Ricerca avanzata, prenotazioni, recensioni e chat in tempo reale con notifiche push.</li>
+          <li>Architettura MVVM con Kotlin Coroutines e StateFlow.</li>
+          <li>Backend serverless su Firebase/Firestore.</li>
         </ul>
         <div class="chest-stack">
           <span>Kotlin</span><span>MVVM</span><span>Coroutines</span><span>StateFlow</span><span>Firebase</span><span>Firestore</span><span>Google Maps</span>
@@ -179,7 +178,7 @@
           <span class="chest-date">2025 – 2026</span>
         </div>
         <p class="chest-tagline">Piattaforma per Eventi</p>
-        <p>Sistema distribuito per la gestione di eventi sviluppato in Java con architettura RMI, con ruoli distinti per organizzatori e utenti. Progetto di Ingegneria del Software sviluppato con metodologia Agile e documentazione UML.</p>
+        <p>Sistema distribuito per la gestione di eventi, sviluppato in Java con architettura RMI e metodologia Agile.</p>
         <div class="chest-stack">
           <span>Java</span><span>RMI</span><span>UML</span><span>Agile</span>
         </div>
@@ -194,7 +193,7 @@
           <span class="chest-date">2025</span>
         </div>
         <p class="chest-tagline">Delivery Food</p>
-        <p>Applicazione web completa per la gestione di un servizio di delivery food, con pannelli dedicati per amministratori, ristoratori e clienti. Frontend in HTML5/CSS3 e backend Node.js con API REST.</p>
+        <p>Web app di delivery food con pannelli dedicati per admin, ristoratori e clienti.</p>
         <div class="chest-stack">
           <span>Node.js</span><span>JavaScript</span><span>HTML5/CSS3</span><span>REST API</span>
         </div>
@@ -212,7 +211,7 @@
           <span class="chest-date">2026</span>
         </div>
         <p class="chest-tagline">Compilatore Java</p>
-        <p>Compilatore che traduce il linguaggio AC in codice DC, con fasi di analisi lessicale, sintattica e traduzione del codice. Progetto accademico avanzato sull'architettura dei linguaggi.</p>
+        <p>Compilatore Java che traduce il linguaggio AC in codice DC, dall'analisi lessicale alla generazione del codice.</p>
         <div class="chest-stack">
           <span>Java</span><span>Compilatori</span><span>Analisi sintattica</span>
         </div>
@@ -230,7 +229,7 @@
           <span class="chest-date">2025</span>
         </div>
         <p class="chest-tagline">Teoria e SQL</p>
-        <p>Progettazione e implementazione di database relazionali con PLpgSQL: dalla modellazione ER alla scrittura di procedure e query complesse in PostgreSQL.</p>
+        <p>Database relazionale completo: dalla modellazione ER a procedure e query avanzate in PLpgSQL su PostgreSQL.</p>
         <div class="chest-stack">
           <span>PostgreSQL</span><span>PLpgSQL</span><span>SQL</span>
         </div>
@@ -248,7 +247,7 @@
           <span class="chest-date">Università del Piemonte Orientale</span>
         </div>
         <p class="chest-tagline">Esercitazioni e Progetti del Corso</p>
-        <p>Raccolta di esercitazioni e implementazioni sviluppate durante il corso di Algoritmi e Strutture Dati: analisi della complessità, strutture dati fondamentali e risoluzione di problemi algoritmici.</p>
+        <p>Esercitazioni del corso di Algoritmi e Strutture Dati, tra analisi della complessità e problem solving.</p>
         <div class="chest-stack">
           <span>Java</span><span>Algoritmi</span><span>Strutture dati</span>
         </div>

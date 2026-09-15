@@ -100,25 +100,37 @@ img{max-width:100%;}
   text-decoration:none;
   text-shadow:0 0 12px rgba(255,207,92,.5);
 }
-.nav-links{display:flex; gap:1.6rem;}
+.nav-links{display:flex; gap:1.4rem;}
 .nav-links a{
+  display:flex; align-items:center; gap:.45rem;
   color:var(--parchment);
   text-decoration:none;
-  font-family:var(--font-title);
-  font-weight:600;
-  font-size:.85rem;
-  letter-spacing:1px;
-  text-transform:uppercase;
   position:relative;
   padding:.3rem 0;
   transition:color .25s ease;
 }
 .nav-links a::before{
   content:attr(data-i);
+  font-family:var(--font-title);
   font-size:.65rem;
   color:var(--gold);
-  margin-right:.35rem;
   opacity:.8;
+  flex-shrink:0;
+}
+.nav-text{display:flex; flex-direction:column; line-height:1.2;}
+.nav-label{
+  font-family:var(--font-title);
+  font-weight:600;
+  font-size:.82rem;
+  letter-spacing:.5px;
+  text-transform:uppercase;
+}
+.nav-sub{
+  font-family:var(--font-hand);
+  font-size:.68rem;
+  color:var(--gold);
+  opacity:.65;
+  font-style:italic;
 }
 .nav-links a::after{
   content:'';
@@ -128,6 +140,7 @@ img{max-width:100%;}
   transition:width .3s ease;
 }
 .nav-links a:hover, .nav-links a.active{color:var(--gold-bright);}
+.nav-links a:hover .nav-sub, .nav-links a.active .nav-sub{color:var(--gold-bright); opacity:.9;}
 .nav-links a:hover::after, .nav-links a.active::after{width:100%;}
 
 #nav-toggle{
