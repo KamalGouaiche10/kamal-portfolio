@@ -289,13 +289,23 @@ img{max-width:100%;}
     repeating-linear-gradient(45deg, #d8c69a, #d8c69a 6px, #cbb888 6px, #cbb888 12px);
   border:3px solid var(--ink);
   display:flex; align-items:center; justify-content:center;
-  filter:sepia(.3) contrast(1.05);
+  overflow:hidden;
+}
+.poster-img{
+  width:100%; height:100%;
+  object-fit:cover;
+  display:block;
+  filter:sepia(.35) contrast(1.05);
 }
 .poster-initials{
+  display:none;
+  align-items:center; justify-content:center;
+  width:100%; height:100%;
   font-family:var(--font-display);
   font-size:2.2rem;
   color:var(--ink);
   opacity:.75;
+  filter:sepia(.3) contrast(1.05);
 }
 .poster-name{
   font-family:var(--font-title);
@@ -333,55 +343,37 @@ img{max-width:100%;}
 @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(8px);}}
 .scroll-arrow{font-size:1.6rem;}
 
-/* ============ ABOUT / LOG POSE ============ */
-.about-grid{
-  display:grid;
-  grid-template-columns:1.3fr .7fr;
-  gap:3rem;
-  align-items:center;
-}
-.about-text{width:100%; text-align:left;}
-.about-text p{margin:0 0 1rem; color:var(--parchment);}
-.about-text strong{color:var(--gold-bright);}
-
-.about-plaque{
-  background:linear-gradient(160deg, rgba(18,33,72,.85), rgba(10,22,48,.85));
-  border:2px solid var(--gold);
-  border-radius:14px;
-  padding:2rem 1.5rem;
-  text-align:center;
-  box-shadow:0 15px 35px rgba(0,0,0,.4), inset 0 0 25px rgba(224,166,58,.08);
-}
-.plaque-icon{
-  font-size:2.4rem;
-  color:var(--gold-bright);
-  margin-bottom:.6rem;
-  filter:drop-shadow(0 0 12px rgba(255,207,92,.4));
+/* ============ POSTER PLAQUE (Base d'operazioni) ============ */
+.poster-plaque{margin-top:.9rem;}
+.plaque-divider{
+  width:70%; height:1px;
+  background:var(--ink);
+  opacity:.25;
+  margin:0 auto .7rem;
 }
 .plaque-label{
   font-family:var(--font-hand);
-  color:var(--red-bright);
-  font-size:.9rem;
-  margin:0 0 .3rem;
+  color:var(--red);
+  font-size:.62rem;
+  letter-spacing:1px;
+  text-transform:uppercase;
+  margin:0 0 .25rem;
+  text-align:center;
 }
 .plaque-location{
   font-family:var(--font-title);
   font-weight:700;
-  color:var(--parchment);
-  margin:0;
-  line-height:1.4;
-}
-.plaque-divider{
-  width:60px; height:2px;
-  background:var(--gold);
-  margin:1rem auto;
-  opacity:.6;
+  color:var(--ink);
+  font-size:.72rem;
+  margin:0 0 .5rem;
+  text-align:center;
 }
 .plaque-status{
   font-family:var(--font-hand);
-  color:var(--gold);
-  font-size:1rem;
+  color:#4a3a1e;
+  font-size:.85rem;
   margin:0;
+  text-align:center;
 }
 
 /* ============ EXPERIENCE / TIMELINE ============ */
@@ -663,9 +655,6 @@ img{max-width:100%;}
   .hero-desc{margin-left:auto; margin-right:auto;}
   .hero-cta{justify-content:center;}
   .wanted-poster{order:-1; margin-bottom:1rem;}
-  .about-grid{grid-template-columns:1fr; text-align:center;}
-  .about-text{text-align:center;}
-  .about-plaque{order:-1; max-width:320px; margin:0 auto;}
   #nav-toggle{display:flex;}
   .nav-links{
     position:fixed; top:0; right:0;

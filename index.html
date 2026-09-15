@@ -30,13 +30,12 @@
     <a href="#hero" class="nav-logo">☠ KG</a>
     <nav class="nav-links" id="nav-links">
       <a href="#hero" data-i="01"><span class="nav-text"><span class="nav-label">Home</span><span class="nav-sub">Ciurma</span></span></a>
-      <a href="#about" data-i="02"><span class="nav-text"><span class="nav-label">Chi Sono</span><span class="nav-sub">Log Pose</span></span></a>
-      <a href="#experience" data-i="03"><span class="nav-text"><span class="nav-label">Esperienza</span><span class="nav-sub">Diario di Bordo</span></span></a>
-      <a href="#projects" data-i="04"><span class="nav-text"><span class="nav-label">Progetti</span><span class="nav-sub">Tesori</span></span></a>
-      <a href="#skills" data-i="05"><span class="nav-text"><span class="nav-label">Competenze</span><span class="nav-sub">Frutti del Diavolo</span></span></a>
-      <a href="#education" data-i="06"><span class="nav-text"><span class="nav-label">Istruzione</span><span class="nav-sub">Addestramento</span></span></a>
-      <a href="#cv" data-i="07"><span class="nav-text"><span class="nav-label">CV</span><span class="nav-sub">Pergamena</span></span></a>
-      <a href="#contact" data-i="08"><span class="nav-text"><span class="nav-label">Contatti</span><span class="nav-sub">Den Den Mushi</span></span></a>
+      <a href="#experience" data-i="02"><span class="nav-text"><span class="nav-label">Esperienza</span><span class="nav-sub">Diario di Bordo</span></span></a>
+      <a href="#projects" data-i="03"><span class="nav-text"><span class="nav-label">Progetti</span><span class="nav-sub">Tesori</span></span></a>
+      <a href="#skills" data-i="04"><span class="nav-text"><span class="nav-label">Competenze</span><span class="nav-sub">Frutti del Diavolo</span></span></a>
+      <a href="#education" data-i="05"><span class="nav-text"><span class="nav-label">Istruzione</span><span class="nav-sub">Addestramento</span></span></a>
+      <a href="#cv" data-i="06"><span class="nav-text"><span class="nav-label">CV</span><span class="nav-sub">Pergamena</span></span></a>
+      <a href="#contact" data-i="07"><span class="nav-text"><span class="nav-label">Contatti</span><span class="nav-sub">Den Den Mushi</span></span></a>
     </nav>
     <button id="nav-toggle" aria-label="Menu">
       <span></span><span></span><span></span>
@@ -70,41 +69,30 @@
       <p class="poster-wanted">WANTED</p>
       <p class="poster-subtitle">DEAD OR HIRED</p>
       <div class="poster-photo">
-        <span class="poster-initials">KG</span>
+        <img src="assets/kamal.jpg" alt="Kamal Gouaiche" class="poster-img"
+             onerror="this.remove(); document.getElementById('poster-fallback').style.display='flex';">
+        <span class="poster-initials" id="poster-fallback">KG</span>
       </div>
       <p class="poster-name">KAMAL GOUAICHE</p>
       <p class="poster-bounty">₿ 999.000.000</p>
       <p class="poster-footnote">Marina Informatica — Università del Piemonte Orientale</p>
+      <div class="poster-plaque">
+        <div class="plaque-divider"></div>
+        <p class="plaque-label">Base d'operazioni</p>
+        <p class="plaque-location">Albano Vercellese, Vercelli, Italia</p>
+        <p class="plaque-status">☠ Pronto a salpare</p>
+      </div>
     </div>
   </div>
-  <a href="#about" class="scroll-cue" aria-label="Scorri">
+  <a href="#experience" class="scroll-cue" aria-label="Scorri">
     <span>Salpa con me</span>
     <div class="scroll-arrow">⌄</div>
   </a>
 </section>
 
-<!-- ABOUT / LOG POSE -->
-<section id="about" class="section about">
-  <h2 class="section-title"><span class="title-mark">Cap. 01</span>Il Log Pose</h2>
-  <div class="about-grid">
-    <div class="about-text">
-      <p>Laureando in Informatica presso l'Università del Piemonte Orientale, con esperienza concreta nello sviluppo software full-stack, mobile e sistemi distribuiti. Ho progettato e realizzato applicazioni reali occupandomi di backend, cloud, mobile e intelligenza artificiale.</p>
-      <p>Ho recentemente concluso un tirocinio curriculare di 3 mesi presso <strong>Koodit S.r.l.</strong>, dove mi sono occupato in autonomia del completo rinnovamento del sistema principale dell'azienda, curando la migrazione dall'architettura basata su Laravel/PHP e React a una nuova soluzione basata su Python/FastAPI e Next.js.</p>
-      <p>Sono attualmente alla ricerca di un'opportunità di lavoro che mi permetta di mettere a frutto creatività tecnica e capacità di affrontare progetti complessi.</p>
-    </div>
-    <div class="about-plaque">
-      <div class="plaque-icon">☠</div>
-      <p class="plaque-label">Base d'operazioni</p>
-      <p class="plaque-location">Albano Vercellese<br>Vercelli, Italia</p>
-      <div class="plaque-divider"></div>
-      <p class="plaque-status">Pronto a salpare</p>
-    </div>
-  </div>
-</section>
-
 <!-- EXPERIENCE / SHIP LOG -->
 <section id="experience" class="section experience">
-  <h2 class="section-title"><span class="title-mark">Cap. 02</span>Diario di Bordo</h2>
+  <h2 class="section-title"><span class="title-mark">Cap. 01</span>Diario di Bordo</h2>
   <div class="timeline">
     <div class="timeline-line"></div>
     <article class="timeline-entry">
@@ -126,7 +114,7 @@
 
 <!-- PROJECTS / TREASURE CHESTS -->
 <section id="projects" class="section projects">
-  <h2 class="section-title"><span class="title-mark">Cap. 03</span>Isole del Tesoro</h2>
+  <h2 class="section-title"><span class="title-mark">Cap. 02</span>Isole del Tesoro</h2>
   <p class="section-subtitle">Ogni progetto è un'isola conquistata nel Grand Line del codice.</p>
   <div class="treasure-grid" id="treasure-grid">
 
@@ -262,7 +250,7 @@
 
 <!-- SKILLS / DEVIL FRUITS -->
 <section id="skills" class="section skills">
-  <h2 class="section-title"><span class="title-mark">Cap. 04</span>I Frutti del Diavolo</h2>
+  <h2 class="section-title"><span class="title-mark">Cap. 03</span>I Frutti del Diavolo</h2>
   <p class="section-subtitle">Ogni potere sbloccato lungo la rotta.</p>
 
   <div class="fruit-groups">
@@ -317,7 +305,7 @@
 
 <!-- EDUCATION -->
 <section id="education" class="section education">
-  <h2 class="section-title"><span class="title-mark">Cap. 05</span>Addestramento</h2>
+  <h2 class="section-title"><span class="title-mark">Cap. 04</span>Addestramento</h2>
   <div class="edu-scroll">
     <div class="edu-entry">
       <div class="edu-icon">🎓</div>
@@ -340,7 +328,7 @@
 
 <!-- CV / PERGAMENA DEL NAVIGATORE -->
 <section id="cv" class="section cv">
-  <h2 class="section-title"><span class="title-mark">Cap. 06</span>La Pergamena del Navigatore</h2>
+  <h2 class="section-title"><span class="title-mark">Cap. 05</span>La Pergamena del Navigatore</h2>
   <p class="section-subtitle">Il registro completo delle mie rotte, imprese e competenze.</p>
   <div class="scroll-wrap">
     <div class="scroll-icon">📜</div>
@@ -358,7 +346,7 @@
 
 <!-- CONTACT / DEN DEN MUSHI -->
 <section id="contact" class="section contact">
-  <h2 class="section-title"><span class="title-mark">Cap. 07</span>Chiamata al Den Den Mushi</h2>
+  <h2 class="section-title"><span class="title-mark">Cap. 06</span>Chiamata al Den Den Mushi</h2>
   <p class="section-subtitle">Pronto a salpare insieme? Contattami!</p>
   <div class="mushi-wrap">
     <div class="mushi">

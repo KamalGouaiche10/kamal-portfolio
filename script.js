@@ -74,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- REVEAL ON SCROLL ---------- */
   const revealTargets = document.querySelectorAll(
-    '.about-grid, .timeline-entry, .chest, .fruit-group, .haki-block, .edu-entry, .mushi-wrap'
+    '.timeline-entry, .chest, .fruit-group, .haki-block, .edu-entry, .mushi-wrap'
   );
   revealTargets.forEach(el => el.classList.add('reveal'));
 

@@ -21,7 +21,7 @@ kamal-portfolio/
      linkedin: 'https://www.linkedin.com/in/TUO-USERNAME'
    };
    ```
-2. **Foto profilo** — nel riquadro "manifesto wanted" (`.poster-photo` in `index.html`) c'è un placeholder con le iniziali "KG". Per usare una foto vera, sostituisci il contenuto di `.poster-photo` con un tag `<img>` che punti a un file dentro una cartella `assets/` (es. `assets/foto.jpg`), e nel CSS rimuovi lo sfondo a righe.
+2. **Foto profilo** — il manifesto "wanted" carica automaticamente `assets/kamal.jpg`. Basta aggiungere una tua foto (preferibilmente quadrata, es. 400×400px) nella cartella `assets/` con questo nome esatto e apparirà al posto delle iniziali "KG". Se il file non c'è, il sito mostra automaticamente le iniziali come fallback (nessun errore visibile).
 3. **Testi/contenuti** — tutte le sezioni (esperienza, progetti, competenze, istruzione) sono già compilate con i dati del tuo CV. Aggiorna direttamente il testo dentro `index.html` quando avrai nuove esperienze o progetti: basta copiare il blocco `<article class="chest">...</article>` per aggiungere un nuovo progetto.
 4. **Colori** — la palette (blu navy, oro, rosso pirata) è definita come variabili CSS in cima a `style.css`, dentro `:root { ... }`. Cambiando quei valori cambi tutto il tema.
 
