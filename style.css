@@ -721,11 +721,11 @@ img{max-width:100%;}
   20%, 40%, 60%{opacity:0;}
 }
 .bolt{
-  fill:none;
-  stroke:#e9d1ff;
-  stroke-width:2.5;
+  fill:#ffe066;
+  stroke:#0a0a0a;
+  stroke-width:4;
   stroke-linejoin:round;
-  filter:drop-shadow(0 0 6px #b366ff);
+  filter:drop-shadow(0 0 10px #ffd23f) drop-shadow(0 0 22px rgba(255,210,63,.6));
 }
 
 .haki-caption{
