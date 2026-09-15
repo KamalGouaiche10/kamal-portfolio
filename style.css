@@ -400,6 +400,23 @@ img{max-width:100%;}
   font-family:var(--font-title);
   letter-spacing:.5px;
 }
+.chest-link{
+  display:inline-flex; align-items:center; gap:.5rem;
+  margin-top:1.1rem;
+  color:var(--gold-bright);
+  text-decoration:none;
+  border:1px solid var(--gold);
+  padding:.5rem 1rem;
+  border-radius:20px;
+  font-size:.82rem;
+  font-family:var(--font-title);
+  transition:background .25s ease, color .25s ease, transform .25s ease;
+}
+.chest-link:hover{
+  background:var(--gold);
+  color:var(--ink);
+  transform:translateY(-2px);
+}
 
 /* ============ SKILLS / DEVIL FRUITS ============ */
 .fruit-groups{
@@ -475,6 +492,33 @@ img{max-width:100%;}
 .edu-entry h3{margin:0 0 .3rem; color:var(--gold-bright);}
 .edu-role{margin:0; color:var(--parchment); font-family:var(--font-hand);}
 .edu-date{font-size:.82rem; color:var(--parchment-dark);}
+
+/* ============ CV / PERGAMENA ============ */
+.cv{text-align:center;}
+.scroll-wrap{
+  max-width:520px; margin:0 auto;
+  background:linear-gradient(160deg, rgba(18,33,72,.75), rgba(10,22,48,.75));
+  border:1px solid rgba(224,166,58,.35);
+  border-radius:16px;
+  padding:2.5rem 2rem;
+}
+.scroll-icon{
+  font-size:3.5rem;
+  margin-bottom:1rem;
+  animation:bob 3s ease-in-out infinite;
+  filter:drop-shadow(0 6px 14px rgba(0,0,0,.4));
+}
+.scroll-text{color:var(--parchment); font-family:var(--font-hand); font-size:1.05rem; margin-bottom:1.6rem;}
+.scroll-actions{display:flex; flex-wrap:wrap; gap:1rem; justify-content:center;}
+.contact-btn-primary{
+  background:var(--gold);
+  color:var(--ink);
+  border-color:var(--gold);
+}
+.contact-btn-primary:hover{
+  background:var(--gold-bright);
+  color:var(--ink);
+}
 
 /* ============ CONTACT / DEN DEN MUSHI ============ */
 .contact{text-align:center;}

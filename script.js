@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- CONFIG: update your real links here ---------- */
   const SOCIAL_LINKS = {
-    github: 'https://github.com/TUO-USERNAME',
-    linkedin: 'https://www.linkedin.com/in/TUO-USERNAME'
+    github: 'https://github.com/KamalGouaiche10',
+    linkedin: 'https://www.linkedin.com/in/kamal-gouaiche-2584b8268'
   };
   const githubLink = document.getElementById('github-link');
   const linkedinLink = document.getElementById('linkedin-link');
