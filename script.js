@@ -22,7 +22,7 @@ const TRANSLATIONS = {
     'hero.eyebrow': 'Disponibile per nuove opportunità',
     'hero.role': 'Full-Stack & Mobile Developer',
     'hero.roleWords': 'Full-Stack Developer|Mobile Developer|AI Enthusiast',
-    'hero.desc': "Laureando in Informatica con esperienza concreta nello sviluppo software full-stack, mobile e sistemi distribuiti. Trasformo idee in prodotti reali, dal backend all'interfaccia.",
+    'hero.desc': "Laureando in Informatica, negli ultimi due anni ho portato oltre 7 progetti dal concept alla produzione — dalle pipeline AI ai sistemi distribuiti — curando sia il backend che l'esperienza utente, con attenzione a codice mantenibile e architetture pensate per scalare.",
     'hero.cta1': 'Guarda i progetti',
     'hero.cta2': 'Contattami',
     'hero.stat1': 'Progetti realizzati',
@@ -37,21 +37,21 @@ const TRANSLATIONS = {
     'experience.eyebrow': 'Percorso',
     'experience.title': 'Esperienza',
     'experience.entry1.date': '2026 · 3 mesi (Tirocinio Curriculare)',
-    'experience.entry1.b1': "Rinnovamento completo e autonomo del sistema principale dell'azienda.",
-    'experience.entry1.b2': "Migrazione dell'architettura applicativa da Laravel/PHP e React a Python/FastAPI e Next.js.",
-    'experience.entry1.b3': 'Gestione end-to-end del progetto di migrazione: analisi del sistema esistente, riprogettazione backend e frontend, testing e messa in produzione.',
+    'experience.entry1.b1': "Ho guidato in autonomia il rinnovamento completo del sistema principale dell'azienda, dall'analisi dei requisiti al rilascio in produzione.",
+    'experience.entry1.b2': "Ho migrato l'architettura applicativa da Laravel/PHP e React a Python/FastAPI e Next.js, con l'obiettivo di rendere il sistema più manutenibile e semplice da far evolvere.",
+    'experience.entry1.b3': "Ho gestito l'intero ciclo del progetto — analisi del sistema esistente, riprogettazione backend e frontend, testing e messa in produzione — lavorando a stretto contatto con il team per non interrompere l'operatività durante la transizione.",
     'projects.eyebrow': 'Lavori',
     'projects.title': 'Progetti',
     'projects.subtitle': 'Una selezione di applicazioni sviluppate tra studio, tirocinio e side project.',
     'projects.filterAll': 'Tutti',
     'projects.p1.date': 'Apr 2026 – Lug 2026',
     'projects.p1.tagline': 'Piattaforma di apprendimento adattivo con AI',
-    'projects.p1.desc': 'Piattaforma AI che trasforma i materiali di studio in sessioni di ripasso interattive e personalizzate.',
+    'projects.p1.desc': "Piattaforma AI che trasforma appunti e PDF grezzi in sessioni di ripasso interattive in pochi secondi, adattando automaticamente le domande al livello dello studente.",
     'projects.p1.b1': 'Pipeline RAG con ChromaDB per generare domande su misura dai contenuti caricati.',
     'projects.p1.b2': 'Architettura multi-agent con Agno: Guide, Eval e Contest Agent.',
     'projects.p1.b3': 'Adaptive Engine che regola la difficoltà in base alle performance.',
     'projects.p2.tagline': 'App Mobile Android',
-    'projects.p2.desc': "App Android per affitti brevi: ricerca, prenotazione, recensioni e chat in un'unica piattaforma.",
+    'projects.p2.desc': "App Android nativa e completa per affitti brevi: dalla ricerca alla prenotazione fino alla chat in tempo reale, pensata per coprire l'intero percorso dell'utente in un'unica esperienza fluida.",
     'projects.p2.b1': 'Ricerca avanzata, prenotazioni, recensioni e chat in tempo reale con notifiche push.',
     'projects.p2.b2': 'Architettura MVVM con Kotlin Coroutines e StateFlow.',
     'projects.p2.b3': 'Backend serverless su Firebase/Firestore.',
@@ -91,6 +91,14 @@ const TRANSLATIONS = {
     'contact.title': 'Parliamone',
     'contact.subtitle': 'Sono disponibile per nuove opportunità: scrivimi o contattami sui canali qui sotto.',
     'contact.location': 'Vercelli, Italia',
+    'contact.form.name': 'Nome',
+    'contact.form.email': 'Email',
+    'contact.form.message': 'Messaggio',
+    'contact.form.send': 'Invia messaggio',
+    'contact.form.sending': 'Invio in corso...',
+    'contact.form.success': 'Messaggio inviato! Ti risponderò al più presto.',
+    'contact.form.error': 'Qualcosa è andato storto. Riprova oppure scrivimi direttamente via email.',
+    'footer.source': 'codice sorgente su GitHub',
     'backToTop.aria': 'Torna su',
     'themeToggle.aria': 'Cambia tema chiaro/scuro',
     'langToggle.aria': 'Cambia lingua / Switch language'
@@ -109,7 +117,7 @@ const TRANSLATIONS = {
     'hero.eyebrow': 'Open to new opportunities',
     'hero.role': 'Full-Stack & Mobile Developer',
     'hero.roleWords': 'Full-Stack Developer|Mobile Developer|AI Enthusiast',
-    'hero.desc': "Computer Science student with hands-on experience in full-stack, mobile and distributed systems development. I turn ideas into real products, from backend to interface.",
+    'hero.desc': "Computer Science student — over the last two years I've taken 7+ projects from concept to production, from AI pipelines to distributed systems, owning both the backend and the user experience, with a focus on maintainable code and architectures built to scale.",
     'hero.cta1': 'View my work',
     'hero.cta2': 'Get in touch',
     'hero.stat1': 'Projects shipped',
@@ -124,21 +132,21 @@ const TRANSLATIONS = {
     'experience.eyebrow': 'Track record',
     'experience.title': 'Experience',
     'experience.entry1.date': '2026 · 3 months (Internship)',
-    'experience.entry1.b1': "Complete, self-driven overhaul of the company's core system.",
-    'experience.entry1.b2': 'Migration of the application architecture from Laravel/PHP and React to Python/FastAPI and Next.js.',
-    'experience.entry1.b3': 'End-to-end ownership of the migration project: analysis of the existing system, backend and frontend redesign, testing and production rollout.',
+    'experience.entry1.b1': "Led a complete, self-driven overhaul of the company's core system, from requirements analysis to production release.",
+    'experience.entry1.b2': "Migrated the application architecture from Laravel/PHP and React to Python/FastAPI and Next.js, aiming for a system that's easier to maintain and evolve.",
+    'experience.entry1.b3': "Owned the migration end to end — analysis of the existing system, backend and frontend redesign, testing and production rollout — working closely with the team to keep the transition smooth.",
     'projects.eyebrow': 'Work',
     'projects.title': 'Projects',
     'projects.subtitle': 'A selection of applications built across coursework, internship and side projects.',
     'projects.filterAll': 'All',
     'projects.p1.date': 'Apr 2026 – Jul 2026',
     'projects.p1.tagline': 'AI-Powered Adaptive Learning Platform',
-    'projects.p1.desc': 'AI platform that turns study material into interactive, personalized review sessions.',
+    'projects.p1.desc': "AI platform that turns raw notes and PDFs into interactive review sessions in seconds, automatically adapting questions to the student's level.",
     'projects.p1.b1': 'RAG pipeline with ChromaDB to generate tailor-made questions from uploaded content.',
     'projects.p1.b2': 'Multi-agent architecture with Agno: Guide, Eval and Contest Agent.',
     'projects.p1.b3': 'Adaptive Engine that tunes difficulty based on performance.',
     'projects.p2.tagline': 'Android Mobile App',
-    'projects.p2.desc': 'Android app for short-term rentals: search, booking, reviews and chat in one platform.',
+    'projects.p2.desc': "A full native Android app for short-term rentals, covering the entire user journey — from search to booking to real-time chat — in one seamless experience.",
     'projects.p2.b1': 'Advanced search, bookings, reviews and real-time chat with push notifications.',
     'projects.p2.b2': 'MVVM architecture with Kotlin Coroutines and StateFlow.',
     'projects.p2.b3': 'Serverless backend on Firebase/Firestore.',
@@ -178,6 +186,14 @@ const TRANSLATIONS = {
     'contact.title': "Let's talk",
     'contact.subtitle': "I'm open to new opportunities: reach out through any of the channels below.",
     'contact.location': 'Vercelli, Italy',
+    'contact.form.name': 'Name',
+    'contact.form.email': 'Email',
+    'contact.form.message': 'Message',
+    'contact.form.send': 'Send message',
+    'contact.form.sending': 'Sending...',
+    'contact.form.success': "Message sent! I'll get back to you soon.",
+    'contact.form.error': 'Something went wrong. Please try again or email me directly.',
+    'footer.source': 'source code on GitHub',
     'backToTop.aria': 'Back to top',
     'themeToggle.aria': 'Toggle light/dark theme',
     'langToggle.aria': 'Switch language / Cambia lingua'
@@ -196,6 +212,16 @@ function kgApplyTranslations(lang) {
   if (titleEl && dict['meta.title']) titleEl.textContent = dict['meta.title'];
   const metaDesc = document.getElementById('meta-description');
   if (metaDesc && dict['meta.description']) metaDesc.setAttribute('content', dict['meta.description']);
+
+  // keep social preview tags (Open Graph / Twitter) in sync with the active language
+  ['og-title', 'twitter-title'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && dict['meta.title']) el.setAttribute('content', dict['meta.title']);
+  });
+  ['og-description', 'twitter-description'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el && dict['meta.description']) el.setAttribute('content', dict['meta.description']);
+  });
 
   const backToTopBtn = document.getElementById('back-to-top');
   if (backToTopBtn && dict['backToTop.aria']) backToTopBtn.setAttribute('aria-label', dict['backToTop.aria']);
@@ -616,6 +642,43 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.style.transform = `translate(${(relX / rect.width) * strength}px, ${(relY / rect.height) * strength}px)`;
       });
       btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+    });
+  }
+
+  /* ---------- CONTACT FORM (FormSubmit, AJAX — no page reload) ---------- */
+  const contactForm = document.getElementById('contact-form');
+  if (contactForm) {
+    const statusEl = document.getElementById('contact-form-status');
+    const submitBtn = contactForm.querySelector('button[type="submit"]');
+    const submitLabel = submitBtn ? submitBtn.querySelector('[data-i18n="contact.form.send"]') : null;
+
+    contactForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const dict = TRANSLATIONS[document.documentElement.getAttribute('lang')] || TRANSLATIONS.it;
+
+      if (submitBtn) submitBtn.disabled = true;
+      if (submitLabel) submitLabel.textContent = dict['contact.form.sending'];
+
+      try {
+        const res = await fetch(contactForm.action, {
+          method: 'POST',
+          headers: { 'Accept': 'application/json' },
+          body: new FormData(contactForm)
+        });
+        if (!res.ok) throw new Error('Request failed');
+
+        statusEl.textContent = dict['contact.form.success'];
+        statusEl.className = 'mt-3 text-sm text-accent-2';
+        statusEl.classList.remove('hidden');
+        contactForm.reset();
+      } catch (err) {
+        statusEl.textContent = dict['contact.form.error'];
+        statusEl.className = 'mt-3 text-sm text-red-500';
+        statusEl.classList.remove('hidden');
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (submitLabel) submitLabel.textContent = dict['contact.form.send'];
+      }
     });
   }
 
