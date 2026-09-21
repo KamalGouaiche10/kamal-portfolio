@@ -188,7 +188,43 @@ body{
 }
 .nav-link:hover::after, .nav-link.active::after{ transform:scaleX(1); }
 
+/* ============ ANIMATED GLOW BORDER (terminal) ============ */
+.glow-border{
+  position:relative;
+  padding:1px;
+  border-radius:18px;
+  overflow:hidden;
+  isolation:isolate;
+}
+.glow-border::before{
+  content:'';
+  position:absolute;
+  inset:-2px;
+  z-index:-1;
+  background:conic-gradient(from 0deg, #6d5ef8, #2dd4c8, #c026d3, #6d5ef8);
+  animation:glowSpin 6s linear infinite;
+  opacity:.7;
+}
+@keyframes glowSpin{ to{ transform:rotate(360deg); } }
+
+/* ============ TERMINAL ============ */
+#terminal-output{ min-height:1.4em; }
+.terminal-cursor{
+  display:inline-block;
+  width:.55em; height:1.05em;
+  background:#6d5ef8;
+  vertical-align:-.18em;
+  animation:blink 1s step-end infinite;
+}
+
+/* ============ SCROLL PROGRESS BAR ============ */
+#scroll-progress{ transition:width .1s linear; }
+
+/* ============ STAGGERED REVEAL ============ */
+.reveal{ transition-delay:var(--reveal-delay, 0ms); }
+
 @media (prefers-reduced-motion: reduce){
+  .glow-border::before{ animation:none; }
   .aurora-blob, .float, .marquee-track, .pulse-dot::after{ animation:none !important; }
   .reveal{ opacity:1; transform:none; transition:none; }
 }

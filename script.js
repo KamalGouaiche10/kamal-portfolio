@@ -91,8 +91,6 @@ const TRANSLATIONS = {
     'contact.title': 'Parliamone',
     'contact.subtitle': 'Sono disponibile per nuove opportunità: scrivimi o contattami sui canali qui sotto.',
     'contact.location': 'Vercelli, Italia',
-    'footer.line1': 'Progettato e sviluppato da Kamal Gouaiche',
-    'footer.line2': 'Realizzato con HTML, Tailwind CSS e JavaScript.',
     'backToTop.aria': 'Torna su',
     'themeToggle.aria': 'Cambia tema chiaro/scuro',
     'langToggle.aria': 'Cambia lingua / Switch language'
@@ -180,8 +178,6 @@ const TRANSLATIONS = {
     'contact.title': "Let's talk",
     'contact.subtitle': "I'm open to new opportunities: reach out through any of the channels below.",
     'contact.location': 'Vercelli, Italy',
-    'footer.line1': 'Designed and built by Kamal Gouaiche',
-    'footer.line2': 'Built with HTML, Tailwind CSS and JavaScript.',
     'backToTop.aria': 'Back to top',
     'themeToggle.aria': 'Toggle light/dark theme',
     'langToggle.aria': 'Switch language / Cambia lingua'
@@ -213,8 +209,9 @@ function kgApplyTranslations(lang) {
 
   document.documentElement.setAttribute('lang', lang);
 
-  // restart the typing animation with the new language's words
+  // restart the typing animations with the new language
   kgStartTypingRole(dict['hero.roleWords']);
+  kgStartTerminal(lang);
 
   try { localStorage.setItem('kg-lang', lang); } catch (e) {}
 }
@@ -261,6 +258,95 @@ function kgStartTypingRole(wordsStr) {
     }
   }
   tick();
+}
+
+/* ---------- TERMINAL TYPING SHOWCASE ---------- */
+const TERMINAL_LINES = {
+  it: [
+    { p: 'kamal@portfolio', cmd: 'whoami' },
+    { out: 'Kamal Gouaiche — Full-Stack & Mobile Developer' },
+    { p: 'kamal@portfolio', cmd: 'cat esperienza.log' },
+    { out: 'Koodit S.r.l. → migrazione Laravel/React → Python/FastAPI + Next.js' },
+    { p: 'kamal@portfolio', cmd: 'ls progetti/' },
+    { out: 'studycoach  micasaestucasa  eventhub  compilator-ac-dc  db-project' },
+    { p: 'kamal@portfolio', cmd: 'cat stack.json | grep top' },
+    { out: '["Python", "TypeScript", "Kotlin", "FastAPI", "Next.js", "RAG/LLM"]' },
+    { p: 'kamal@portfolio', cmd: './contatta.sh --kamal' },
+    { out: '✓ connessione stabilita — pronto a collaborare' },
+  ],
+  en: [
+    { p: 'kamal@portfolio', cmd: 'whoami' },
+    { out: 'Kamal Gouaiche — Full-Stack & Mobile Developer' },
+    { p: 'kamal@portfolio', cmd: 'cat experience.log' },
+    { out: 'Koodit S.r.l. → migrated Laravel/React → Python/FastAPI + Next.js' },
+    { p: 'kamal@portfolio', cmd: 'ls projects/' },
+    { out: 'studycoach  micasaestucasa  eventhub  compilator-ac-dc  db-project' },
+    { p: 'kamal@portfolio', cmd: 'cat stack.json | grep top' },
+    { out: '["Python", "TypeScript", "Kotlin", "FastAPI", "Next.js", "RAG/LLM"]' },
+    { p: 'kamal@portfolio', cmd: './contact.sh --kamal' },
+    { out: '✓ connection established — ready to collaborate' },
+  ]
+};
+
+let kgTerminalTimer = null;
+let kgTerminalRunId = 0;
+function kgStartTerminal(lang) {
+  const el = document.getElementById('terminal-output');
+  if (!el) return;
+  if (kgTerminalTimer) clearTimeout(kgTerminalTimer);
+  const runId = ++kgTerminalRunId;
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const lines = TERMINAL_LINES[lang] || TERMINAL_LINES.it;
+
+  if (prefersReducedMotion) {
+    el.textContent = lines.map(l => l.cmd ? `${l.p}:~$ ${l.cmd}` : l.out).join('\n');
+    return;
+  }
+
+  el.textContent = '';
+  let buffer = '';
+
+  function typeText(text, speed, cb) {
+    let i = 0;
+    (function step() {
+      if (runId !== kgTerminalRunId) return;
+      if (i <= text.length) {
+        el.textContent = buffer + text.slice(0, i);
+        i++;
+        kgTerminalTimer = setTimeout(step, speed);
+      } else {
+        buffer += text;
+        cb();
+      }
+    })();
+  }
+
+  function runLine(index) {
+    if (runId !== kgTerminalRunId) return;
+    if (index >= lines.length) {
+      kgTerminalTimer = setTimeout(() => runLine(0), 2400);
+      buffer = '';
+      el.textContent = '';
+      return;
+    }
+    const line = lines[index];
+    if (line.cmd) {
+      typeText(`${line.p}:~$ ${line.cmd}`, 38, () => {
+        buffer += '\n';
+        el.textContent = buffer;
+        kgTerminalTimer = setTimeout(() => runLine(index + 1), 260);
+      });
+    } else {
+      typeText(line.out, 14, () => {
+        buffer += '\n\n';
+        el.textContent = buffer;
+        kgTerminalTimer = setTimeout(() => runLine(index + 1), 550);
+      });
+    }
+  }
+
+  runLine(0);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -329,9 +415,10 @@ document.addEventListener('DOMContentLoaded', () => {
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  /* ---------- NAVBAR: hide on scroll down, show on scroll up ---------- */
+  /* ---------- NAVBAR: hide on scroll down, show on scroll up + scroll progress ---------- */
   const navbar = document.getElementById('navbar');
   const backToTop = document.getElementById('back-to-top');
+  const scrollProgress = document.getElementById('scroll-progress');
   let lastScrollY = window.scrollY;
   window.addEventListener('scroll', () => {
     const currentY = window.scrollY;
@@ -344,17 +431,51 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (currentY > 600) backToTop.classList.add('show');
     else backToTop.classList.remove('show');
+
+    if (scrollProgress) {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = docHeight > 0 ? Math.min(100, (currentY / docHeight) * 100) : 0;
+      scrollProgress.style.width = pct + '%';
+    }
   }, { passive: true });
 
-  /* ---------- MOBILE MENU TOGGLE ---------- */
+  /* ---------- MOBILE NAV DRAWER ---------- */
   const navToggle = document.getElementById('nav-toggle');
-  const navLinks = document.getElementById('nav-links');
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-  });
-  navLinks.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => navLinks.classList.remove('open'));
-  });
+  const drawer = document.getElementById('mobile-drawer');
+  const drawerPanel = document.getElementById('mobile-drawer-panel');
+  const drawerBackdrop = document.getElementById('mobile-drawer-backdrop');
+  const hamburgerBars = navToggle ? navToggle.querySelectorAll('span') : [];
+
+  function openDrawer() {
+    drawer.classList.remove('invisible', 'opacity-0');
+    drawer.classList.add('opacity-100');
+    requestAnimationFrame(() => drawerPanel.classList.remove('translate-x-full'));
+    navToggle.setAttribute('aria-expanded', 'true');
+    document.body.style.overflow = 'hidden';
+    if (hamburgerBars[0]) hamburgerBars[0].style.transform = 'translateY(7px) rotate(45deg)';
+    if (hamburgerBars[1]) hamburgerBars[1].style.opacity = '0';
+    if (hamburgerBars[2]) hamburgerBars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+  }
+  function closeDrawer() {
+    drawerPanel.classList.add('translate-x-full');
+    drawer.classList.remove('opacity-100');
+    drawer.classList.add('opacity-0');
+    navToggle.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+    if (hamburgerBars[0]) hamburgerBars[0].style.transform = '';
+    if (hamburgerBars[1]) hamburgerBars[1].style.opacity = '';
+    if (hamburgerBars[2]) hamburgerBars[2].style.transform = '';
+    setTimeout(() => { if (drawer.classList.contains('opacity-0')) drawer.classList.add('invisible'); }, 300);
+  }
+  if (navToggle && drawer) {
+    navToggle.addEventListener('click', () => {
+      const isOpen = navToggle.getAttribute('aria-expanded') === 'true';
+      isOpen ? closeDrawer() : openDrawer();
+    });
+    if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
+    drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', closeDrawer));
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+  }
 
   /* ---------- ACTIVE NAV LINK ON SCROLL ---------- */
   const sections = document.querySelectorAll('section[id]');
@@ -372,7 +493,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }, { threshold: 0.4 });
   sections.forEach(sec => navObserver.observe(sec));
 
-  /* ---------- REVEAL ON SCROLL ---------- */
+  /* ---------- REVEAL ON SCROLL (staggered within each group) ---------- */
+  const revealGroups = document.querySelectorAll('#project-grid, .skill-groups, #skills .grid, #education .edu-list, .contact-links');
+  revealGroups.forEach(group => {
+    Array.from(group.children).forEach((el, i) => {
+      if (el.classList && el.classList.contains('reveal')) {
+        el.style.setProperty('--reveal-delay', Math.min(i * 70, 350) + 'ms');
+      }
+    });
+  });
   const revealTargets = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
