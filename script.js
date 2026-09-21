@@ -4,7 +4,7 @@
    ============================================ */
 
 /* ============================================
-   THEME (light / dark) & LANGUAGE (it / en)
+   THEME (light / dark, dark = default) & LANGUAGE (it / en)
    ============================================ */
 
 const TRANSLATIONS = {
@@ -92,7 +92,7 @@ const TRANSLATIONS = {
     'contact.subtitle': 'Sono disponibile per nuove opportunità: scrivimi o contattami sui canali qui sotto.',
     'contact.location': 'Vercelli, Italia',
     'footer.line1': 'Progettato e sviluppato da Kamal Gouaiche',
-    'footer.line2': 'Realizzato con HTML, CSS e JavaScript.',
+    'footer.line2': 'Realizzato con HTML, Tailwind CSS e JavaScript.',
     'backToTop.aria': 'Torna su',
     'themeToggle.aria': 'Cambia tema chiaro/scuro',
     'langToggle.aria': 'Cambia lingua / Switch language'
@@ -181,7 +181,7 @@ const TRANSLATIONS = {
     'contact.subtitle': "I'm open to new opportunities: reach out through any of the channels below.",
     'contact.location': 'Vercelli, Italy',
     'footer.line1': 'Designed and built by Kamal Gouaiche',
-    'footer.line2': 'Built with HTML, CSS and JavaScript.',
+    'footer.line2': 'Built with HTML, Tailwind CSS and JavaScript.',
     'backToTop.aria': 'Back to top',
     'themeToggle.aria': 'Toggle light/dark theme',
     'langToggle.aria': 'Switch language / Cambia lingua'
@@ -201,8 +201,6 @@ function kgApplyTranslations(lang) {
   const metaDesc = document.getElementById('meta-description');
   if (metaDesc && dict['meta.description']) metaDesc.setAttribute('content', dict['meta.description']);
 
-  const scrollCueLink = document.querySelector('.scroll-cue');
-  if (scrollCueLink && dict['hero.scrollAria']) scrollCueLink.setAttribute('aria-label', dict['hero.scrollAria']);
   const backToTopBtn = document.getElementById('back-to-top');
   if (backToTopBtn && dict['backToTop.aria']) backToTopBtn.setAttribute('aria-label', dict['backToTop.aria']);
   const themeToggleBtn = document.getElementById('theme-toggle');
@@ -267,6 +265,8 @@ function kgStartTypingRole(wordsStr) {
 
 document.addEventListener('DOMContentLoaded', () => {
 
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   /* ---------- CONFIG: social links ---------- */
   const SOCIAL_LINKS = {
     github: 'https://github.com/KamalGouaiche10',
@@ -277,25 +277,32 @@ document.addEventListener('DOMContentLoaded', () => {
   if (githubLink) githubLink.href = SOCIAL_LINKS.github;
   if (linkedinLink) linkedinLink.href = SOCIAL_LINKS.linkedin;
 
-  /* ---------- THEME TOGGLE (light / dark) ---------- */
+  /* ---------- THEME TOGGLE (dark = default) ---------- */
   const themeToggle = document.getElementById('theme-toggle');
+  const sunIcon = themeToggle ? themeToggle.querySelector('.icon-sun') : null;
+  const moonIcon = themeToggle ? themeToggle.querySelector('.icon-moon') : null;
+
   function setTheme(theme) {
     if (theme === 'dark') {
-      document.documentElement.setAttribute('data-theme', 'dark');
+      document.documentElement.classList.add('dark');
+      if (sunIcon) sunIcon.classList.add('hidden');
+      if (moonIcon) moonIcon.classList.remove('hidden');
     } else {
-      document.documentElement.removeAttribute('data-theme');
+      document.documentElement.classList.remove('dark');
+      if (sunIcon) sunIcon.classList.remove('hidden');
+      if (moonIcon) moonIcon.classList.add('hidden');
     }
     if (themeToggle) themeToggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
     try { localStorage.setItem('kg-theme', theme); } catch (e) {}
   }
   if (themeToggle) {
     themeToggle.addEventListener('click', () => {
-      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      const isDark = document.documentElement.classList.contains('dark');
       setTheme(isDark ? 'light' : 'dark');
     });
   }
-  // sync aria-pressed with whatever the pre-paint inline script already applied
-  setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+  // sync icons/aria with whatever the pre-paint inline script already applied
+  setTheme(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
 
   /* ---------- LANGUAGE TOGGLE (it / en) ---------- */
   const langToggle = document.getElementById('lang-toggle');
@@ -324,6 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------- NAVBAR: hide on scroll down, show on scroll up ---------- */
   const navbar = document.getElementById('navbar');
+  const backToTop = document.getElementById('back-to-top');
   let lastScrollY = window.scrollY;
   window.addEventListener('scroll', () => {
     const currentY = window.scrollY;
@@ -334,7 +342,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     lastScrollY = currentY;
 
-    // back to top button
     if (currentY > 600) backToTop.classList.add('show');
     else backToTop.classList.remove('show');
   }, { passive: true });
@@ -350,8 +357,8 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ---------- ACTIVE NAV LINK ON SCROLL ---------- */
-  const sections = document.querySelectorAll('.section');
-  const navAnchors = document.querySelectorAll('.nav-links a');
+  const sections = document.querySelectorAll('section[id]');
+  const navAnchors = document.querySelectorAll('.nav-link');
 
   const navObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -366,11 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
   sections.forEach(sec => navObserver.observe(sec));
 
   /* ---------- REVEAL ON SCROLL ---------- */
-  const revealTargets = document.querySelectorAll(
-    '.timeline-entry, .card, .skill-group, .lang-block, .edu-entry, .cv-wrap, .contact-links, .hero-card'
-  );
-  revealTargets.forEach(el => el.classList.add('reveal'));
-
+  const revealTargets = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
@@ -382,14 +385,12 @@ document.addEventListener('DOMContentLoaded', () => {
   revealTargets.forEach(el => revealObserver.observe(el));
 
   /* ---------- LANGUAGE PROFICIENCY BARS ANIMATION ---------- */
-  const langBlock = document.querySelector('.lang-block');
+  const langBlock = document.getElementById('lang-block');
   if (langBlock) {
     const langObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
-          document.querySelectorAll('.lang-fill').forEach(fill => {
-            fill.classList.add('animate');
-          });
+          document.querySelectorAll('.skill-fill').forEach(fill => fill.classList.add('animate'));
           langObserver.unobserve(entry.target);
         }
       });
@@ -398,72 +399,27 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   /* ---------- BACK TO TOP ---------- */
-  const backToTop = document.getElementById('back-to-top');
   backToTop.addEventListener('click', () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  /* ---------- FLOATING PARTICLES (subtle ambient dots) ---------- */
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
-  let particles = [];
-  let width, height;
-
-  function isDark() {
-    return document.documentElement.getAttribute('data-theme') === 'dark';
-  }
-
-  function resizeCanvas() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-  }
-
-  function createParticles() {
-    const count = Math.min(46, Math.floor((width * height) / 34000));
-    particles = Array.from({ length: count }, () => ({
-      x: Math.random() * width,
-      y: Math.random() * height,
-      r: Math.random() * 1.4 + 0.4,
-      speedY: Math.random() * 0.18 + 0.04,
-      speedX: (Math.random() - 0.5) * 0.1,
-      alpha: Math.random() * 0.35 + 0.08
-    }));
-  }
-
-  function animateParticles() {
-    ctx.clearRect(0, 0, width, height);
-    const color = isDark() ? '124,116,245' : '79,70,229';
-    particles.forEach(p => {
-      ctx.beginPath();
-      ctx.fillStyle = `rgba(${color},${p.alpha})`;
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fill();
-      p.y -= p.speedY;
-      p.x += p.speedX;
-      if (p.y < -10) {
-        p.y = height + 10;
-        p.x = Math.random() * width;
-      }
-    });
-    requestAnimationFrame(animateParticles);
-  }
-
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  resizeCanvas();
-  createParticles();
-  if (!prefersReducedMotion) {
-    animateParticles();
-  }
-
-  window.addEventListener('resize', () => {
-    resizeCanvas();
-    createParticles();
   });
 
   /* ---------- PROJECT FILTER (by tag / stack) ---------- */
   const filterPills = document.querySelectorAll('.filter-pill');
   const projectCards = document.querySelectorAll('#project-grid .card');
+
+  const ACTIVE_CLASSES = ['bg-neutral-900', 'dark:bg-white', 'text-white', 'dark:text-neutral-900', 'border-neutral-900', 'dark:border-white'];
+  const INACTIVE_CLASSES = ['border-neutral-200', 'dark:border-white/15', 'text-neutral-500', 'dark:text-neutral-400'];
+
+  function setPillActive(pill, active) {
+    pill.classList.toggle('active', active);
+    if (active) {
+      pill.classList.remove(...INACTIVE_CLASSES);
+      pill.classList.add(...ACTIVE_CLASSES);
+    } else {
+      pill.classList.remove(...ACTIVE_CLASSES);
+      pill.classList.add(...INACTIVE_CLASSES);
+    }
+  }
 
   function applyFilter(tag) {
     projectCards.forEach(card => {
@@ -475,13 +431,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   filterPills.forEach(pill => {
     pill.addEventListener('click', () => {
-      filterPills.forEach(p => p.classList.remove('active'));
-      pill.classList.add('active');
+      filterPills.forEach(p => setPillActive(p, false));
+      setPillActive(pill, true);
       applyFilter(pill.dataset.filter);
     });
   });
 
-  // clicking a stack tag inside a card also filters by that tag
   document.querySelectorAll('.card-stack span').forEach(tagEl => {
     tagEl.addEventListener('click', () => {
       const tag = tagEl.textContent.trim();
@@ -492,5 +447,47 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
+
+  if (!prefersReducedMotion) {
+
+    /* ---------- CURSOR SPOTLIGHT ---------- */
+    const spotlight = document.getElementById('spotlight');
+    if (spotlight) {
+      window.addEventListener('pointermove', (e) => {
+        spotlight.style.setProperty('--x', e.clientX + 'px');
+        spotlight.style.setProperty('--y', e.clientY + 'px');
+      }, { passive: true });
+    }
+
+    /* ---------- TILT CARDS ---------- */
+    document.querySelectorAll('.tilt-card').forEach(card => {
+      let rect = null;
+      card.addEventListener('mouseenter', () => { rect = card.getBoundingClientRect(); });
+      card.addEventListener('mousemove', (e) => {
+        if (!rect) rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        const rotateX = (0.5 - py) * 8;
+        const rotateY = (px - 0.5) * 10;
+        card.style.transform = `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.transform = '';
+        rect = null;
+      });
+    });
+
+    /* ---------- MAGNETIC BUTTONS ---------- */
+    document.querySelectorAll('.magnetic').forEach(btn => {
+      const strength = 18;
+      btn.addEventListener('mousemove', (e) => {
+        const rect = btn.getBoundingClientRect();
+        const relX = e.clientX - rect.left - rect.width / 2;
+        const relY = e.clientY - rect.top - rect.height / 2;
+        btn.style.transform = `translate(${(relX / rect.width) * strength}px, ${(relY / rect.height) * strength}px)`;
+      });
+      btn.addEventListener('mouseleave', () => { btn.style.transform = ''; });
+    });
+  }
 
 });

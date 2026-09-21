@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="dark scroll-smooth">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,145 +9,196 @@
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
   gtag('config', 'G-FH0PGS7VEL');
 </script>
 <title>Kamal Gouaiche | Full-Stack & Mobile Developer</title>
 <meta id="meta-description" name="description" content="Portfolio di Kamal Gouaiche - Full-Stack & Mobile Developer">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%234f46e5%22/><text x=%2250%22 y=%2266%22 font-size=%2248%22 font-family=%22sans-serif%22 font-weight=%22700%22 fill=%22white%22 text-anchor=%22middle%22>KG</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%236d5ef8%22/><text x=%2250%22 y=%2266%22 font-size=%2248%22 font-family=%22sans-serif%22 font-weight=%22700%22 fill=%22white%22 text-anchor=%22middle%22>KG</text></svg>">
+
+<!-- Theme must be applied before first paint to avoid a flash -->
 <script>
-  /* Apply saved theme before first paint to avoid a flash of the wrong theme */
   (function(){
     try{
       var saved = localStorage.getItem('kg-theme');
-      if(saved === 'dark'){ document.documentElement.setAttribute('data-theme','dark'); }
-      else if(!saved && window.matchMedia('(prefers-color-scheme: dark)').matches){
-        document.documentElement.setAttribute('data-theme','dark');
-      }
+      if(saved === 'light'){ document.documentElement.classList.remove('dark'); }
+      else{ document.documentElement.classList.add('dark'); } // dark is the default
     }catch(e){}
   })();
 </script>
+
+<!-- Tailwind CSS (CDN build) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        colors: {
+          accent: { DEFAULT:'#6d5ef8', 2:'#2dd4c8' },
+        },
+        fontFamily: {
+          sans: ['Inter','ui-sans-serif','system-ui'],
+          display: ['Sora','Inter','ui-sans-serif'],
+          mono: ['JetBrains Mono','ui-monospace','SFMono-Regular'],
+        },
+      }
+    }
+  }
+</script>
+<link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="bg-white text-neutral-900 dark:bg-[#07080d] dark:text-neutral-100 antialiased">
 
 <!-- Loading screen -->
-<div id="loader">
-  <div class="loader-content">
-    <div class="loader-mark">KG</div>
-    <p class="loader-text" data-i18n="loader.text">caricamento...</p>
+<div id="loader" class="fixed inset-0 z-[9999] flex items-center justify-center bg-white dark:bg-[#07080d]">
+  <div class="text-center">
+    <div class="w-14 h-14 mx-auto mb-4 rounded-2xl flex items-center justify-center font-display font-bold text-white text-lg bg-gradient-to-br from-accent to-accent-2 shadow-[0_0_40px_rgba(109,94,248,.45)] animate-pulse">KG</div>
+    <p class="font-mono text-xs tracking-widest text-neutral-500 dark:text-neutral-400" data-i18n="loader.text">caricamento...</p>
   </div>
 </div>
 
-<!-- Background canvas -->
-<canvas id="bg-canvas"></canvas>
+<!-- Ambient animated background -->
+<div class="aurora-field" aria-hidden="true">
+  <div class="aurora-blob aurora-1"></div>
+  <div class="aurora-blob aurora-2"></div>
+  <div class="aurora-blob aurora-3"></div>
+</div>
+<div class="grain-overlay" aria-hidden="true"></div>
+<div class="spotlight" id="spotlight" aria-hidden="true"></div>
 
 <!-- Navbar -->
-<header class="navbar" id="navbar">
-  <div class="nav-inner">
-    <a href="#hero" class="nav-logo"><span class="nav-logo-mark">KG</span> Kamal Gouaiche</a>
-    <nav class="nav-links" id="nav-links">
-      <a href="#hero" data-i18n="nav.home">Home</a>
-      <a href="#experience" data-i18n="nav.experience">Esperienza</a>
-      <a href="#projects" data-i18n="nav.projects">Progetti</a>
-      <a href="#skills" data-i18n="nav.skills">Competenze</a>
-      <a href="#education" data-i18n="nav.education">Istruzione</a>
-      <a href="#contact" data-i18n="nav.contact">Contatti</a>
-      <div class="nav-utils">
-        <button type="button" id="theme-toggle" class="util-btn" aria-label="Cambia tema chiaro/scuro" aria-pressed="false">
-          <span class="util-ico icon-sun">☀</span><span class="util-ico icon-moon">☾</span>
+<header id="navbar" class="fixed top-0 left-0 right-0 z-[1000] border-b border-neutral-200/70 dark:border-white/10 bg-white/70 dark:bg-[#07080d]/70 backdrop-blur-xl">
+  <div class="max-w-6xl mx-auto flex items-center justify-between gap-4 px-5 md:px-6 py-3.5">
+    <a href="#hero" class="flex items-center gap-2.5 font-display font-bold text-[1.05rem] tracking-tight">
+      <span class="w-8 h-8 rounded-[9px] bg-gradient-to-br from-accent to-accent-2 flex items-center justify-center text-white text-xs font-bold">KG</span>
+      <span class="hidden sm:inline">Kamal Gouaiche</span>
+    </a>
+    <nav id="nav-links" class="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-7 fixed md:static top-0 right-0 h-screen md:h-auto w-[82vw] max-w-[300px] md:w-auto bg-white dark:bg-[#0b0d16] md:bg-transparent md:dark:bg-transparent px-8 md:px-0 pt-24 md:pt-0 border-l md:border-l-0 border-neutral-200 dark:border-white/10 translate-x-full md:translate-x-0 transition-transform duration-300 ease-out">
+      <a href="#hero" class="nav-link text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors relative" data-i18n="nav.home">Home</a>
+      <a href="#experience" class="nav-link text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors relative" data-i18n="nav.experience">Esperienza</a>
+      <a href="#projects" class="nav-link text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors relative" data-i18n="nav.projects">Progetti</a>
+      <a href="#skills" class="nav-link text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors relative" data-i18n="nav.skills">Competenze</a>
+      <a href="#education" class="nav-link text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors relative" data-i18n="nav.education">Istruzione</a>
+      <a href="#contact" class="nav-link text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:text-neutral-900 dark:hover:text-white transition-colors relative" data-i18n="nav.contact">Contatti</a>
+      <div class="flex items-center gap-2 md:ml-2 order-first md:order-none">
+        <button type="button" id="theme-toggle" class="w-9 h-9 rounded-[10px] border border-neutral-200 dark:border-white/10 bg-neutral-100 dark:bg-white/5 hover:border-accent hover:text-accent flex items-center justify-center text-sm transition-colors" aria-label="Cambia tema chiaro/scuro" aria-pressed="false">
+          <span class="icon-sun">☀</span><span class="icon-moon hidden">☾</span>
         </button>
-        <button type="button" id="lang-toggle" class="util-btn" aria-label="Cambia lingua / Switch language">
+        <button type="button" id="lang-toggle" class="h-9 px-2.5 rounded-[10px] border border-neutral-200 dark:border-white/10 bg-neutral-100 dark:bg-white/5 hover:border-accent hover:text-accent flex items-center justify-center text-xs font-semibold transition-colors" aria-label="Cambia lingua / Switch language">
           <span id="lang-toggle-label">EN</span>
         </button>
       </div>
     </nav>
-    <a href="CV_Kamal_Gouaiche.pdf" download class="nav-cta" data-i18n="nav.cta">Scarica CV</a>
-    <button id="nav-toggle" aria-label="Menu">
-      <span></span><span></span><span></span>
+    <a href="CV_Kamal_Gouaiche.pdf" download class="magnetic hidden md:inline-flex items-center gap-2 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-sm font-semibold rounded-[10px] px-4 py-2.5 hover:opacity-90 transition-opacity" data-i18n="nav.cta">Scarica CV</a>
+    <button id="nav-toggle" aria-label="Menu" class="md:hidden flex flex-col gap-[5px] p-2 z-10">
+      <span class="w-[22px] h-[2px] bg-neutral-900 dark:bg-white rounded"></span>
+      <span class="w-[22px] h-[2px] bg-neutral-900 dark:bg-white rounded"></span>
+      <span class="w-[22px] h-[2px] bg-neutral-900 dark:bg-white rounded"></span>
     </button>
   </div>
 </header>
 
 <!-- HERO -->
-<section id="hero" class="section hero">
-  <div class="hero-grid">
-    <div class="hero-intro">
-      <p class="hero-eyebrow"><span class="hero-eyebrow-dot"></span> <span data-i18n="hero.eyebrow">Disponibile per nuove opportunità</span></p>
-      <h1 class="hero-name">Kamal<br><span class="accent-text">Gouaiche</span></h1>
-      <p class="hero-role"><span id="hero-role-text"></span><span class="cursor">&nbsp;</span></p>
-      <p class="hero-desc" data-i18n="hero.desc">Laureando in Informatica con esperienza concreta nello sviluppo software full-stack, mobile e sistemi distribuiti. Trasformo idee in prodotti reali, dal backend all'interfaccia.</p>
-      <div class="hero-cta">
-        <a href="#projects" class="btn btn-primary">
-          <span class="btn-ico">→</span> <span data-i18n="hero.cta1">Guarda i progetti</span>
+<section id="hero" class="relative min-h-screen flex flex-col justify-center px-5 md:px-6 pt-28 max-w-6xl mx-auto">
+  <div class="grid md:grid-cols-[1.25fr_.75fr] gap-14 items-center w-full">
+    <div class="text-center md:text-left">
+      <p class="pulse-dot-wrap inline-flex items-center gap-2.5 font-mono text-xs sm:text-sm text-accent mb-5 px-3.5 py-1.5 rounded-full border border-accent/25 bg-accent/5">
+        <span class="pulse-dot w-1.5 h-1.5 rounded-full bg-accent-2"></span>
+        <span data-i18n="hero.eyebrow">Disponibile per nuove opportunità</span>
+      </p>
+      <h1 class="font-display font-extrabold tracking-tight leading-[1.02] text-[2.6rem] sm:text-6xl md:text-7xl mb-5">
+        Kamal<br><span class="text-gradient">Gouaiche</span>
+      </h1>
+      <p class="font-semibold text-xl sm:text-2xl text-neutral-600 dark:text-neutral-300 mb-6 min-h-[1.6em]">
+        <span id="hero-role-text"></span><span class="type-cursor"></span>
+      </p>
+      <p class="text-neutral-500 dark:text-neutral-400 text-base sm:text-lg max-w-xl mx-auto md:mx-0 mb-9" data-i18n="hero.desc">Laureando in Informatica con esperienza concreta nello sviluppo software full-stack, mobile e sistemi distribuiti. Trasformo idee in prodotti reali, dal backend all'interfaccia.</p>
+      <div class="flex flex-wrap justify-center md:justify-start gap-4 mb-11">
+        <a href="#projects" class="magnetic inline-flex items-center gap-2 bg-gradient-to-r from-accent to-accent-2 text-white text-sm font-semibold rounded-[11px] px-6 py-3.5 shadow-[0_16px_36px_-14px_rgba(109,94,248,.6)] hover:-translate-y-0.5 hover:shadow-[0_20px_44px_-14px_rgba(109,94,248,.75)] transition-all">
+          <span data-i18n="hero.cta1">Guarda i progetti</span> <span>→</span>
         </a>
-        <a href="#contact" class="btn btn-outline">
+        <a href="#contact" class="magnetic inline-flex items-center gap-2 border border-neutral-300 dark:border-white/15 bg-white dark:bg-white/5 text-sm font-semibold rounded-[11px] px-6 py-3.5 hover:border-accent hover:text-accent hover:-translate-y-0.5 transition-all">
           <span data-i18n="hero.cta2">Contattami</span>
         </a>
       </div>
-      <div class="hero-stats">
+      <div class="flex flex-wrap justify-center md:justify-start gap-8 sm:gap-10">
         <div>
-          <div class="hero-stat-num">7+</div>
-          <div class="hero-stat-label" data-i18n="hero.stat1">Progetti realizzati</div>
+          <div class="font-display font-bold text-2xl">7+</div>
+          <div class="text-xs text-neutral-500 dark:text-neutral-400" data-i18n="hero.stat1">Progetti realizzati</div>
         </div>
         <div>
-          <div class="hero-stat-num">8</div>
-          <div class="hero-stat-label" data-i18n="hero.stat2">Linguaggi &amp; framework</div>
+          <div class="font-display font-bold text-2xl">8</div>
+          <div class="text-xs text-neutral-500 dark:text-neutral-400" data-i18n="hero.stat2">Linguaggi &amp; framework</div>
         </div>
         <div>
-          <div class="hero-stat-num">3</div>
-          <div class="hero-stat-label" data-i18n="hero.stat3">Mesi in azienda</div>
+          <div class="font-display font-bold text-2xl">3</div>
+          <div class="text-xs text-neutral-500 dark:text-neutral-400" data-i18n="hero.stat3">Mesi in azienda</div>
         </div>
       </div>
     </div>
-    <div class="hero-card">
-      <div class="hero-avatar">
-        <img src="assets/kamal.jpg" alt="Kamal Gouaiche" class="hero-avatar-img"
-             onerror="this.remove(); document.getElementById('avatar-fallback').style.display='flex';">
-        <span class="hero-avatar-initials" id="avatar-fallback" style="display:none;">KG</span>
-      </div>
-      <p class="hero-card-name">Kamal Gouaiche</p>
-      <p class="hero-card-role" data-i18n="hero.role">Full-Stack &amp; Mobile Developer</p>
-      <div class="hero-card-divider"></div>
-      <div class="hero-card-row">
-        <span data-i18n="hero.card.location">Sede</span>
-        <strong>Vercelli, Italia</strong>
-      </div>
-      <div class="hero-card-row">
-        <span data-i18n="hero.card.education">Formazione</span>
-        <strong data-i18n="hero.card.educationValue">Informatica, UPO</strong>
-      </div>
-      <div class="hero-card-row">
-        <span data-i18n="hero.card.status">Stato</span>
-        <span class="hero-status"><span class="hero-status-dot"></span> <span data-i18n="hero.card.statusValue">Aperto a proposte</span></span>
+
+    <div class="float mx-auto w-full max-w-[320px] order-first md:order-none">
+      <div class="relative rounded-[22px] border border-neutral-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_25px_60px_-20px_rgba(0,0,0,.15)] dark:shadow-[0_25px_60px_-20px_rgba(0,0,0,.6)] p-7">
+        <div class="w-[84px] h-[84px] mx-auto mb-4 rounded-[20px] bg-gradient-to-br from-accent to-accent-2 flex items-center justify-center overflow-hidden shadow-[0_14px_32px_-10px_rgba(109,94,248,.55)]">
+          <img src="assets/kamal.jpg" alt="Kamal Gouaiche" class="w-full h-full object-cover"
+               onerror="this.remove(); document.getElementById('avatar-fallback').classList.remove('hidden');">
+          <span id="avatar-fallback" class="hidden font-display font-bold text-3xl text-white">KG</span>
+        </div>
+        <p class="text-center font-display font-bold text-lg mb-0.5">Kamal Gouaiche</p>
+        <p class="text-center text-sm text-neutral-500 dark:text-neutral-400 mb-5" data-i18n="hero.role">Full-Stack &amp; Mobile Developer</p>
+        <div class="h-px bg-neutral-200 dark:bg-white/10 mb-5"></div>
+        <div class="flex items-center justify-between text-sm text-neutral-500 dark:text-neutral-400 mb-3">
+          <span data-i18n="hero.card.location">Sede</span>
+          <strong class="text-neutral-900 dark:text-white font-semibold">Vercelli, Italia</strong>
+        </div>
+        <div class="flex items-center justify-between text-sm text-neutral-500 dark:text-neutral-400 mb-3">
+          <span data-i18n="hero.card.education">Formazione</span>
+          <strong class="text-neutral-900 dark:text-white font-semibold" data-i18n="hero.card.educationValue">Informatica, UPO</strong>
+        </div>
+        <div class="flex items-center justify-between text-sm text-neutral-500 dark:text-neutral-400">
+          <span data-i18n="hero.card.status">Stato</span>
+          <span class="inline-flex items-center gap-1.5 text-accent-2 font-semibold">
+            <span class="w-1.5 h-1.5 rounded-full bg-accent-2"></span> <span data-i18n="hero.card.statusValue">Aperto a proposte</span>
+          </span>
+        </div>
       </div>
     </div>
   </div>
-  <a href="#experience" class="scroll-cue" aria-label="Scorri">
+
+  <a href="#experience" class="mt-16 mx-auto flex flex-col items-center gap-2 font-mono text-xs text-neutral-400 dark:text-neutral-500 hover:text-accent transition-colors animate-bounce" aria-label="Scorri">
     <span data-i18n="hero.scrollCue">Scorri</span>
-    <div class="scroll-arrow">↓</div>
+    <span>↓</span>
   </a>
 </section>
 
-<!-- EXPERIENCE -->
-<section id="experience" class="section experience">
-  <div class="section-head">
-    <p class="section-eyebrow" data-i18n="experience.eyebrow">Percorso</p>
-    <h2 class="section-title" data-i18n="experience.title">Esperienza</h2>
+<!-- Tech marquee -->
+<div class="marquee-wrap marquee-fade border-y border-neutral-200 dark:border-white/10 py-5 bg-neutral-50/60 dark:bg-white/[0.02] overflow-hidden">
+  <div class="marquee-track gap-12 text-neutral-400 dark:text-neutral-500 font-mono text-sm items-center">
+    <span class="flex items-center gap-12 pr-12">
+      <span>Python</span><span>·</span><span>FastAPI</span><span>·</span><span>Kotlin</span><span>·</span><span>Java</span><span>·</span><span>TypeScript</span><span>·</span><span>Next.js</span><span>·</span><span>Firebase</span><span>·</span><span>PostgreSQL</span><span>·</span><span>Node.js</span><span>·</span><span>RAG / LLM</span>
+    </span>
+    <span class="flex items-center gap-12 pr-12" aria-hidden="true">
+      <span>Python</span><span>·</span><span>FastAPI</span><span>·</span><span>Kotlin</span><span>·</span><span>Java</span><span>·</span><span>TypeScript</span><span>·</span><span>Next.js</span><span>·</span><span>Firebase</span><span>·</span><span>PostgreSQL</span><span>·</span><span>Node.js</span><span>·</span><span>RAG / LLM</span>
+    </span>
   </div>
-  <div class="timeline">
-    <div class="timeline-line"></div>
-    <article class="timeline-entry">
-      <div class="timeline-dot"></div>
-      <div class="timeline-card">
-        <div class="timeline-head">
-          <h3>Koodit S.r.l. — Full Stack Developer</h3>
-          <span class="timeline-date" data-i18n="experience.entry1.date">2026 · 3 mesi (Tirocinio Curriculare)</span>
+</div>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="max-w-6xl mx-auto px-5 md:px-6 py-24 md:py-28">
+  <div class="mb-14">
+    <p class="inline-flex items-center gap-2 font-mono text-xs text-accent mb-3 before:content-[''] before:w-5 before:h-px before:bg-accent" data-i18n="experience.eyebrow">Percorso</p>
+    <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight" data-i18n="experience.title">Esperienza</h2>
+  </div>
+  <div class="relative pl-9">
+    <div class="absolute left-2 top-1.5 bottom-1.5 w-0.5 bg-gradient-to-b from-accent to-accent-2 opacity-30"></div>
+    <article class="reveal relative">
+      <div class="absolute -left-9 top-6 w-[18px] h-[18px] rounded-full bg-white dark:bg-[#07080d] border-[3px] border-accent"></div>
+      <div class="rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-7 sm:p-8 hover:border-accent/60 hover:-translate-y-1 transition-all shadow-sm hover:shadow-xl">
+        <div class="flex flex-wrap justify-between items-baseline gap-2 mb-3">
+          <h3 class="font-display font-bold text-lg">Koodit S.r.l. — Full Stack Developer</h3>
+          <span class="font-mono text-xs text-accent" data-i18n="experience.entry1.date">2026 · 3 mesi (Tirocinio Curriculare)</span>
         </div>
-        <ul>
+        <ul class="space-y-2 text-neutral-600 dark:text-neutral-300 text-[0.95rem] list-disc pl-5">
           <li data-i18n="experience.entry1.b1">Rinnovamento completo e autonomo del sistema principale dell'azienda.</li>
           <li data-i18n="experience.entry1.b2">Migrazione dell'architettura applicativa da Laravel/PHP e React a Python/FastAPI e Next.js.</li>
           <li data-i18n="experience.entry1.b3">Gestione end-to-end del progetto di migrazione: analisi del sistema esistente, riprogettazione backend e frontend, testing e messa in produzione.</li>
@@ -158,230 +209,291 @@
 </section>
 
 <!-- PROJECTS -->
-<section id="projects" class="section projects">
-  <div class="section-head">
-    <p class="section-eyebrow" data-i18n="projects.eyebrow">Lavori</p>
-    <h2 class="section-title" data-i18n="projects.title">Progetti</h2>
-    <p class="section-subtitle" data-i18n="projects.subtitle">Una selezione di applicazioni sviluppate tra studio, tirocinio e side project.</p>
+<section id="projects" class="max-w-6xl mx-auto px-5 md:px-6 py-24 md:py-28">
+  <div class="mb-10">
+    <p class="inline-flex items-center gap-2 font-mono text-xs text-accent mb-3 before:content-[''] before:w-5 before:h-px before:bg-accent" data-i18n="projects.eyebrow">Lavori</p>
+    <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight mb-3" data-i18n="projects.title">Progetti</h2>
+    <p class="text-neutral-500 dark:text-neutral-400 max-w-xl" data-i18n="projects.subtitle">Una selezione di applicazioni sviluppate tra studio, tirocinio e side project.</p>
   </div>
 
-  <div class="projects-toolbar" id="projects-toolbar">
-    <button type="button" class="filter-pill active" data-filter="all" data-i18n="projects.filterAll">Tutti</button>
-    <button type="button" class="filter-pill" data-filter="Python">Python</button>
-    <button type="button" class="filter-pill" data-filter="Kotlin">Kotlin</button>
-    <button type="button" class="filter-pill" data-filter="Java">Java</button>
-    <button type="button" class="filter-pill" data-filter="Node.js">Node.js</button>
-    <button type="button" class="filter-pill" data-filter="SQL">SQL</button>
+  <div id="projects-toolbar" class="flex flex-wrap gap-2.5 mb-10">
+    <button type="button" class="filter-pill active px-4 py-2 rounded-full text-xs font-semibold border border-neutral-900 dark:border-white bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 transition-colors" data-filter="all" data-i18n="projects.filterAll">Tutti</button>
+    <button type="button" class="filter-pill px-4 py-2 rounded-full text-xs font-semibold border border-neutral-200 dark:border-white/15 text-neutral-500 dark:text-neutral-400 hover:border-accent hover:text-accent transition-colors" data-filter="Python">Python</button>
+    <button type="button" class="filter-pill px-4 py-2 rounded-full text-xs font-semibold border border-neutral-200 dark:border-white/15 text-neutral-500 dark:text-neutral-400 hover:border-accent hover:text-accent transition-colors" data-filter="Kotlin">Kotlin</button>
+    <button type="button" class="filter-pill px-4 py-2 rounded-full text-xs font-semibold border border-neutral-200 dark:border-white/15 text-neutral-500 dark:text-neutral-400 hover:border-accent hover:text-accent transition-colors" data-filter="Java">Java</button>
+    <button type="button" class="filter-pill px-4 py-2 rounded-full text-xs font-semibold border border-neutral-200 dark:border-white/15 text-neutral-500 dark:text-neutral-400 hover:border-accent hover:text-accent transition-colors" data-filter="Node.js">Node.js</button>
+    <button type="button" class="filter-pill px-4 py-2 rounded-full text-xs font-semibold border border-neutral-200 dark:border-white/15 text-neutral-500 dark:text-neutral-400 hover:border-accent hover:text-accent transition-colors" data-filter="SQL">SQL</button>
   </div>
 
-  <div class="project-grid" id="project-grid">
+  <div id="project-grid" class="grid md:grid-cols-2 gap-5">
 
-    <article class="card" data-tags="Python,FastAPI,Streamlit,SQLite,SQLAlchemy,ChromaDB,RAG,LLM,Agno">
-      <div class="card-icon">AI</div>
-      <div class="card-head">
-        <h3>StudyCoach</h3>
-        <span class="card-date" data-i18n="projects.p1.date">Apr 2026 – Lug 2026</span>
-      </div>
-      <p class="card-tagline" data-i18n="projects.p1.tagline">Piattaforma di apprendimento adattivo con AI</p>
-      <p data-i18n="projects.p1.desc">Piattaforma AI che trasforma i materiali di studio in sessioni di ripasso interattive e personalizzate.</p>
-      <ul>
-        <li data-i18n="projects.p1.b1">Pipeline RAG con ChromaDB per generare domande su misura dai contenuti caricati.</li>
-        <li data-i18n="projects.p1.b2">Architettura multi-agent con Agno: Guide, Eval e Contest Agent.</li>
-        <li data-i18n="projects.p1.b3">Adaptive Engine che regola la difficoltà in base alle performance.</li>
-      </ul>
-      <div class="card-stack">
-        <span>Python</span><span>FastAPI</span><span>Streamlit</span><span>SQLite</span><span>SQLAlchemy</span><span>ChromaDB</span><span>RAG</span><span>LLM</span><span>Agno</span>
+    <article class="tilt-card card reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-7 flex flex-col shadow-sm hover:shadow-2xl hover:border-accent/60" data-tags="Python,FastAPI,Streamlit,SQLite,SQLAlchemy,ChromaDB,RAG,LLM,Agno">
+      <div class="tilt-card-inner flex flex-col flex-1">
+        <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-display font-bold text-sm mb-4">AI</div>
+        <div class="flex flex-wrap justify-between items-baseline gap-2">
+          <h3 class="font-display font-bold text-lg">StudyCoach</h3>
+          <span class="font-mono text-[0.7rem] text-neutral-400 dark:text-neutral-500" data-i18n="projects.p1.date">Apr 2026 – Lug 2026</span>
+        </div>
+        <p class="text-accent font-semibold text-sm my-2" data-i18n="projects.p1.tagline">Piattaforma di apprendimento adattivo con AI</p>
+        <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-3" data-i18n="projects.p1.desc">Piattaforma AI che trasforma i materiali di studio in sessioni di ripasso interattive e personalizzate.</p>
+        <ul class="space-y-1.5 text-neutral-500 dark:text-neutral-400 text-sm list-disc pl-5 mb-4">
+          <li data-i18n="projects.p1.b1">Pipeline RAG con ChromaDB per generare domande su misura dai contenuti caricati.</li>
+          <li data-i18n="projects.p1.b2">Architettura multi-agent con Agno: Guide, Eval e Contest Agent.</li>
+          <li data-i18n="projects.p1.b3">Adaptive Engine che regola la difficoltà in base alle performance.</li>
+        </ul>
+        <div class="card-stack flex flex-wrap gap-1.5 mt-auto pt-2">
+          <span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Python</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">FastAPI</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Streamlit</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">SQLite</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">SQLAlchemy</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">ChromaDB</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">RAG</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">LLM</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Agno</span>
+        </div>
       </div>
     </article>
 
-    <article class="card" data-tags="Kotlin,MVVM,Coroutines,StateFlow,Firebase,Firestore,Google Maps">
-      <div class="card-icon">GO</div>
-      <div class="card-head">
-        <h3>MiCasaEsTuCasa</h3>
-        <span class="card-date">2026</span>
-      </div>
-      <p class="card-tagline" data-i18n="projects.p2.tagline">App Mobile Android</p>
-      <p data-i18n="projects.p2.desc">App Android per affitti brevi: ricerca, prenotazione, recensioni e chat in un'unica piattaforma.</p>
-      <ul>
-        <li data-i18n="projects.p2.b1">Ricerca avanzata, prenotazioni, recensioni e chat in tempo reale con notifiche push.</li>
-        <li data-i18n="projects.p2.b2">Architettura MVVM con Kotlin Coroutines e StateFlow.</li>
-        <li data-i18n="projects.p2.b3">Backend serverless su Firebase/Firestore.</li>
-      </ul>
-      <div class="card-stack">
-        <span>Kotlin</span><span>MVVM</span><span>Coroutines</span><span>StateFlow</span><span>Firebase</span><span>Firestore</span><span>Google Maps</span>
-      </div>
-    </article>
-
-    <article class="card" data-tags="Java,RMI,UML,Agile">
-      <div class="card-icon">EH</div>
-      <div class="card-head">
-        <h3>EventHub</h3>
-        <span class="card-date">2025 – 2026</span>
-      </div>
-      <p class="card-tagline" data-i18n="projects.p3.tagline">Piattaforma per Eventi</p>
-      <p data-i18n="projects.p3.desc">Sistema distribuito per la gestione di eventi, sviluppato in Java con architettura RMI e metodologia Agile.</p>
-      <div class="card-stack">
-        <span>Java</span><span>RMI</span><span>UML</span><span>Agile</span>
+    <article class="tilt-card card reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-7 flex flex-col shadow-sm hover:shadow-2xl hover:border-accent/60" data-tags="Kotlin,MVVM,Coroutines,StateFlow,Firebase,Firestore,Google Maps">
+      <div class="tilt-card-inner flex flex-col flex-1">
+        <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-display font-bold text-sm mb-4">GO</div>
+        <div class="flex flex-wrap justify-between items-baseline gap-2">
+          <h3 class="font-display font-bold text-lg">MiCasaEsTuCasa</h3>
+          <span class="font-mono text-[0.7rem] text-neutral-400 dark:text-neutral-500">2026</span>
+        </div>
+        <p class="text-accent font-semibold text-sm my-2" data-i18n="projects.p2.tagline">App Mobile Android</p>
+        <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-3" data-i18n="projects.p2.desc">App Android per affitti brevi: ricerca, prenotazione, recensioni e chat in un'unica piattaforma.</p>
+        <ul class="space-y-1.5 text-neutral-500 dark:text-neutral-400 text-sm list-disc pl-5 mb-4">
+          <li data-i18n="projects.p2.b1">Ricerca avanzata, prenotazioni, recensioni e chat in tempo reale con notifiche push.</li>
+          <li data-i18n="projects.p2.b2">Architettura MVVM con Kotlin Coroutines e StateFlow.</li>
+          <li data-i18n="projects.p2.b3">Backend serverless su Firebase/Firestore.</li>
+        </ul>
+        <div class="card-stack flex flex-wrap gap-1.5 mt-auto pt-2">
+          <span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Kotlin</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">MVVM</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Coroutines</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">StateFlow</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Firebase</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Firestore</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Google Maps</span>
+        </div>
       </div>
     </article>
 
-    <article class="card" data-tags="Node.js,JavaScript,HTML5/CSS3,REST API">
-      <div class="card-icon">SW</div>
-      <div class="card-head">
-        <h3>Speedy Website</h3>
-        <span class="card-date">2025</span>
+    <article class="tilt-card card reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-7 flex flex-col shadow-sm hover:shadow-2xl hover:border-accent/60" data-tags="Java,RMI,UML,Agile">
+      <div class="tilt-card-inner flex flex-col flex-1">
+        <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-display font-bold text-sm mb-4">EH</div>
+        <div class="flex flex-wrap justify-between items-baseline gap-2">
+          <h3 class="font-display font-bold text-lg">EventHub</h3>
+          <span class="font-mono text-[0.7rem] text-neutral-400 dark:text-neutral-500">2025 – 2026</span>
+        </div>
+        <p class="text-accent font-semibold text-sm my-2" data-i18n="projects.p3.tagline">Piattaforma per Eventi</p>
+        <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-4" data-i18n="projects.p3.desc">Sistema distribuito per la gestione di eventi, sviluppato in Java con architettura RMI e metodologia Agile.</p>
+        <div class="card-stack flex flex-wrap gap-1.5 mt-auto pt-2">
+          <span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Java</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">RMI</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">UML</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Agile</span>
+        </div>
       </div>
-      <p class="card-tagline" data-i18n="projects.p4.tagline">Delivery Food</p>
-      <p data-i18n="projects.p4.desc">Web app di delivery food con pannelli dedicati per admin, ristoratori e clienti.</p>
-      <div class="card-stack">
-        <span>Node.js</span><span>JavaScript</span><span>HTML5/CSS3</span><span>REST API</span>
-      </div>
-      <a href="https://github.com/KamalGouaiche10/Speedy" target="_blank" rel="noopener" class="card-link">
-        <span data-i18n="projects.githubLink">Vedi su GitHub</span>
-      </a>
     </article>
 
-    <article class="card" data-tags="Java,Compilatori,Analisi sintattica">
-      <div class="card-icon">AC</div>
-      <div class="card-head">
-        <h3>Compilator AC/DC</h3>
-        <span class="card-date">2026</span>
+    <article class="tilt-card card reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-7 flex flex-col shadow-sm hover:shadow-2xl hover:border-accent/60" data-tags="Node.js,JavaScript,HTML5/CSS3,REST API">
+      <div class="tilt-card-inner flex flex-col flex-1">
+        <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-display font-bold text-sm mb-4">SW</div>
+        <div class="flex flex-wrap justify-between items-baseline gap-2">
+          <h3 class="font-display font-bold text-lg">Speedy Website</h3>
+          <span class="font-mono text-[0.7rem] text-neutral-400 dark:text-neutral-500">2025</span>
+        </div>
+        <p class="text-accent font-semibold text-sm my-2" data-i18n="projects.p4.tagline">Delivery Food</p>
+        <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-4" data-i18n="projects.p4.desc">Web app di delivery food con pannelli dedicati per admin, ristoratori e clienti.</p>
+        <div class="card-stack flex flex-wrap gap-1.5 mt-auto pt-2 mb-4">
+          <span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Node.js</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">JavaScript</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">HTML5/CSS3</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">REST API</span>
+        </div>
+        <a href="https://github.com/KamalGouaiche10/Speedy" target="_blank" rel="noopener" class="inline-flex items-center gap-2 w-fit border border-neutral-200 dark:border-white/15 rounded-lg px-3.5 py-2 text-xs font-semibold hover:border-accent hover:text-accent hover:-translate-y-0.5 transition-all">
+          <span data-i18n="projects.githubLink">Vedi su GitHub</span>
+        </a>
       </div>
-      <p class="card-tagline" data-i18n="projects.p5.tagline">Compilatore Java</p>
-      <p data-i18n="projects.p5.desc">Compilatore Java che traduce il linguaggio AC in codice DC, dall'analisi lessicale alla generazione del codice.</p>
-      <div class="card-stack">
-        <span>Java</span><span>Compilatori</span><span>Analisi sintattica</span>
-      </div>
-      <a href="https://github.com/KamalGouaiche10/Progetto-Paradigmi-" target="_blank" rel="noopener" class="card-link">
-        <span data-i18n="projects.githubLink">Vedi su GitHub</span>
-      </a>
     </article>
 
-    <article class="card" data-tags="PostgreSQL,PLpgSQL,SQL">
-      <div class="card-icon">DB</div>
-      <div class="card-head">
-        <h3>Progetto Database</h3>
-        <span class="card-date">2025</span>
+    <article class="tilt-card card reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-7 flex flex-col shadow-sm hover:shadow-2xl hover:border-accent/60" data-tags="Java,Compilatori,Analisi sintattica">
+      <div class="tilt-card-inner flex flex-col flex-1">
+        <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-display font-bold text-sm mb-4">AC</div>
+        <div class="flex flex-wrap justify-between items-baseline gap-2">
+          <h3 class="font-display font-bold text-lg">Compilator AC/DC</h3>
+          <span class="font-mono text-[0.7rem] text-neutral-400 dark:text-neutral-500">2026</span>
+        </div>
+        <p class="text-accent font-semibold text-sm my-2" data-i18n="projects.p5.tagline">Compilatore Java</p>
+        <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-4" data-i18n="projects.p5.desc">Compilatore Java che traduce il linguaggio AC in codice DC, dall'analisi lessicale alla generazione del codice.</p>
+        <div class="card-stack flex flex-wrap gap-1.5 mt-auto pt-2 mb-4">
+          <span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Java</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Compilatori</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Analisi sintattica</span>
+        </div>
+        <a href="https://github.com/KamalGouaiche10/Progetto-Paradigmi-" target="_blank" rel="noopener" class="inline-flex items-center gap-2 w-fit border border-neutral-200 dark:border-white/15 rounded-lg px-3.5 py-2 text-xs font-semibold hover:border-accent hover:text-accent hover:-translate-y-0.5 transition-all">
+          <span data-i18n="projects.githubLink">Vedi su GitHub</span>
+        </a>
       </div>
-      <p class="card-tagline" data-i18n="projects.p6.tagline">Teoria e SQL</p>
-      <p data-i18n="projects.p6.desc">Database relazionale completo: dalla modellazione ER a procedure e query avanzate in PLpgSQL su PostgreSQL.</p>
-      <div class="card-stack">
-        <span>PostgreSQL</span><span>PLpgSQL</span><span>SQL</span>
-      </div>
-      <a href="https://github.com/KamalGouaiche10/Progetto-DataBase" target="_blank" rel="noopener" class="card-link">
-        <span data-i18n="projects.githubLink">Vedi su GitHub</span>
-      </a>
     </article>
 
-    <article class="card" data-tags="Java,Algoritmi,Strutture dati">
-      <div class="card-icon">AL</div>
-      <div class="card-head">
-        <h3>Algoritmi 1 — UniUPO</h3>
-        <span class="card-date">Università del Piemonte Orientale</span>
+    <article class="tilt-card card reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-7 flex flex-col shadow-sm hover:shadow-2xl hover:border-accent/60" data-tags="PostgreSQL,PLpgSQL,SQL">
+      <div class="tilt-card-inner flex flex-col flex-1">
+        <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-display font-bold text-sm mb-4">DB</div>
+        <div class="flex flex-wrap justify-between items-baseline gap-2">
+          <h3 class="font-display font-bold text-lg">Progetto Database</h3>
+          <span class="font-mono text-[0.7rem] text-neutral-400 dark:text-neutral-500">2025</span>
+        </div>
+        <p class="text-accent font-semibold text-sm my-2" data-i18n="projects.p6.tagline">Teoria e SQL</p>
+        <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-4" data-i18n="projects.p6.desc">Database relazionale completo: dalla modellazione ER a procedure e query avanzate in PLpgSQL su PostgreSQL.</p>
+        <div class="card-stack flex flex-wrap gap-1.5 mt-auto pt-2 mb-4">
+          <span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">PostgreSQL</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">PLpgSQL</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">SQL</span>
+        </div>
+        <a href="https://github.com/KamalGouaiche10/Progetto-DataBase" target="_blank" rel="noopener" class="inline-flex items-center gap-2 w-fit border border-neutral-200 dark:border-white/15 rounded-lg px-3.5 py-2 text-xs font-semibold hover:border-accent hover:text-accent hover:-translate-y-0.5 transition-all">
+          <span data-i18n="projects.githubLink">Vedi su GitHub</span>
+        </a>
       </div>
-      <p class="card-tagline" data-i18n="projects.p7.tagline">Esercitazioni e Progetti del Corso</p>
-      <p data-i18n="projects.p7.desc">Esercitazioni del corso di Algoritmi e Strutture Dati, tra analisi della complessità e problem solving.</p>
-      <div class="card-stack">
-        <span>Java</span><span>Algoritmi</span><span>Strutture dati</span>
+    </article>
+
+    <article class="tilt-card card reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-7 flex flex-col shadow-sm hover:shadow-2xl hover:border-accent/60" data-tags="Java,Algoritmi,Strutture dati">
+      <div class="tilt-card-inner flex flex-col flex-1">
+        <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-display font-bold text-sm mb-4">AL</div>
+        <div class="flex flex-wrap justify-between items-baseline gap-2">
+          <h3 class="font-display font-bold text-lg">Algoritmi 1 — UniUPO</h3>
+          <span class="font-mono text-[0.7rem] text-neutral-400 dark:text-neutral-500">UPO</span>
+        </div>
+        <p class="text-accent font-semibold text-sm my-2" data-i18n="projects.p7.tagline">Esercitazioni e Progetti del Corso</p>
+        <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-4" data-i18n="projects.p7.desc">Esercitazioni del corso di Algoritmi e Strutture Dati, tra analisi della complessità e problem solving.</p>
+        <div class="card-stack flex flex-wrap gap-1.5 mt-auto pt-2 mb-4">
+          <span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Java</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Algoritmi</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Strutture dati</span>
+        </div>
+        <a href="https://github.com/KamalGouaiche10/Algoritmi1-UniUpo" target="_blank" rel="noopener" class="inline-flex items-center gap-2 w-fit border border-neutral-200 dark:border-white/15 rounded-lg px-3.5 py-2 text-xs font-semibold hover:border-accent hover:text-accent hover:-translate-y-0.5 transition-all">
+          <span data-i18n="projects.githubLink">Vedi su GitHub</span>
+        </a>
       </div>
-      <a href="https://github.com/KamalGouaiche10/Algoritmi1-UniUpo" target="_blank" rel="noopener" class="card-link">
-        <span data-i18n="projects.githubLink">Vedi su GitHub</span>
-      </a>
     </article>
 
   </div>
 </section>
 
 <!-- SKILLS -->
-<section id="skills" class="section skills">
-  <div class="section-head">
-    <p class="section-eyebrow" data-i18n="skills.eyebrow">Stack</p>
-    <h2 class="section-title" data-i18n="skills.title">Competenze</h2>
-    <p class="section-subtitle" data-i18n="skills.subtitle">Tecnologie e strumenti che uso per costruire prodotti software.</p>
+<section id="skills" class="max-w-6xl mx-auto px-5 md:px-6 py-24 md:py-28">
+  <div class="mb-10">
+    <p class="inline-flex items-center gap-2 font-mono text-xs text-accent mb-3 before:content-[''] before:w-5 before:h-px before:bg-accent" data-i18n="skills.eyebrow">Stack</p>
+    <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight mb-3" data-i18n="skills.title">Competenze</h2>
+    <p class="text-neutral-500 dark:text-neutral-400 max-w-xl" data-i18n="skills.subtitle">Tecnologie e strumenti che uso per costruire prodotti software.</p>
   </div>
 
-  <div class="skill-groups">
-    <div class="skill-group">
-      <h3><span class="skill-group-dot"></span> <span data-i18n="skills.group.languages">Linguaggi</span></h3>
-      <div class="skill-pills">
-        <span>Java</span><span>Python</span><span>JavaScript</span><span>TypeScript</span><span>Kotlin</span><span>C</span><span>Swift</span><span>SQL</span>
+  <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+    <div class="reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-6 hover:border-accent/60 hover:-translate-y-1 transition-all">
+      <h3 class="font-display font-bold text-sm flex items-center gap-2.5 mb-4"><span class="w-2 h-2 rounded-sm bg-gradient-to-br from-accent to-accent-2"></span> <span data-i18n="skills.group.languages">Linguaggi</span></h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Java</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Python</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">JavaScript</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">TypeScript</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Kotlin</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">C</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Swift</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">SQL</span>
       </div>
     </div>
-    <div class="skill-group">
-      <h3><span class="skill-group-dot"></span> <span data-i18n="skills.group.web">Web &amp; Backend</span></h3>
-      <div class="skill-pills">
-        <span>Node.js</span><span>Express.js</span><span>FastAPI</span><span>REST API</span><span>HTML5/CSS3</span><span>EJS</span><span>Next.js</span>
+    <div class="reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-6 hover:border-accent/60 hover:-translate-y-1 transition-all">
+      <h3 class="font-display font-bold text-sm flex items-center gap-2.5 mb-4"><span class="w-2 h-2 rounded-sm bg-gradient-to-br from-accent to-accent-2"></span> <span data-i18n="skills.group.web">Web &amp; Backend</span></h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Node.js</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Express.js</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">FastAPI</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">REST API</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">HTML5/CSS3</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">EJS</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Next.js</span>
       </div>
     </div>
-    <div class="skill-group">
-      <h3><span class="skill-group-dot"></span> <span data-i18n="skills.group.cloud">Cloud &amp; Database</span></h3>
-      <div class="skill-pills">
-        <span>Firebase</span><span>Firestore</span><span>Google Cloud</span><span>PostgreSQL</span><span>SQLite</span><span>SQLAlchemy</span><span>ChromaDB</span>
+    <div class="reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-6 hover:border-accent/60 hover:-translate-y-1 transition-all">
+      <h3 class="font-display font-bold text-sm flex items-center gap-2.5 mb-4"><span class="w-2 h-2 rounded-sm bg-gradient-to-br from-accent to-accent-2"></span> <span data-i18n="skills.group.cloud">Cloud &amp; Database</span></h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Firebase</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Firestore</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Google Cloud</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">PostgreSQL</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">SQLite</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">SQLAlchemy</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">ChromaDB</span>
       </div>
     </div>
-    <div class="skill-group">
-      <h3><span class="skill-group-dot"></span> <span data-i18n="skills.group.mobile">Mobile</span></h3>
-      <div class="skill-pills">
-        <span>Android (Kotlin)</span><span>MVVM</span><span>Coroutines</span><span>iOS (Swift)</span>
+    <div class="reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-6 hover:border-accent/60 hover:-translate-y-1 transition-all">
+      <h3 class="font-display font-bold text-sm flex items-center gap-2.5 mb-4"><span class="w-2 h-2 rounded-sm bg-gradient-to-br from-accent to-accent-2"></span> <span data-i18n="skills.group.mobile">Mobile</span></h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Android (Kotlin)</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">MVVM</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Coroutines</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">iOS (Swift)</span>
       </div>
     </div>
-    <div class="skill-group">
-      <h3><span class="skill-group-dot"></span> <span data-i18n="skills.group.ai">AI &amp; Automazione</span></h3>
-      <div class="skill-pills">
-        <span>Prompt Engineering</span><span>RAG</span><span>LLM / Chatbot AI</span><span>Machine Learning</span><span>Agno (multi-agent)</span>
+    <div class="reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-6 hover:border-accent/60 hover:-translate-y-1 transition-all">
+      <h3 class="font-display font-bold text-sm flex items-center gap-2.5 mb-4"><span class="w-2 h-2 rounded-sm bg-gradient-to-br from-accent to-accent-2"></span> <span data-i18n="skills.group.ai">AI &amp; Automazione</span></h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Prompt Engineering</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">RAG</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">LLM / Chatbot AI</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Machine Learning</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Agno (multi-agent)</span>
       </div>
     </div>
-    <div class="skill-group">
-      <h3><span class="skill-group-dot"></span> <span data-i18n="skills.group.tools">Strumenti &amp; Metodi</span></h3>
-      <div class="skill-pills">
-        <span>Git / GitHub / GitLab</span><span>Agile / Scrum</span><span>UML</span><span>Linux</span>
+    <div class="reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-6 hover:border-accent/60 hover:-translate-y-1 transition-all">
+      <h3 class="font-display font-bold text-sm flex items-center gap-2.5 mb-4"><span class="w-2 h-2 rounded-sm bg-gradient-to-br from-accent to-accent-2"></span> <span data-i18n="skills.group.tools">Strumenti &amp; Metodi</span></h3>
+      <div class="flex flex-wrap gap-2">
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Git / GitHub / GitLab</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Agile / Scrum</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">UML</span>
+        <span class="px-3 py-1.5 rounded-lg bg-neutral-100 dark:bg-white/5 border border-neutral-200 dark:border-white/10 text-neutral-600 dark:text-neutral-300 text-[0.82rem]">Linux</span>
       </div>
     </div>
   </div>
 
-  <div class="lang-block">
-    <h3 class="lang-title" data-i18n="skills.langTitle">Lingue parlate</h3>
-    <div class="lang-bar"><span class="lang-label" data-i18n="skills.lang.it">Italiano</span><div class="lang-track"><div class="lang-fill" style="--pct:100%"></div></div><span class="lang-level" data-i18n="skills.level.fluent">Fluente</span></div>
-    <div class="lang-bar"><span class="lang-label" data-i18n="skills.lang.ar">Arabo</span><div class="lang-track"><div class="lang-fill" style="--pct:100%"></div></div><span class="lang-level" data-i18n="skills.level.native">Madrelingua</span></div>
-    <div class="lang-bar"><span class="lang-label" data-i18n="skills.lang.en">Inglese</span><div class="lang-track"><div class="lang-fill" style="--pct:75%"></div></div><span class="lang-level">B2</span></div>
-    <div class="lang-bar"><span class="lang-label" data-i18n="skills.lang.fr">Francese</span><div class="lang-track"><div class="lang-fill" style="--pct:55%"></div></div><span class="lang-level">B1</span></div>
+  <div id="lang-block" class="reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-7 sm:p-8">
+    <h3 class="font-display font-bold text-base mb-5" data-i18n="skills.langTitle">Lingue parlate</h3>
+    <div class="space-y-4">
+      <div class="flex items-center gap-4">
+        <span class="w-20 shrink-0 text-sm font-medium" data-i18n="skills.lang.it">Italiano</span>
+        <div class="flex-1 h-2 rounded-full bg-neutral-100 dark:bg-white/5 overflow-hidden"><div class="skill-fill h-full rounded-full bg-gradient-to-r from-accent to-accent-2" style="--pct:100%"></div></div>
+        <span class="w-20 shrink-0 text-right text-xs font-mono text-neutral-400 dark:text-neutral-500" data-i18n="skills.level.fluent">Fluente</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="w-20 shrink-0 text-sm font-medium" data-i18n="skills.lang.ar">Arabo</span>
+        <div class="flex-1 h-2 rounded-full bg-neutral-100 dark:bg-white/5 overflow-hidden"><div class="skill-fill h-full rounded-full bg-gradient-to-r from-accent to-accent-2" style="--pct:100%"></div></div>
+        <span class="w-20 shrink-0 text-right text-xs font-mono text-neutral-400 dark:text-neutral-500" data-i18n="skills.level.native">Madrelingua</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="w-20 shrink-0 text-sm font-medium" data-i18n="skills.lang.en">Inglese</span>
+        <div class="flex-1 h-2 rounded-full bg-neutral-100 dark:bg-white/5 overflow-hidden"><div class="skill-fill h-full rounded-full bg-gradient-to-r from-accent to-accent-2" style="--pct:75%"></div></div>
+        <span class="w-20 shrink-0 text-right text-xs font-mono text-neutral-400 dark:text-neutral-500">B2</span>
+      </div>
+      <div class="flex items-center gap-4">
+        <span class="w-20 shrink-0 text-sm font-medium" data-i18n="skills.lang.fr">Francese</span>
+        <div class="flex-1 h-2 rounded-full bg-neutral-100 dark:bg-white/5 overflow-hidden"><div class="skill-fill h-full rounded-full bg-gradient-to-r from-accent to-accent-2" style="--pct:55%"></div></div>
+        <span class="w-20 shrink-0 text-right text-xs font-mono text-neutral-400 dark:text-neutral-500">B1</span>
+      </div>
+    </div>
   </div>
 </section>
 
 <!-- EDUCATION -->
-<section id="education" class="section education">
-  <div class="section-head">
-    <p class="section-eyebrow" data-i18n="education.eyebrow">Formazione</p>
-    <h2 class="section-title" data-i18n="education.title">Istruzione</h2>
+<section id="education" class="max-w-6xl mx-auto px-5 md:px-6 py-24 md:py-28">
+  <div class="mb-10">
+    <p class="inline-flex items-center gap-2 font-mono text-xs text-accent mb-3 before:content-[''] before:w-5 before:h-px before:bg-accent" data-i18n="education.eyebrow">Formazione</p>
+    <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight" data-i18n="education.title">Istruzione</h2>
   </div>
-  <div class="edu-list">
-    <div class="edu-entry">
-      <div class="edu-icon">🎓</div>
+  <div class="flex flex-col gap-4 max-w-2xl mb-12">
+    <div class="reveal flex gap-4 items-start rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-6 hover:border-accent/60 hover:-translate-y-1 transition-all">
+      <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center text-lg shrink-0">🎓</div>
       <div>
-        <h3>Università del Piemonte Orientale</h3>
-        <p class="edu-role" data-i18n="education.e1.role">Laurea Triennale in Informatica</p>
-        <span class="edu-date" data-i18n="education.e1.date">2023 – in corso</span>
+        <h3 class="font-display font-bold text-base mb-1">Università del Piemonte Orientale</h3>
+        <p class="text-neutral-500 dark:text-neutral-400 text-sm" data-i18n="education.e1.role">Laurea Triennale in Informatica</p>
+        <span class="font-mono text-xs text-neutral-400 dark:text-neutral-500" data-i18n="education.e1.date">2023 – in corso</span>
       </div>
     </div>
-    <div class="edu-entry">
-      <div class="edu-icon">📘</div>
+    <div class="reveal flex gap-4 items-start rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-6 hover:border-accent/60 hover:-translate-y-1 transition-all">
+      <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center text-lg shrink-0">📘</div>
       <div>
-        <h3 data-i18n="education.e2.name">Liceo Scientifico</h3>
-        <p class="edu-role" data-i18n="education.e2.role">Diploma di Maturità Scientifica</p>
-        <span class="edu-date">2020</span>
+        <h3 class="font-display font-bold text-base mb-1" data-i18n="education.e2.name">Liceo Scientifico</h3>
+        <p class="text-neutral-500 dark:text-neutral-400 text-sm" data-i18n="education.e2.role">Diploma di Maturità Scientifica</p>
+        <span class="font-mono text-xs text-neutral-400 dark:text-neutral-500">2020</span>
       </div>
     </div>
   </div>
 
   <!-- CV -->
-  <div id="cv" class="cv-wrap" style="margin-top:3.5rem;">
-    <div class="cv-icon">CV</div>
-    <p class="cv-text" data-i18n="cv.desc">Scarica o consulta il mio Curriculum Vitae completo in formato PDF.</p>
-    <div class="cv-actions">
-      <a href="CV_Kamal_Gouaiche.pdf" target="_blank" rel="noopener" class="btn btn-outline">
+  <div id="cv" class="reveal max-w-lg rounded-[22px] border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-9 sm:p-10 text-center">
+    <div class="w-14 h-14 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-accent to-accent-2 flex items-center justify-center text-white font-display font-bold">CV</div>
+    <p class="text-neutral-500 dark:text-neutral-400 mb-6" data-i18n="cv.desc">Scarica o consulta il mio Curriculum Vitae completo in formato PDF.</p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a href="CV_Kamal_Gouaiche.pdf" target="_blank" rel="noopener" class="magnetic inline-flex items-center gap-2 border border-neutral-300 dark:border-white/15 bg-white dark:bg-white/5 text-sm font-semibold rounded-[11px] px-5 py-3 hover:border-accent hover:text-accent hover:-translate-y-0.5 transition-all">
         <span data-i18n="cv.view">Visualizza CV</span>
       </a>
-      <a href="CV_Kamal_Gouaiche.pdf" download class="btn btn-primary">
+      <a href="CV_Kamal_Gouaiche.pdf" download class="magnetic inline-flex items-center gap-2 bg-gradient-to-r from-accent to-accent-2 text-white text-sm font-semibold rounded-[11px] px-5 py-3 shadow-[0_16px_36px_-14px_rgba(109,94,248,.6)] hover:-translate-y-0.5 transition-all">
         <span data-i18n="cv.download">Scarica CV</span>
       </a>
     </div>
@@ -389,39 +501,37 @@
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="section contact">
-  <div class="section-head">
-    <p class="section-eyebrow" data-i18n="contact.eyebrow">Contatti</p>
-    <h2 class="section-title" data-i18n="contact.title">Parliamone</h2>
-    <p class="section-subtitle" data-i18n="contact.subtitle">Sono disponibile per nuove opportunità: scrivimi o contattami sui canali qui sotto.</p>
+<section id="contact" class="max-w-6xl mx-auto px-5 md:px-6 py-24 md:py-28">
+  <div class="mb-10">
+    <p class="inline-flex items-center gap-2 font-mono text-xs text-accent mb-3 before:content-[''] before:w-5 before:h-px before:bg-accent" data-i18n="contact.eyebrow">Contatti</p>
+    <h2 class="font-display font-bold text-3xl md:text-4xl tracking-tight mb-3" data-i18n="contact.title">Parliamone</h2>
+    <p class="text-neutral-500 dark:text-neutral-400 max-w-xl" data-i18n="contact.subtitle">Sono disponibile per nuove opportunità: scrivimi o contattami sui canali qui sotto.</p>
   </div>
-  <div class="contact-wrap">
-    <div class="contact-links">
-      <a href="mailto:gouaichekamal@gmail.com" class="contact-item">
-        <span class="contact-ico">✉</span> gouaichekamal@gmail.com
-      </a>
-      <a href="tel:+393207574291" class="contact-item">
-        <span class="contact-ico">☎</span> +39 320 757 4291
-      </a>
-      <a href="https://github.com/KamalGouaiche10" target="_blank" rel="noopener" class="contact-item" id="github-link">
-        <span class="contact-ico">GH</span> GitHub
-      </a>
-      <a href="https://www.linkedin.com/in/kamal-gouaiche-2584b8268" target="_blank" rel="noopener" class="contact-item" id="linkedin-link">
-        <span class="contact-ico">in</span> LinkedIn
-      </a>
-      <span class="contact-item static">
-        <span class="contact-ico">◎</span> <span data-i18n="contact.location">Vercelli, Italia</span>
-      </span>
-    </div>
+  <div class="flex flex-wrap gap-3.5">
+    <a href="mailto:gouaichekamal@gmail.com" class="reveal inline-flex items-center gap-3 rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] px-5 py-3.5 text-sm font-medium hover:border-accent hover:text-accent hover:-translate-y-1 transition-all">
+      <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center shrink-0">✉</span> gouaichekamal@gmail.com
+    </a>
+    <a href="tel:+393207574291" class="reveal inline-flex items-center gap-3 rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] px-5 py-3.5 text-sm font-medium hover:border-accent hover:text-accent hover:-translate-y-1 transition-all">
+      <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center shrink-0">☎</span> +39 320 757 4291
+    </a>
+    <a href="https://github.com/KamalGouaiche10" target="_blank" rel="noopener" id="github-link" class="reveal inline-flex items-center gap-3 rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] px-5 py-3.5 text-sm font-medium hover:border-accent hover:text-accent hover:-translate-y-1 transition-all">
+      <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center shrink-0 font-mono text-xs">GH</span> GitHub
+    </a>
+    <a href="https://www.linkedin.com/in/kamal-gouaiche-2584b8268" target="_blank" rel="noopener" id="linkedin-link" class="reveal inline-flex items-center gap-3 rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] px-5 py-3.5 text-sm font-medium hover:border-accent hover:text-accent hover:-translate-y-1 transition-all">
+      <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center shrink-0 font-mono text-xs">in</span> LinkedIn
+    </a>
+    <span class="reveal inline-flex items-center gap-3 rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] px-5 py-3.5 text-sm font-medium">
+      <span class="w-8 h-8 rounded-lg bg-accent/10 text-accent flex items-center justify-center shrink-0">◎</span> <span data-i18n="contact.location">Vercelli, Italia</span>
+    </span>
   </div>
 </section>
 
-<footer class="footer">
+<footer class="text-center px-5 py-10 border-t border-neutral-200 dark:border-white/10 text-neutral-400 dark:text-neutral-500 text-sm">
   <p><span data-i18n="footer.line1">Progettato e sviluppato da Kamal Gouaiche</span> — © <span id="year"></span></p>
-  <p class="footer-sub" data-i18n="footer.line2">Realizzato con HTML, CSS e JavaScript.</p>
+  <p class="mt-1 text-xs" data-i18n="footer.line2">Realizzato con HTML, Tailwind CSS e JavaScript.</p>
 </footer>
 
-<button id="back-to-top" aria-label="Torna su">↑</button>
+<button id="back-to-top" aria-label="Torna su" class="fixed right-5 md:right-6 bottom-5 md:bottom-6 w-12 h-12 rounded-2xl bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-lg shadow-xl z-[900] flex items-center justify-center hover:-translate-y-1 transition-transform">↑</button>
 
 <script src="script.js"></script>
 </body>
