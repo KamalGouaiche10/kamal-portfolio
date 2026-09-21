@@ -16,15 +16,18 @@
 <meta id="meta-description" name="description" content="Portfolio di Kamal Gouaiche - Full-Stack & Mobile Developer">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Pirata+One&family=Cinzel:wght@400;600;900&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Sora:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>☠️</text></svg>">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%234f46e5%22/><text x=%2250%22 y=%2266%22 font-size=%2248%22 font-family=%22sans-serif%22 font-weight=%22700%22 fill=%22white%22 text-anchor=%22middle%22>KG</text></svg>">
 <script>
   /* Apply saved theme before first paint to avoid a flash of the wrong theme */
   (function(){
     try{
       var saved = localStorage.getItem('kg-theme');
-      if(saved === 'light'){ document.documentElement.setAttribute('data-theme','light'); }
+      if(saved === 'dark'){ document.documentElement.setAttribute('data-theme','dark'); }
+      else if(!saved && window.matchMedia('(prefers-color-scheme: dark)').matches){
+        document.documentElement.setAttribute('data-theme','dark');
+      }
     }catch(e){}
   })();
 </script>
@@ -34,98 +37,111 @@
 <!-- Loading screen -->
 <div id="loader">
   <div class="loader-content">
-    <div class="loader-skull">☠</div>
-    <p class="loader-text" data-i18n="loader.text">Issando la Jolly Roger...</p>
+    <div class="loader-mark">KG</div>
+    <p class="loader-text" data-i18n="loader.text">caricamento...</p>
   </div>
 </div>
 
-<!-- Ocean background canvas -->
-<canvas id="ocean-canvas"></canvas>
+<!-- Background canvas -->
+<canvas id="bg-canvas"></canvas>
 
 <!-- Navbar -->
 <header class="navbar" id="navbar">
   <div class="nav-inner">
-    <a href="#hero" class="nav-logo">☠ KG</a>
+    <a href="#hero" class="nav-logo"><span class="nav-logo-mark">KG</span> Kamal Gouaiche</a>
     <nav class="nav-links" id="nav-links">
-      <a href="#hero" data-i="01"><span class="nav-text"><span class="nav-label" data-i18n="nav.home.label">Home</span><span class="nav-sub" data-i18n="nav.home.sub">Ciurma</span></span></a>
-      <a href="#experience" data-i="02"><span class="nav-text"><span class="nav-label" data-i18n="nav.experience.label">Esperienza</span><span class="nav-sub" data-i18n="nav.experience.sub">Diario di Bordo</span></span></a>
-      <a href="#projects" data-i="03"><span class="nav-text"><span class="nav-label" data-i18n="nav.projects.label">Progetti</span><span class="nav-sub" data-i18n="nav.projects.sub">Tesori</span></span></a>
-      <a href="#skills" data-i="04"><span class="nav-text"><span class="nav-label" data-i18n="nav.skills.label">Competenze</span><span class="nav-sub" data-i18n="nav.skills.sub">Frutti del Diavolo</span></span></a>
-      <a href="#education" data-i="05"><span class="nav-text"><span class="nav-label" data-i18n="nav.education.label">Istruzione</span><span class="nav-sub" data-i18n="nav.education.sub">Addestramento</span></span></a>
-      <a href="#cv" data-i="06"><span class="nav-text"><span class="nav-label" data-i18n="nav.cv.label">CV</span><span class="nav-sub" data-i18n="nav.cv.sub">Pergamena</span></span></a>
-      <a href="#contact" data-i="07"><span class="nav-text"><span class="nav-label" data-i18n="nav.contact.label">Contatti</span><span class="nav-sub" data-i18n="nav.contact.sub">Den Den Mushi</span></span></a>
+      <a href="#hero" data-i18n="nav.home">Home</a>
+      <a href="#experience" data-i18n="nav.experience">Esperienza</a>
+      <a href="#projects" data-i18n="nav.projects">Progetti</a>
+      <a href="#skills" data-i18n="nav.skills">Competenze</a>
+      <a href="#education" data-i18n="nav.education">Istruzione</a>
+      <a href="#contact" data-i18n="nav.contact">Contatti</a>
       <div class="nav-utils">
         <button type="button" id="theme-toggle" class="util-btn" aria-label="Cambia tema chiaro/scuro" aria-pressed="false">
-          <span class="util-ico icon-sun">☀️</span><span class="util-ico icon-moon">🌙</span>
+          <span class="util-ico icon-sun">☀</span><span class="util-ico icon-moon">☾</span>
         </button>
         <button type="button" id="lang-toggle" class="util-btn" aria-label="Cambia lingua / Switch language">
-          <span class="util-ico">🌐</span><span id="lang-toggle-label">EN</span>
+          <span id="lang-toggle-label">EN</span>
         </button>
       </div>
     </nav>
+    <a href="CV_Kamal_Gouaiche.pdf" download class="nav-cta" data-i18n="nav.cta">Scarica CV</a>
     <button id="nav-toggle" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </div>
 </header>
 
-<!-- HERO / WANTED POSTER -->
+<!-- HERO -->
 <section id="hero" class="section hero">
-  <div class="hero-bg-rays"></div>
   <div class="hero-grid">
     <div class="hero-intro">
-      <p class="hero-eyebrow" data-i18n="hero.eyebrow">☠ Benvenuto a bordo, sono</p>
-      <h1 class="hero-name">KAMAL<br>GOUAICHE</h1>
-      <p class="hero-role" data-i18n="hero.role">Full-Stack &amp; Mobile Developer</p>
-      <p class="hero-desc" data-i18n="hero.desc">Laureando in Informatica con esperienza concreta nello sviluppo software full-stack, mobile e sistemi distribuiti. Trasformo idee in applicazioni reali, un'isola alla volta.</p>
+      <p class="hero-eyebrow"><span class="hero-eyebrow-dot"></span> <span data-i18n="hero.eyebrow">Disponibile per nuove opportunità</span></p>
+      <h1 class="hero-name">Kamal<br><span class="accent-text">Gouaiche</span></h1>
+      <p class="hero-role"><span id="hero-role-text"></span><span class="cursor">&nbsp;</span></p>
+      <p class="hero-desc" data-i18n="hero.desc">Laureando in Informatica con esperienza concreta nello sviluppo software full-stack, mobile e sistemi distribuiti. Trasformo idee in prodotti reali, dal backend all'interfaccia.</p>
       <div class="hero-cta">
-        <a href="#projects" class="contact-btn contact-btn-primary">
-          <span class="contact-ico">🗺️</span> <span data-i18n="hero.cta1">Scopri i miei progetti</span>
+        <a href="#projects" class="btn btn-primary">
+          <span class="btn-ico">→</span> <span data-i18n="hero.cta1">Guarda i progetti</span>
         </a>
-        <a href="#contact" class="contact-btn">
-          <span class="contact-ico">🐌</span> <span data-i18n="hero.cta2">Contattami</span>
+        <a href="#contact" class="btn btn-outline">
+          <span data-i18n="hero.cta2">Contattami</span>
         </a>
       </div>
-      <button type="button" id="haki-btn" class="haki-btn">
-        <span class="contact-ico">👑</span> <span data-i18n="hero.haki">Rilascia l'Haki dei Re</span>
-      </button>
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">7+</div>
+          <div class="hero-stat-label" data-i18n="hero.stat1">Progetti realizzati</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">8</div>
+          <div class="hero-stat-label" data-i18n="hero.stat2">Linguaggi &amp; framework</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">3</div>
+          <div class="hero-stat-label" data-i18n="hero.stat3">Mesi in azienda</div>
+        </div>
+      </div>
     </div>
-    <div class="wanted-poster">
-      <div class="poster-nail tl"></div>
-      <div class="poster-nail tr"></div>
-      <div class="poster-nail bl"></div>
-      <div class="poster-nail br"></div>
-      <p class="poster-wanted">WANTED</p>
-      <p class="poster-subtitle">DEAD OR HIRED</p>
-      <div class="poster-photo">
-        <img src="assets/kamal.jpg" alt="Kamal Gouaiche" class="poster-img"
-             onerror="this.remove(); document.getElementById('poster-fallback').style.display='flex';">
-        <span class="poster-initials" id="poster-fallback">KG</span>
+    <div class="hero-card">
+      <div class="hero-avatar">
+        <img src="assets/kamal.jpg" alt="Kamal Gouaiche" class="hero-avatar-img"
+             onerror="this.remove(); document.getElementById('avatar-fallback').style.display='flex';">
+        <span class="hero-avatar-initials" id="avatar-fallback" style="display:none;">KG</span>
       </div>
-      <p class="poster-name">KAMAL GOUAICHE</p>
-      <p class="poster-bounty">₿ 999.000.000</p>
-      <p class="poster-footnote" data-i18n="poster.footnote">Pirati Informatica — Università del Piemonte Orientale</p>
-      <div class="poster-plaque">
-        <div class="plaque-divider"></div>
-        <p class="plaque-label" data-i18n="poster.plaqueLabel">Base d'operazioni</p>
-        <p class="plaque-location" data-i18n="poster.plaqueLocation">Vercelli, Italia</p>
-        <p class="plaque-status" data-i18n="poster.plaqueStatus">☠ Pronto a salpare</p>
+      <p class="hero-card-name">Kamal Gouaiche</p>
+      <p class="hero-card-role" data-i18n="hero.role">Full-Stack &amp; Mobile Developer</p>
+      <div class="hero-card-divider"></div>
+      <div class="hero-card-row">
+        <span data-i18n="hero.card.location">Sede</span>
+        <strong>Vercelli, Italia</strong>
+      </div>
+      <div class="hero-card-row">
+        <span data-i18n="hero.card.education">Formazione</span>
+        <strong data-i18n="hero.card.educationValue">Informatica, UPO</strong>
+      </div>
+      <div class="hero-card-row">
+        <span data-i18n="hero.card.status">Stato</span>
+        <span class="hero-status"><span class="hero-status-dot"></span> <span data-i18n="hero.card.statusValue">Aperto a proposte</span></span>
       </div>
     </div>
   </div>
   <a href="#experience" class="scroll-cue" aria-label="Scorri">
-    <span data-i18n="hero.scrollCue">Salpa con me</span>
-    <div class="scroll-arrow">⌄</div>
+    <span data-i18n="hero.scrollCue">Scorri</span>
+    <div class="scroll-arrow">↓</div>
   </a>
 </section>
 
-<!-- EXPERIENCE / SHIP LOG -->
+<!-- EXPERIENCE -->
 <section id="experience" class="section experience">
-  <h2 class="section-title"><span class="title-mark" data-i18n="experience.mark">Cap. 01</span><span data-i18n="experience.title">Diario di Bordo</span></h2>
+  <div class="section-head">
+    <p class="section-eyebrow" data-i18n="experience.eyebrow">Percorso</p>
+    <h2 class="section-title" data-i18n="experience.title">Esperienza</h2>
+  </div>
   <div class="timeline">
     <div class="timeline-line"></div>
     <article class="timeline-entry">
-      <div class="timeline-dot">☠</div>
+      <div class="timeline-dot"></div>
       <div class="timeline-card">
         <div class="timeline-head">
           <h3>Koodit S.r.l. — Full Stack Developer</h3>
@@ -141,201 +157,204 @@
   </div>
 </section>
 
-<!-- PROJECTS / TREASURE CHESTS -->
+<!-- PROJECTS -->
 <section id="projects" class="section projects">
-  <h2 class="section-title"><span class="title-mark" data-i18n="projects.mark">Cap. 02</span><span data-i18n="projects.title">Isole del Tesoro</span></h2>
-  <p class="section-subtitle" data-i18n="projects.subtitle">Ogni progetto è un'isola conquistata nel Grand Line del codice.</p>
-  <div class="treasure-grid" id="treasure-grid">
+  <div class="section-head">
+    <p class="section-eyebrow" data-i18n="projects.eyebrow">Lavori</p>
+    <h2 class="section-title" data-i18n="projects.title">Progetti</h2>
+    <p class="section-subtitle" data-i18n="projects.subtitle">Una selezione di applicazioni sviluppate tra studio, tirocinio e side project.</p>
+  </div>
 
-    <article class="chest" data-tags="Python,FastAPI,Streamlit,SQLite,SQLAlchemy,ChromaDB,RAG,LLM,Agno">
-      <div class="chest-lid">🗺️</div>
-      <div class="chest-body">
-        <div class="chest-head">
-          <h3>StudyCoach</h3>
-          <span class="chest-date" data-i18n="projects.p1.date">Apr 2026 – Lug 2026</span>
-        </div>
-        <p class="chest-tagline">AI-Powered Adaptive Learning Platform</p>
-        <p data-i18n="projects.p1.desc">Piattaforma AI che trasforma i materiali di studio in sessioni di ripasso interattive e personalizzate.</p>
-        <ul>
-          <li data-i18n="projects.p1.b1">Pipeline RAG con ChromaDB per generare domande su misura dai contenuti caricati.</li>
-          <li data-i18n="projects.p1.b2">Architettura multi-agent con Agno: Guide, Eval e Contest Agent.</li>
-          <li data-i18n="projects.p1.b3">Adaptive Engine che regola la difficoltà in base alle performance.</li>
-        </ul>
-        <div class="chest-stack">
-          <span>Python</span><span>FastAPI</span><span>Streamlit</span><span>SQLite</span><span>SQLAlchemy</span><span>ChromaDB</span><span>RAG</span><span>LLM</span><span>Agno</span>
-        </div>
+  <div class="projects-toolbar" id="projects-toolbar">
+    <button type="button" class="filter-pill active" data-filter="all" data-i18n="projects.filterAll">Tutti</button>
+    <button type="button" class="filter-pill" data-filter="Python">Python</button>
+    <button type="button" class="filter-pill" data-filter="Kotlin">Kotlin</button>
+    <button type="button" class="filter-pill" data-filter="Java">Java</button>
+    <button type="button" class="filter-pill" data-filter="Node.js">Node.js</button>
+    <button type="button" class="filter-pill" data-filter="SQL">SQL</button>
+  </div>
+
+  <div class="project-grid" id="project-grid">
+
+    <article class="card" data-tags="Python,FastAPI,Streamlit,SQLite,SQLAlchemy,ChromaDB,RAG,LLM,Agno">
+      <div class="card-icon">AI</div>
+      <div class="card-head">
+        <h3>StudyCoach</h3>
+        <span class="card-date" data-i18n="projects.p1.date">Apr 2026 – Lug 2026</span>
+      </div>
+      <p class="card-tagline" data-i18n="projects.p1.tagline">Piattaforma di apprendimento adattivo con AI</p>
+      <p data-i18n="projects.p1.desc">Piattaforma AI che trasforma i materiali di studio in sessioni di ripasso interattive e personalizzate.</p>
+      <ul>
+        <li data-i18n="projects.p1.b1">Pipeline RAG con ChromaDB per generare domande su misura dai contenuti caricati.</li>
+        <li data-i18n="projects.p1.b2">Architettura multi-agent con Agno: Guide, Eval e Contest Agent.</li>
+        <li data-i18n="projects.p1.b3">Adaptive Engine che regola la difficoltà in base alle performance.</li>
+      </ul>
+      <div class="card-stack">
+        <span>Python</span><span>FastAPI</span><span>Streamlit</span><span>SQLite</span><span>SQLAlchemy</span><span>ChromaDB</span><span>RAG</span><span>LLM</span><span>Agno</span>
       </div>
     </article>
 
-    <article class="chest" data-tags="Kotlin,MVVM,Coroutines,StateFlow,Firebase,Firestore,Google Maps">
-      <div class="chest-lid">🏝️</div>
-      <div class="chest-body">
-        <div class="chest-head">
-          <h3>MiCasaEsTuCasa</h3>
-          <span class="chest-date">2026</span>
-        </div>
-        <p class="chest-tagline" data-i18n="projects.p2.tagline">App Mobile Android</p>
-        <p data-i18n="projects.p2.desc">App Android per affitti brevi: ricerca, prenotazione, recensioni e chat in un'unica piattaforma.</p>
-        <ul>
-          <li data-i18n="projects.p2.b1">Ricerca avanzata, prenotazioni, recensioni e chat in tempo reale con notifiche push.</li>
-          <li data-i18n="projects.p2.b2">Architettura MVVM con Kotlin Coroutines e StateFlow.</li>
-          <li data-i18n="projects.p2.b3">Backend serverless su Firebase/Firestore.</li>
-        </ul>
-        <div class="chest-stack">
-          <span>Kotlin</span><span>MVVM</span><span>Coroutines</span><span>StateFlow</span><span>Firebase</span><span>Firestore</span><span>Google Maps</span>
-        </div>
+    <article class="card" data-tags="Kotlin,MVVM,Coroutines,StateFlow,Firebase,Firestore,Google Maps">
+      <div class="card-icon">GO</div>
+      <div class="card-head">
+        <h3>MiCasaEsTuCasa</h3>
+        <span class="card-date">2026</span>
+      </div>
+      <p class="card-tagline" data-i18n="projects.p2.tagline">App Mobile Android</p>
+      <p data-i18n="projects.p2.desc">App Android per affitti brevi: ricerca, prenotazione, recensioni e chat in un'unica piattaforma.</p>
+      <ul>
+        <li data-i18n="projects.p2.b1">Ricerca avanzata, prenotazioni, recensioni e chat in tempo reale con notifiche push.</li>
+        <li data-i18n="projects.p2.b2">Architettura MVVM con Kotlin Coroutines e StateFlow.</li>
+        <li data-i18n="projects.p2.b3">Backend serverless su Firebase/Firestore.</li>
+      </ul>
+      <div class="card-stack">
+        <span>Kotlin</span><span>MVVM</span><span>Coroutines</span><span>StateFlow</span><span>Firebase</span><span>Firestore</span><span>Google Maps</span>
       </div>
     </article>
 
-    <article class="chest" data-tags="Java,RMI,UML,Agile">
-      <div class="chest-lid">⚔️</div>
-      <div class="chest-body">
-        <div class="chest-head">
-          <h3>EventHub</h3>
-          <span class="chest-date">2025 – 2026</span>
-        </div>
-        <p class="chest-tagline" data-i18n="projects.p3.tagline">Piattaforma per Eventi</p>
-        <p data-i18n="projects.p3.desc">Sistema distribuito per la gestione di eventi, sviluppato in Java con architettura RMI e metodologia Agile.</p>
-        <div class="chest-stack">
-          <span>Java</span><span>RMI</span><span>UML</span><span>Agile</span>
-        </div>
+    <article class="card" data-tags="Java,RMI,UML,Agile">
+      <div class="card-icon">EH</div>
+      <div class="card-head">
+        <h3>EventHub</h3>
+        <span class="card-date">2025 – 2026</span>
+      </div>
+      <p class="card-tagline" data-i18n="projects.p3.tagline">Piattaforma per Eventi</p>
+      <p data-i18n="projects.p3.desc">Sistema distribuito per la gestione di eventi, sviluppato in Java con architettura RMI e metodologia Agile.</p>
+      <div class="card-stack">
+        <span>Java</span><span>RMI</span><span>UML</span><span>Agile</span>
       </div>
     </article>
 
-    <article class="chest" data-tags="Node.js,JavaScript,HTML5/CSS3,REST API">
-      <div class="chest-lid">🍖</div>
-      <div class="chest-body">
-        <div class="chest-head">
-          <h3>Speedy Website</h3>
-          <span class="chest-date">2025</span>
-        </div>
-        <p class="chest-tagline">Delivery Food</p>
-        <p data-i18n="projects.p4.desc">Web app di delivery food con pannelli dedicati per admin, ristoratori e clienti.</p>
-        <div class="chest-stack">
-          <span>Node.js</span><span>JavaScript</span><span>HTML5/CSS3</span><span>REST API</span>
-        </div>
-        <a href="https://github.com/KamalGouaiche10/Speedy" target="_blank" rel="noopener" class="chest-link">
-          <span class="contact-ico">🐙</span> <span data-i18n="projects.githubLink">Vedi su GitHub</span>
-        </a>
+    <article class="card" data-tags="Node.js,JavaScript,HTML5/CSS3,REST API">
+      <div class="card-icon">SW</div>
+      <div class="card-head">
+        <h3>Speedy Website</h3>
+        <span class="card-date">2025</span>
       </div>
+      <p class="card-tagline" data-i18n="projects.p4.tagline">Delivery Food</p>
+      <p data-i18n="projects.p4.desc">Web app di delivery food con pannelli dedicati per admin, ristoratori e clienti.</p>
+      <div class="card-stack">
+        <span>Node.js</span><span>JavaScript</span><span>HTML5/CSS3</span><span>REST API</span>
+      </div>
+      <a href="https://github.com/KamalGouaiche10/Speedy" target="_blank" rel="noopener" class="card-link">
+        <span data-i18n="projects.githubLink">Vedi su GitHub</span>
+      </a>
     </article>
 
-    <article class="chest" data-tags="Java,Compilatori,Analisi sintattica">
-      <div class="chest-lid">📜</div>
-      <div class="chest-body">
-        <div class="chest-head">
-          <h3>Compilator AC/DC</h3>
-          <span class="chest-date">2026</span>
-        </div>
-        <p class="chest-tagline" data-i18n="projects.p5.tagline">Compilatore Java</p>
-        <p data-i18n="projects.p5.desc">Compilatore Java che traduce il linguaggio AC in codice DC, dall'analisi lessicale alla generazione del codice.</p>
-        <div class="chest-stack">
-          <span>Java</span><span>Compilatori</span><span>Analisi sintattica</span>
-        </div>
-        <a href="https://github.com/KamalGouaiche10/Progetto-Paradigmi-" target="_blank" rel="noopener" class="chest-link">
-          <span class="contact-ico">🐙</span> <span data-i18n="projects.githubLink">Vedi su GitHub</span>
-        </a>
+    <article class="card" data-tags="Java,Compilatori,Analisi sintattica">
+      <div class="card-icon">AC</div>
+      <div class="card-head">
+        <h3>Compilator AC/DC</h3>
+        <span class="card-date">2026</span>
       </div>
+      <p class="card-tagline" data-i18n="projects.p5.tagline">Compilatore Java</p>
+      <p data-i18n="projects.p5.desc">Compilatore Java che traduce il linguaggio AC in codice DC, dall'analisi lessicale alla generazione del codice.</p>
+      <div class="card-stack">
+        <span>Java</span><span>Compilatori</span><span>Analisi sintattica</span>
+      </div>
+      <a href="https://github.com/KamalGouaiche10/Progetto-Paradigmi-" target="_blank" rel="noopener" class="card-link">
+        <span data-i18n="projects.githubLink">Vedi su GitHub</span>
+      </a>
     </article>
 
-    <article class="chest" data-tags="PostgreSQL,PLpgSQL,SQL">
-      <div class="chest-lid">💎</div>
-      <div class="chest-body">
-        <div class="chest-head">
-          <h3>Progetto Database</h3>
-          <span class="chest-date">2025</span>
-        </div>
-        <p class="chest-tagline" data-i18n="projects.p6.tagline">Teoria e SQL</p>
-        <p data-i18n="projects.p6.desc">Database relazionale completo: dalla modellazione ER a procedure e query avanzate in PLpgSQL su PostgreSQL.</p>
-        <div class="chest-stack">
-          <span>PostgreSQL</span><span>PLpgSQL</span><span>SQL</span>
-        </div>
-        <a href="https://github.com/KamalGouaiche10/Progetto-DataBase" target="_blank" rel="noopener" class="chest-link">
-          <span class="contact-ico">🐙</span> <span data-i18n="projects.githubLink">Vedi su GitHub</span>
-        </a>
+    <article class="card" data-tags="PostgreSQL,PLpgSQL,SQL">
+      <div class="card-icon">DB</div>
+      <div class="card-head">
+        <h3>Progetto Database</h3>
+        <span class="card-date">2025</span>
       </div>
+      <p class="card-tagline" data-i18n="projects.p6.tagline">Teoria e SQL</p>
+      <p data-i18n="projects.p6.desc">Database relazionale completo: dalla modellazione ER a procedure e query avanzate in PLpgSQL su PostgreSQL.</p>
+      <div class="card-stack">
+        <span>PostgreSQL</span><span>PLpgSQL</span><span>SQL</span>
+      </div>
+      <a href="https://github.com/KamalGouaiche10/Progetto-DataBase" target="_blank" rel="noopener" class="card-link">
+        <span data-i18n="projects.githubLink">Vedi su GitHub</span>
+      </a>
     </article>
 
-    <article class="chest" data-tags="Java,Algoritmi,Strutture dati">
-      <div class="chest-lid">🧭</div>
-      <div class="chest-body">
-        <div class="chest-head">
-          <h3>Algoritmi 1 — UniUPO</h3>
-          <span class="chest-date">Università del Piemonte Orientale</span>
-        </div>
-        <p class="chest-tagline" data-i18n="projects.p7.tagline">Esercitazioni e Progetti del Corso</p>
-        <p data-i18n="projects.p7.desc">Esercitazioni del corso di Algoritmi e Strutture Dati, tra analisi della complessità e problem solving.</p>
-        <div class="chest-stack">
-          <span>Java</span><span>Algoritmi</span><span>Strutture dati</span>
-        </div>
-        <a href="https://github.com/KamalGouaiche10/Algoritmi1-UniUpo" target="_blank" rel="noopener" class="chest-link">
-          <span class="contact-ico">🐙</span> <span data-i18n="projects.githubLink">Vedi su GitHub</span>
-        </a>
+    <article class="card" data-tags="Java,Algoritmi,Strutture dati">
+      <div class="card-icon">AL</div>
+      <div class="card-head">
+        <h3>Algoritmi 1 — UniUPO</h3>
+        <span class="card-date">Università del Piemonte Orientale</span>
       </div>
+      <p class="card-tagline" data-i18n="projects.p7.tagline">Esercitazioni e Progetti del Corso</p>
+      <p data-i18n="projects.p7.desc">Esercitazioni del corso di Algoritmi e Strutture Dati, tra analisi della complessità e problem solving.</p>
+      <div class="card-stack">
+        <span>Java</span><span>Algoritmi</span><span>Strutture dati</span>
+      </div>
+      <a href="https://github.com/KamalGouaiche10/Algoritmi1-UniUpo" target="_blank" rel="noopener" class="card-link">
+        <span data-i18n="projects.githubLink">Vedi su GitHub</span>
+      </a>
     </article>
 
   </div>
 </section>
 
-<!-- SKILLS / DEVIL FRUITS -->
+<!-- SKILLS -->
 <section id="skills" class="section skills">
-  <h2 class="section-title"><span class="title-mark" data-i18n="skills.mark">Cap. 03</span><span data-i18n="skills.title">I Frutti del Diavolo</span></h2>
-  <p class="section-subtitle" data-i18n="skills.subtitle">Ogni potere sbloccato lungo la rotta.</p>
+  <div class="section-head">
+    <p class="section-eyebrow" data-i18n="skills.eyebrow">Stack</p>
+    <h2 class="section-title" data-i18n="skills.title">Competenze</h2>
+    <p class="section-subtitle" data-i18n="skills.subtitle">Tecnologie e strumenti che uso per costruire prodotti software.</p>
+  </div>
 
-  <div class="fruit-groups">
-    <div class="fruit-group">
-      <h3><span class="fruit-icon">🍈</span> <span data-i18n="skills.group.languages">Linguaggi</span></h3>
-      <div class="fruit-pills">
+  <div class="skill-groups">
+    <div class="skill-group">
+      <h3><span class="skill-group-dot"></span> <span data-i18n="skills.group.languages">Linguaggi</span></h3>
+      <div class="skill-pills">
         <span>Java</span><span>Python</span><span>JavaScript</span><span>TypeScript</span><span>Kotlin</span><span>C</span><span>Swift</span><span>SQL</span>
       </div>
     </div>
-    <div class="fruit-group">
-      <h3><span class="fruit-icon">🍇</span> Web & Backend</h3>
-      <div class="fruit-pills">
+    <div class="skill-group">
+      <h3><span class="skill-group-dot"></span> <span data-i18n="skills.group.web">Web &amp; Backend</span></h3>
+      <div class="skill-pills">
         <span>Node.js</span><span>Express.js</span><span>FastAPI</span><span>REST API</span><span>HTML5/CSS3</span><span>EJS</span><span>Next.js</span>
       </div>
     </div>
-    <div class="fruit-group">
-      <h3><span class="fruit-icon">🍊</span> Cloud & Database</h3>
-      <div class="fruit-pills">
+    <div class="skill-group">
+      <h3><span class="skill-group-dot"></span> <span data-i18n="skills.group.cloud">Cloud &amp; Database</span></h3>
+      <div class="skill-pills">
         <span>Firebase</span><span>Firestore</span><span>Google Cloud</span><span>PostgreSQL</span><span>SQLite</span><span>SQLAlchemy</span><span>ChromaDB</span>
       </div>
     </div>
-    <div class="fruit-group">
-      <h3><span class="fruit-icon">🍎</span> Mobile</h3>
-      <div class="fruit-pills">
+    <div class="skill-group">
+      <h3><span class="skill-group-dot"></span> <span data-i18n="skills.group.mobile">Mobile</span></h3>
+      <div class="skill-pills">
         <span>Android (Kotlin)</span><span>MVVM</span><span>Coroutines</span><span>iOS (Swift)</span>
       </div>
     </div>
-    <div class="fruit-group">
-      <h3><span class="fruit-icon">🍄</span> <span data-i18n="skills.group.ai">AI & Automazione</span></h3>
-      <div class="fruit-pills">
+    <div class="skill-group">
+      <h3><span class="skill-group-dot"></span> <span data-i18n="skills.group.ai">AI &amp; Automazione</span></h3>
+      <div class="skill-pills">
         <span>Prompt Engineering</span><span>RAG</span><span>LLM / Chatbot AI</span><span>Machine Learning</span><span>Agno (multi-agent)</span>
       </div>
     </div>
-    <div class="fruit-group">
-      <h3><span class="fruit-icon">🍒</span> <span data-i18n="skills.group.tools">Strumenti & Metodi</span></h3>
-      <div class="fruit-pills">
+    <div class="skill-group">
+      <h3><span class="skill-group-dot"></span> <span data-i18n="skills.group.tools">Strumenti &amp; Metodi</span></h3>
+      <div class="skill-pills">
         <span>Git / GitHub / GitLab</span><span>Agile / Scrum</span><span>UML</span><span>Linux</span>
       </div>
     </div>
   </div>
 
-  <div class="haki-block">
-    <h3 class="haki-title"><span data-i18n="skills.langTitle">☠ Lingue Parlate</span> <span data-i18n="skills.langSubtitle">(Haki della Conversazione)</span></h3>
-    <div class="haki-bars">
-      <div class="haki-bar"><span class="haki-label" data-i18n="skills.lang.it">Italiano</span><div class="haki-track"><div class="haki-fill" style="--pct:100%" data-i18n="skills.level.fluent">Fluente</div></div></div>
-      <div class="haki-bar"><span class="haki-label" data-i18n="skills.lang.ar">Arabo</span><div class="haki-track"><div class="haki-fill" style="--pct:100%" data-i18n="skills.level.native">Madrelingua</div></div></div>
-      <div class="haki-bar"><span class="haki-label" data-i18n="skills.lang.en">Inglese</span><div class="haki-track"><div class="haki-fill" style="--pct:75%">B2</div></div></div>
-      <div class="haki-bar"><span class="haki-label" data-i18n="skills.lang.fr">Francese</span><div class="haki-track"><div class="haki-fill" style="--pct:55%">B1</div></div></div>
-    </div>
+  <div class="lang-block">
+    <h3 class="lang-title" data-i18n="skills.langTitle">Lingue parlate</h3>
+    <div class="lang-bar"><span class="lang-label" data-i18n="skills.lang.it">Italiano</span><div class="lang-track"><div class="lang-fill" style="--pct:100%"></div></div><span class="lang-level" data-i18n="skills.level.fluent">Fluente</span></div>
+    <div class="lang-bar"><span class="lang-label" data-i18n="skills.lang.ar">Arabo</span><div class="lang-track"><div class="lang-fill" style="--pct:100%"></div></div><span class="lang-level" data-i18n="skills.level.native">Madrelingua</span></div>
+    <div class="lang-bar"><span class="lang-label" data-i18n="skills.lang.en">Inglese</span><div class="lang-track"><div class="lang-fill" style="--pct:75%"></div></div><span class="lang-level">B2</span></div>
+    <div class="lang-bar"><span class="lang-label" data-i18n="skills.lang.fr">Francese</span><div class="lang-track"><div class="lang-fill" style="--pct:55%"></div></div><span class="lang-level">B1</span></div>
   </div>
 </section>
 
 <!-- EDUCATION -->
 <section id="education" class="section education">
-  <h2 class="section-title"><span class="title-mark" data-i18n="education.mark">Cap. 04</span><span data-i18n="education.title">Addestramento</span></h2>
-  <div class="edu-scroll">
+  <div class="section-head">
+    <p class="section-eyebrow" data-i18n="education.eyebrow">Formazione</p>
+    <h2 class="section-title" data-i18n="education.title">Istruzione</h2>
+  </div>
+  <div class="edu-list">
     <div class="edu-entry">
       <div class="edu-icon">🎓</div>
       <div>
@@ -353,79 +372,56 @@
       </div>
     </div>
   </div>
-</section>
 
-<!-- CV / PERGAMENA DEL NAVIGATORE -->
-<section id="cv" class="section cv">
-  <h2 class="section-title"><span class="title-mark" data-i18n="cv.mark">Cap. 05</span><span data-i18n="cv.title">La Pergamena del Navigatore</span></h2>
-  <p class="section-subtitle" data-i18n="cv.subtitle">Il registro completo delle mie rotte, imprese e competenze.</p>
-  <div class="scroll-wrap">
-    <div class="scroll-icon">📜</div>
-    <p class="scroll-text" data-i18n="cv.desc">Scarica o consulta il mio Curriculum Vitae completo in formato PDF.</p>
-    <div class="scroll-actions">
-      <a href="CV_Kamal_Gouaiche.pdf" target="_blank" rel="noopener" class="contact-btn">
-        <span class="contact-ico">👁️</span> <span data-i18n="cv.view">Visualizza CV</span>
+  <!-- CV -->
+  <div id="cv" class="cv-wrap" style="margin-top:3.5rem;">
+    <div class="cv-icon">CV</div>
+    <p class="cv-text" data-i18n="cv.desc">Scarica o consulta il mio Curriculum Vitae completo in formato PDF.</p>
+    <div class="cv-actions">
+      <a href="CV_Kamal_Gouaiche.pdf" target="_blank" rel="noopener" class="btn btn-outline">
+        <span data-i18n="cv.view">Visualizza CV</span>
       </a>
-      <a href="CV_Kamal_Gouaiche.pdf" download class="contact-btn contact-btn-primary">
-        <span class="contact-ico">⬇️</span> <span data-i18n="cv.download">Scarica CV</span>
+      <a href="CV_Kamal_Gouaiche.pdf" download class="btn btn-primary">
+        <span data-i18n="cv.download">Scarica CV</span>
       </a>
     </div>
   </div>
 </section>
 
-<!-- CONTACT / DEN DEN MUSHI -->
+<!-- CONTACT -->
 <section id="contact" class="section contact">
-  <h2 class="section-title"><span class="title-mark" data-i18n="contact.mark">Cap. 06</span><span data-i18n="contact.title">Chiamata al Den Den Mushi</span></h2>
-  <p class="section-subtitle" data-i18n="contact.subtitle">Pronto a salpare insieme? Contattami!</p>
-  <div class="mushi-wrap">
-    <div class="mushi">
-      <div class="mushi-face">
-        <div class="mushi-eyes"><span></span><span></span></div>
-        <div class="mushi-mouth"></div>
-      </div>
-      <div class="mushi-shell">🐌</div>
-    </div>
+  <div class="section-head">
+    <p class="section-eyebrow" data-i18n="contact.eyebrow">Contatti</p>
+    <h2 class="section-title" data-i18n="contact.title">Parliamone</h2>
+    <p class="section-subtitle" data-i18n="contact.subtitle">Sono disponibile per nuove opportunità: scrivimi o contattami sui canali qui sotto.</p>
+  </div>
+  <div class="contact-wrap">
     <div class="contact-links">
-      <a href="mailto:gouaichekamal@gmail.com" class="contact-btn">
-        <span class="contact-ico">✉️</span> gouaichekamal@gmail.com
+      <a href="mailto:gouaichekamal@gmail.com" class="contact-item">
+        <span class="contact-ico">✉</span> gouaichekamal@gmail.com
       </a>
-      <a href="tel:+393207574291" class="contact-btn">
-        <span class="contact-ico">📞</span> +39 320 757 4291
+      <a href="tel:+393207574291" class="contact-item">
+        <span class="contact-ico">☎</span> +39 320 757 4291
       </a>
-      <a href="https://github.com/KamalGouaiche10" target="_blank" rel="noopener" class="contact-btn" id="github-link">
-        <span class="contact-ico">🐙</span> GitHub
+      <a href="https://github.com/KamalGouaiche10" target="_blank" rel="noopener" class="contact-item" id="github-link">
+        <span class="contact-ico">GH</span> GitHub
       </a>
-      <a href="https://www.linkedin.com/in/kamal-gouaiche-2584b8268" target="_blank" rel="noopener" class="contact-btn" id="linkedin-link">
-        <span class="contact-ico">💼</span> LinkedIn
+      <a href="https://www.linkedin.com/in/kamal-gouaiche-2584b8268" target="_blank" rel="noopener" class="contact-item" id="linkedin-link">
+        <span class="contact-ico">in</span> LinkedIn
       </a>
-      <span class="contact-btn contact-location">
-        <span class="contact-ico">📍</span> <span data-i18n="contact.location">Vercelli, Italia</span>
+      <span class="contact-item static">
+        <span class="contact-ico">◎</span> <span data-i18n="contact.location">Vercelli, Italia</span>
       </span>
     </div>
   </div>
 </section>
 
 <footer class="footer">
-  <p><span data-i18n="footer.line1">☠ Fatto con codice, caffè e Haki dell'Osservazione</span> — © <span id="year"></span> Kamal Gouaiche</p>
-  <p class="footer-sub" data-i18n="footer.line2">"L'unica cosa che non posso rubare è il cuore delle persone." — ma il tuo prossimo progetto, sì.</p>
+  <p><span data-i18n="footer.line1">Progettato e sviluppato da Kamal Gouaiche</span> — © <span id="year"></span></p>
+  <p class="footer-sub" data-i18n="footer.line2">Realizzato con HTML, CSS e JavaScript.</p>
 </footer>
 
-<button id="back-to-top" aria-label="Torna su">⌃</button>
-
-<!-- HAKI DEL RE / CONQUEROR'S HAKI OVERLAY -->
-<div id="haki-overlay" class="haki-overlay" aria-hidden="true">
-  <div class="haki-ring haki-ring-1"></div>
-  <div class="haki-ring haki-ring-2"></div>
-  <div class="haki-ring haki-ring-3"></div>
-  <svg class="haki-bolts" viewBox="0 0 200 200" preserveAspectRatio="xMidYMid meet">
-    <path class="bolt bolt-1" d="M104 8 L78 78 L96 78 L70 150 L128 68 L102 68 Z" />
-    <path class="bolt bolt-2" d="M52 20 L30 78 L45 78 L24 138 L74 66 L52 66 Z" transform="rotate(-18 52 79)" />
-    <path class="bolt bolt-3" d="M150 22 L128 80 L143 80 L122 140 L172 68 L150 68 Z" transform="rotate(18 150 81)" />
-    <path class="bolt bolt-4" d="M28 70 L10 116 L22 116 L6 165 L48 108 L30 108 Z" transform="rotate(-8 28 118)" />
-    <path class="bolt bolt-5" d="M176 70 L158 116 L170 116 L154 165 L196 108 L178 108 Z" transform="rotate(8 176 118)" />
-  </svg>
-  <p class="haki-caption">HAOSHOKU HAKI</p>
-</div>
+<button id="back-to-top" aria-label="Torna su">↑</button>
 
 <script src="script.js"></script>
 </body>
