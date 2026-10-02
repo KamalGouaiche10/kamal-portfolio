@@ -22,7 +22,7 @@ const TRANSLATIONS = {
     'hero.eyebrow': 'Disponibile per nuove opportunità',
     'hero.role': 'Full-Stack & Mobile Developer',
     'hero.roleWords': 'Full-Stack Developer|Mobile Developer|AI Enthusiast',
-    'hero.desc': "Laureando in Informatica, negli ultimi due anni ho portato oltre 7 progetti dal concept alla produzione — dalle pipeline AI ai sistemi distribuiti — curando sia il backend che l'esperienza utente, con attenzione a codice mantenibile e architetture pensate per scalare.",
+    'hero.desc': "Sviluppo applicazioni web e mobile, dall'architettura all'esperienza utente. Laureando in Informatica, ho realizzato oltre 7 progetti tra AI, sistemi distribuiti e prodotti digitali.",
     'hero.cta1': 'Guarda i progetti',
     'hero.cta2': 'Contattami',
     'hero.stat1': 'Progetti realizzati',
@@ -117,7 +117,7 @@ const TRANSLATIONS = {
     'hero.eyebrow': 'Open to new opportunities',
     'hero.role': 'Full-Stack & Mobile Developer',
     'hero.roleWords': 'Full-Stack Developer|Mobile Developer|AI Enthusiast',
-    'hero.desc': "Computer Science student — over the last two years I've taken 7+ projects from concept to production, from AI pipelines to distributed systems, owning both the backend and the user experience, with a focus on maintainable code and architectures built to scale.",
+    'hero.desc': "I build web and mobile applications, from architecture to user experience. As a Computer Science student, I've completed 7+ projects across AI, distributed systems and digital products.",
     'hero.cta1': 'View my work',
     'hero.cta2': 'Get in touch',
     'hero.stat1': 'Projects shipped',
@@ -229,6 +229,24 @@ function kgApplyTranslations(lang) {
   if (themeToggleBtn && dict['themeToggle.aria']) themeToggleBtn.setAttribute('aria-label', dict['themeToggle.aria']);
   const langToggleBtn = document.getElementById('lang-toggle');
   if (langToggleBtn && dict['langToggle.aria']) langToggleBtn.setAttribute('aria-label', dict['langToggle.aria']);
+  const skipLink = document.querySelector('.skip-link');
+  if (skipLink) skipLink.textContent = lang === 'it' ? 'Vai al contenuto' : 'Skip to content';
+  const navToggleBtn = document.getElementById('nav-toggle');
+  if (navToggleBtn) navToggleBtn.setAttribute('aria-label', navToggleBtn.getAttribute('aria-expanded') === 'true'
+    ? (lang === 'it' ? 'Chiudi menu' : 'Close menu')
+    : (lang === 'it' ? 'Apri menu' : 'Open menu'));
+  const mobileNav = document.getElementById('mobile-drawer-panel');
+  if (mobileNav) mobileNav.setAttribute('aria-label', lang === 'it' ? 'Navigazione mobile' : 'Mobile navigation');
+  const projectsToolbar = document.getElementById('projects-toolbar');
+  if (projectsToolbar) projectsToolbar.setAttribute('aria-label', lang === 'it' ? 'Filtra i progetti' : 'Filter projects');
+  document.querySelectorAll('[data-project-name]').forEach(link => {
+    link.setAttribute('aria-label', `${link.dataset.projectName}: ${lang === 'it' ? 'repository GitHub' : 'GitHub repository'}`);
+  });
+  const filterStatus = document.getElementById('project-filter-status');
+  if (filterStatus && filterStatus.textContent) {
+    const visible = document.querySelectorAll('#project-grid .card:not(.hidden)').length;
+    filterStatus.textContent = lang === 'it' ? `${visible} progetti visibili` : `${visible} projects visible`;
+  }
 
   const langLabel = document.getElementById('lang-toggle-label');
   if (langLabel) langLabel.textContent = lang === 'it' ? 'EN' : 'IT';
@@ -428,15 +446,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /* ---------- LOADER ---------- */
-  const loader = document.getElementById('loader');
-  window.addEventListener('load', () => {
-    setTimeout(() => loader && loader.classList.add('hide'), 400);
-  });
-  if (document.readyState === 'complete') {
-    setTimeout(() => loader && loader.classList.add('hide'), 400);
-  }
-
   /* ---------- FOOTER YEAR ---------- */
   const yearEl = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
@@ -473,25 +482,36 @@ document.addEventListener('DOMContentLoaded', () => {
   const hamburgerBars = navToggle ? navToggle.querySelectorAll('span') : [];
 
   function openDrawer() {
+    drawer.removeAttribute('inert');
     drawer.classList.remove('invisible', 'opacity-0');
     drawer.classList.add('opacity-100');
     requestAnimationFrame(() => drawerPanel.classList.remove('translate-x-full'));
     navToggle.setAttribute('aria-expanded', 'true');
+    navToggle.setAttribute('aria-label', currentLang === 'it' ? 'Chiudi menu' : 'Close menu');
     document.body.style.overflow = 'hidden';
     if (hamburgerBars[0]) hamburgerBars[0].style.transform = 'translateY(7px) rotate(45deg)';
     if (hamburgerBars[1]) hamburgerBars[1].style.opacity = '0';
     if (hamburgerBars[2]) hamburgerBars[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+    const firstLink = drawerPanel.querySelector('a');
+    if (firstLink) firstLink.focus();
   }
   function closeDrawer() {
+    if (drawer.contains(document.activeElement)) navToggle.focus();
     drawerPanel.classList.add('translate-x-full');
     drawer.classList.remove('opacity-100');
     drawer.classList.add('opacity-0');
     navToggle.setAttribute('aria-expanded', 'false');
+    navToggle.setAttribute('aria-label', currentLang === 'it' ? 'Apri menu' : 'Open menu');
     document.body.style.overflow = '';
     if (hamburgerBars[0]) hamburgerBars[0].style.transform = '';
     if (hamburgerBars[1]) hamburgerBars[1].style.opacity = '';
     if (hamburgerBars[2]) hamburgerBars[2].style.transform = '';
-    setTimeout(() => { if (drawer.classList.contains('opacity-0')) drawer.classList.add('invisible'); }, 300);
+    setTimeout(() => {
+      if (drawer.classList.contains('opacity-0')) {
+        drawer.classList.add('invisible');
+        drawer.setAttribute('inert', '');
+      }
+    }, 300);
   }
   if (navToggle && drawer) {
     navToggle.addEventListener('click', () => {
@@ -500,7 +520,15 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     if (drawerBackdrop) drawerBackdrop.addEventListener('click', closeDrawer);
     drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', closeDrawer));
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeDrawer(); });
+    document.addEventListener('keydown', (e) => {
+      if (navToggle.getAttribute('aria-expanded') !== 'true') return;
+      if (e.key === 'Escape') { closeDrawer(); navToggle.focus(); }
+      if (e.key !== 'Tab') return;
+      const links = Array.from(drawerPanel.querySelectorAll('a'));
+      const first = links[0], last = links[links.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
   }
 
   /* ---------- ACTIVE NAV LINK ON SCROLL ---------- */
@@ -567,6 +595,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function setPillActive(pill, active) {
     pill.classList.toggle('active', active);
+    pill.setAttribute('aria-pressed', active ? 'true' : 'false');
     if (active) {
       pill.classList.remove(...INACTIVE_CLASSES);
       pill.classList.add(...ACTIVE_CLASSES);
@@ -577,11 +606,17 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function applyFilter(tag) {
+    let visible = 0;
     projectCards.forEach(card => {
       const tags = (card.dataset.tags || '').split(',').map(t => t.trim());
       const show = tag === 'all' || tags.includes(tag);
       card.classList.toggle('hidden', !show);
+      if (show) visible++;
     });
+    const status = document.getElementById('project-filter-status');
+    if (status) status.textContent = document.documentElement.lang === 'it'
+      ? `${visible} progetti visibili`
+      : `${visible} projects visible`;
   }
 
   filterPills.forEach(pill => {
@@ -589,17 +624,6 @@ document.addEventListener('DOMContentLoaded', () => {
       filterPills.forEach(p => setPillActive(p, false));
       setPillActive(pill, true);
       applyFilter(pill.dataset.filter);
-    });
-  });
-
-  document.querySelectorAll('.card-stack span').forEach(tagEl => {
-    tagEl.addEventListener('click', () => {
-      const tag = tagEl.textContent.trim();
-      const matchingPill = Array.from(filterPills).find(p => p.dataset.filter === tag);
-      if (matchingPill) {
-        matchingPill.click();
-        document.getElementById('projects').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
     });
   });
 

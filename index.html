@@ -87,16 +87,10 @@
 
 <!-- Compiled, purged Tailwind build (no runtime CDN) -->
 <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="design.css">
 </head>
 <body class="bg-white text-neutral-900 dark:bg-[#07080d] dark:text-neutral-100 antialiased">
-
-<!-- Loading screen -->
-<div id="loader" class="fixed inset-0 z-[9999] flex items-center justify-center bg-white dark:bg-[#07080d]">
-  <div class="text-center">
-    <div class="w-14 h-14 mx-auto mb-4 rounded-2xl flex items-center justify-center font-display font-bold text-white text-lg bg-gradient-to-br from-accent to-accent-2 shadow-[0_0_40px_rgba(109,94,248,.45)] animate-pulse">KG</div>
-    <p class="font-mono text-xs tracking-widest text-neutral-500 dark:text-neutral-400" data-i18n="loader.text">caricamento...</p>
-  </div>
-</div>
+<a class="skip-link" href="#hero">Vai al contenuto</a>
 
 <!-- Ambient animated background -->
 <div class="aurora-field" aria-hidden="true">
@@ -135,7 +129,7 @@
         <span id="lang-toggle-label">EN</span>
       </button>
       <a href="CV_Kamal_Gouaiche.pdf" download class="magnetic hidden sm:inline-flex items-center gap-2 bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 text-sm font-semibold rounded-[10px] px-4 py-2.5 hover:opacity-90 transition-opacity shrink-0" data-i18n="nav.cta">Scarica CV</a>
-      <button id="nav-toggle" aria-label="Menu" aria-expanded="false" class="xl:hidden flex flex-col gap-[5px] p-2 shrink-0">
+      <button id="nav-toggle" type="button" aria-label="Apri menu" aria-controls="mobile-drawer-panel" aria-expanded="false" class="xl:hidden flex flex-col gap-[5px] p-2 shrink-0">
         <span class="w-[22px] h-[2px] bg-neutral-900 dark:bg-white rounded transition-transform"></span>
         <span class="w-[22px] h-[2px] bg-neutral-900 dark:bg-white rounded transition-opacity"></span>
         <span class="w-[22px] h-[2px] bg-neutral-900 dark:bg-white rounded transition-transform"></span>
@@ -145,9 +139,9 @@
 </header>
 
 <!-- Mobile nav drawer (links only — utils live in the bar above) -->
-<div id="mobile-drawer" class="xl:hidden fixed inset-0 z-[999] invisible opacity-0 transition-opacity duration-300">
+<div id="mobile-drawer" class="xl:hidden fixed inset-0 z-[999] invisible opacity-0 transition-opacity duration-300" inert>
   <div id="mobile-drawer-backdrop" class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
-  <nav class="absolute top-0 right-0 h-full w-[78vw] max-w-[320px] bg-white dark:bg-[#0b0d16] border-l border-neutral-200 dark:border-white/10 px-8 pt-24 pb-10 flex flex-col gap-6 translate-x-full transition-transform duration-300 ease-out" id="mobile-drawer-panel">
+  <nav class="absolute top-0 right-0 h-full w-[78vw] max-w-[320px] bg-white dark:bg-[#0b0d16] border-l border-neutral-200 dark:border-white/10 px-8 pt-24 pb-10 flex flex-col gap-6 translate-x-full transition-transform duration-300 ease-out" id="mobile-drawer-panel" aria-label="Navigazione mobile">
     <a href="#hero" class="nav-link text-base font-medium text-neutral-700 dark:text-neutral-200 hover:text-accent transition-colors" data-i18n="nav.home">Home</a>
     <a href="#experience" class="nav-link text-base font-medium text-neutral-700 dark:text-neutral-200 hover:text-accent transition-colors" data-i18n="nav.experience">Esperienza</a>
     <a href="#projects" class="nav-link text-base font-medium text-neutral-700 dark:text-neutral-200 hover:text-accent transition-colors" data-i18n="nav.projects">Progetti</a>
@@ -158,6 +152,7 @@
   </nav>
 </div>
 
+<main id="main-content">
 <!-- HERO -->
 <section id="hero" class="relative min-h-screen flex flex-col justify-center px-5 md:px-6 pt-28 max-w-6xl mx-auto">
   <div class="grid md:grid-cols-[1.25fr_.75fr] gap-14 items-center w-full">
@@ -172,7 +167,7 @@
       <p class="font-semibold text-xl sm:text-2xl text-neutral-600 dark:text-neutral-300 mb-6 min-h-[1.6em]">
         <span id="hero-role-text"></span><span class="type-cursor"></span>
       </p>
-      <p class="text-neutral-500 dark:text-neutral-400 text-base sm:text-lg max-w-xl mx-auto md:mx-0 mb-9" data-i18n="hero.desc">Laureando in Informatica, negli ultimi due anni ho portato oltre 7 progetti dal concept alla produzione — dalle pipeline AI ai sistemi distribuiti — curando sia il backend che l'esperienza utente, con attenzione a codice mantenibile e architetture pensate per scalare.</p>
+      <p class="text-neutral-500 dark:text-neutral-400 text-base sm:text-lg max-w-xl mx-auto md:mx-0 mb-9" data-i18n="hero.desc">Sviluppo applicazioni web e mobile, dall'architettura all'esperienza utente. Laureando in Informatica, ho realizzato oltre 7 progetti tra AI, sistemi distribuiti e prodotti digitali.</p>
       <div class="flex flex-wrap justify-center md:justify-start gap-4 mb-11">
         <a href="#projects" class="magnetic inline-flex items-center gap-2 bg-gradient-to-r from-accent to-accent-2 text-white text-sm font-semibold rounded-[11px] px-6 py-3.5 shadow-[0_16px_36px_-14px_rgba(109,94,248,.6)] hover:-translate-y-0.5 hover:shadow-[0_20px_44px_-14px_rgba(109,94,248,.75)] transition-all">
           <span data-i18n="hero.cta1">Guarda i progetti</span> <span>→</span>
@@ -200,9 +195,7 @@
     <div class="float mx-auto w-full max-w-[320px] order-first md:order-none">
       <div class="relative rounded-[22px] border border-neutral-200 dark:border-white/10 bg-white/80 dark:bg-white/[0.04] backdrop-blur-xl shadow-[0_25px_60px_-20px_rgba(0,0,0,.15)] dark:shadow-[0_25px_60px_-20px_rgba(0,0,0,.6)] p-7">
         <div class="w-[84px] h-[84px] mx-auto mb-4 rounded-[20px] bg-gradient-to-br from-accent to-accent-2 flex items-center justify-center overflow-hidden shadow-[0_14px_32px_-10px_rgba(109,94,248,.55)]">
-          <img src="assets/kamal.jpg" alt="Kamal Gouaiche" class="w-full h-full object-cover"
-               onerror="this.remove(); document.getElementById('avatar-fallback').classList.remove('hidden');">
-          <span id="avatar-fallback" class="hidden font-display font-bold text-3xl text-white">KG</span>
+          <span id="avatar-fallback" class="font-display font-bold text-3xl text-white" aria-hidden="true">KG</span>
         </div>
         <p class="text-center font-display font-bold text-lg mb-0.5">Kamal Gouaiche</p>
         <p class="text-center text-sm text-neutral-500 dark:text-neutral-400 mb-5" data-i18n="hero.role">Full-Stack &amp; Mobile Developer</p>
@@ -293,8 +286,8 @@
     <p class="text-neutral-500 dark:text-neutral-400 max-w-xl" data-i18n="projects.subtitle">Una selezione di applicazioni sviluppate tra studio, tirocinio e side project.</p>
   </div>
 
-  <div id="projects-toolbar" class="flex flex-wrap gap-2.5 mb-10">
-    <button type="button" class="filter-pill active px-4 py-2 rounded-full text-xs font-semibold border border-neutral-900 dark:border-white bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 transition-colors" data-filter="all" data-i18n="projects.filterAll">Tutti</button>
+  <div id="projects-toolbar" class="flex flex-wrap gap-2.5 mb-10" role="group" aria-label="Filtra i progetti">
+    <button type="button" class="filter-pill active px-4 py-2 rounded-full text-xs font-semibold border border-neutral-900 dark:border-white bg-neutral-900 dark:bg-white text-white dark:text-neutral-900 transition-colors" data-filter="all" aria-pressed="true" data-i18n="projects.filterAll">Tutti</button>
     <button type="button" class="filter-pill px-4 py-2 rounded-full text-xs font-semibold border border-neutral-200 dark:border-white/15 text-neutral-500 dark:text-neutral-400 hover:border-accent hover:text-accent transition-colors" data-filter="Python">Python</button>
     <button type="button" class="filter-pill px-4 py-2 rounded-full text-xs font-semibold border border-neutral-200 dark:border-white/15 text-neutral-500 dark:text-neutral-400 hover:border-accent hover:text-accent transition-colors" data-filter="Kotlin">Kotlin</button>
     <button type="button" class="filter-pill px-4 py-2 rounded-full text-xs font-semibold border border-neutral-200 dark:border-white/15 text-neutral-500 dark:text-neutral-400 hover:border-accent hover:text-accent transition-colors" data-filter="Java">Java</button>
@@ -302,6 +295,7 @@
     <button type="button" class="filter-pill px-4 py-2 rounded-full text-xs font-semibold border border-neutral-200 dark:border-white/15 text-neutral-500 dark:text-neutral-400 hover:border-accent hover:text-accent transition-colors" data-filter="SQL">SQL</button>
   </div>
 
+  <p id="project-filter-status" class="sr-only" role="status" aria-live="polite"></p>
   <div id="project-grid" class="grid md:grid-cols-2 gap-5">
 
     <article class="tilt-card card reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-7 flex flex-col shadow-sm hover:shadow-2xl hover:border-accent/60" data-tags="Python,FastAPI,Streamlit,SQLite,SQLAlchemy,ChromaDB,RAG,LLM,Agno">
@@ -318,9 +312,12 @@
           <li data-i18n="projects.p1.b2">Architettura multi-agent con Agno: Guide, Eval e Contest Agent.</li>
           <li data-i18n="projects.p1.b3">Adaptive Engine che regola la difficoltà in base alle performance.</li>
         </ul>
-        <div class="card-stack flex flex-wrap gap-1.5 mt-auto pt-2">
+        <div class="card-stack flex flex-wrap gap-1.5 mt-auto pt-2 mb-4">
           <span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Python</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">FastAPI</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Streamlit</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">SQLite</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">SQLAlchemy</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">ChromaDB</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">RAG</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">LLM</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Agno</span>
         </div>
+        <a href="https://github.com/KamalGouaiche10/StudyCoach" target="_blank" rel="noopener noreferrer" class="project-link inline-flex items-center gap-2 w-fit border border-neutral-200 dark:border-white/15 rounded-lg px-3.5 py-2 text-xs font-semibold hover:border-accent hover:text-accent hover:-translate-y-0.5 transition-all" data-project-name="StudyCoach" aria-label="StudyCoach: repository GitHub">
+          <span data-i18n="projects.githubLink">Vedi su GitHub</span><span aria-hidden="true">↗</span>
+        </a>
       </div>
     </article>
 
@@ -353,9 +350,12 @@
         </div>
         <p class="text-accent font-semibold text-sm my-2" data-i18n="projects.p3.tagline">Piattaforma per Eventi</p>
         <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-4" data-i18n="projects.p3.desc">Sistema distribuito per la gestione di eventi, sviluppato in Java con architettura RMI e metodologia Agile.</p>
-        <div class="card-stack flex flex-wrap gap-1.5 mt-auto pt-2">
+        <div class="card-stack flex flex-wrap gap-1.5 mt-auto pt-2 mb-4">
           <span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Java</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">RMI</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">UML</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Agile</span>
         </div>
+        <a href="https://github.com/KamalGouaiche10/Eventhub--Ingegneria-del-software" target="_blank" rel="noopener noreferrer" class="project-link inline-flex items-center gap-2 w-fit border border-neutral-200 dark:border-white/15 rounded-lg px-3.5 py-2 text-xs font-semibold hover:border-accent hover:text-accent hover:-translate-y-0.5 transition-all" data-project-name="EventHub" aria-label="EventHub: repository GitHub">
+          <span data-i18n="projects.githubLink">Vedi su GitHub</span><span aria-hidden="true">↗</span>
+        </a>
       </div>
     </article>
 
@@ -633,6 +633,7 @@
   </div>
 </section>
 
+</main>
 <footer class="text-center px-5 py-8 border-t border-neutral-200 dark:border-white/10 text-neutral-400 dark:text-neutral-500 text-xs">
   <p>© <span id="year"></span> Kamal Gouaiche · <a href="https://github.com/KamalGouaiche10/kamal-portfolio" target="_blank" rel="noopener" class="hover:text-accent transition-colors" data-i18n="footer.source">codice sorgente su GitHub</a></p>
 </footer>
