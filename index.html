@@ -298,6 +298,28 @@
   <p id="project-filter-status" class="sr-only" role="status" aria-live="polite"></p>
   <div id="project-grid" class="grid md:grid-cols-2 gap-5">
 
+    <article class="tilt-card card reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-7 flex flex-col shadow-sm hover:shadow-2xl hover:border-accent/60" data-tags="Java,Java 25,Maven,SQLite,Spark Java,MQTT,Mosquitto,JWT,JUnit 5,HTML,CSS,JavaScript">
+      <div class="tilt-card-inner flex flex-col flex-1">
+        <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-display font-bold text-sm mb-4">DH</div>
+        <div class="flex flex-wrap justify-between items-baseline gap-2">
+          <h3 class="font-display font-bold text-lg">DartHub</h3>
+        </div>
+        <p class="text-accent font-semibold text-sm my-2" data-i18n="projects.p8.tagline">Piattaforma per partite e tornei di freccette</p>
+        <p class="text-neutral-500 dark:text-neutral-400 text-sm mb-3" data-i18n="projects.p8.desc">Piattaforma distribuita per giocare a freccette su bersagli fisici o emulati e organizzare partite e tornei tra più locali. Sensori e simulatori rilevano i lanci; un componente edge calcola e mostra il punteggio, mentre i servizi centrali gestiscono utenti, locali, partite, tornei e statistiche.</p>
+        <ul class="space-y-1.5 text-neutral-500 dark:text-neutral-400 text-sm list-disc pl-5 mb-4">
+          <li data-i18n="projects.p8.b1">Dieci moduli: sei microservizi REST con database SQLite separati, API gateway Spark Java con HTTPS e JWT RS256, edge e simulatore di sensori.</li>
+          <li data-i18n="projects.p8.b2">HTTP e MQTT (Mosquitto) per tiri, comandi, heartbeat ed eventi; scoring Strategy condiviso tra server ed edge.</li>
+          <li data-i18n="projects.p8.b3">Buffer locale dei tiri e riconciliazione senza perdite o duplicati dopo le disconnessioni; frontend HTML, CSS e JavaScript, test JUnit 5.</li>
+        </ul>
+        <div class="card-stack flex flex-wrap gap-1.5 mt-auto pt-2 mb-4">
+          <span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Java 25</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Maven</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">SQLite</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">Spark Java</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">MQTT</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">JWT RS256</span><span class="px-2.5 py-1 rounded-md border border-neutral-200 dark:border-white/10 bg-neutral-50 dark:bg-white/5 text-neutral-500 dark:text-neutral-400 font-mono text-[0.7rem] cursor-pointer hover:border-accent hover:text-accent">JUnit 5</span>
+        </div>
+        <a href="https://github.com/KamalGouaiche10/Darthub.git" target="_blank" rel="noopener noreferrer" class="project-link inline-flex items-center gap-2 w-fit border border-neutral-200 dark:border-white/15 rounded-lg px-3.5 py-2 text-xs font-semibold hover:border-accent hover:text-accent hover:-translate-y-0.5 transition-all" data-project-name="DartHub" aria-label="DartHub: repository GitHub">
+          <span data-i18n="projects.githubLink">Vedi su GitHub</span><span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </article>
+
     <article class="tilt-card card reveal rounded-2xl border border-neutral-200 dark:border-white/10 bg-white dark:bg-white/[0.03] p-7 flex flex-col shadow-sm hover:shadow-2xl hover:border-accent/60" data-tags="Python,FastAPI,Streamlit,SQLite,SQLAlchemy,ChromaDB,RAG,LLM,Agno">
       <div class="tilt-card-inner flex flex-col flex-1">
         <div class="w-11 h-11 rounded-xl bg-accent/10 text-accent flex items-center justify-center font-display font-bold text-sm mb-4">AI</div>
