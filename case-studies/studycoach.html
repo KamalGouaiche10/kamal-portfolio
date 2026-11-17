@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080e1a">
+  <title>StudyCoach Case Study | Kamal Gouaiche</title>
+  <meta name="description" content="StudyCoach turns notes and PDFs into adaptive revision sessions with retrieval-augmented generation and a multi-agent workflow.">
+  <meta name="keywords" content="StudyCoach, RAG, adaptive learning, FastAPI, ChromaDB, developer portfolio">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="StudyCoach Case Study | Kamal Gouaiche">
+  <meta property="og:description" content="An adaptive revision platform using learner material, RAG and a three-agent learning workflow.">
+  <meta name="twitter:card" content="summary">
+  <link rel="canonical" href="https://kamalgouaiche10.github.io/kamal-portfolio/case-studies/studycoach.html">
+  <link rel="stylesheet" href="../case-study.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="case-header">
+    <a class="case-brand" href="../index.html#hero">KG <span aria-hidden="true">/</span> Portfolio</a>
+    <nav aria-label="Case study navigation"><a href="../index.html#projects">All projects</a><a href="mailto:gouaichekamal@gmail.com">Contact</a></nav>
+  </header>
+  <main id="main" class="case-shell">
+    <section class="case-hero">
+      <p class="case-eyebrow">Case study · AI learning</p>
+      <h1>StudyCoach</h1>
+      <p class="case-lede">An adaptive study platform designed to turn personal notes and PDFs into focused, interactive revision sessions.</p>
+      <div class="case-meta" aria-label="Project technologies"><span>Python</span><span>FastAPI</span><span>ChromaDB</span><span>SQLAlchemy</span><span>Streamlit</span><span>Agno</span></div>
+      <div class="case-actions">
+        <a class="case-button case-button--primary" href="https://github.com/KamalGouaiche10/StudyCoach" target="_blank" rel="noopener noreferrer">Source repository <span aria-hidden="true">↗</span></a>
+        <span class="case-button" aria-label="No live demo is currently published">No live demo published</span>
+      </div>
+      <figure class="case-visual" role="img" aria-label="Illustrative StudyCoach quiz session with adaptive questions and progress">
+        <div class="visual-window">
+          <div class="visual-topline"><span>STUDYCOACH / REVISION</span><span>SESSION 04</span></div>
+          <strong class="visual-title">A question based on your notes</strong>
+          <span class="visual-muted">Difficulty adapts to recent answers</span>
+          <div class="visual-grid"><div class="visual-tile"><strong>RAG</strong><span>Source-grounded context</span></div><div class="visual-tile"><strong>Q&amp;A</strong><span>Interactive practice</span></div><div class="visual-tile"><strong>↗</strong><span>Adaptive difficulty</span></div></div>
+        </div>
+        <figcaption>Illustrative interface mockup, not a product screenshot</figcaption>
+      </figure>
+    </section>
+
+    <section class="case-section" aria-labelledby="problem-title">
+      <h2 id="problem-title">Problem &amp; user context</h2>
+      <p>Turning a long document into an effective revision plan takes time, and generic quizzes may not reflect the material a student actually needs to learn. StudyCoach explores a flow where learners provide their own notes and practice against questions grounded in that content.</p>
+      <div class="case-two-col">
+        <article class="case-panel"><h3>User need</h3><p>Move from static notes to an interactive session without manually authoring every practice question.</p></article>
+        <article class="case-panel"><h3>Product objective</h3><p>Generate relevant practice from uploaded material and adjust question difficulty based on a learner's responses.</p></article>
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="architecture-title">
+      <h2 id="architecture-title">Architecture &amp; data flow</h2>
+      <p>The documented design combines a retrieval-augmented generation pipeline using ChromaDB with three focused agents. FastAPI exposes the application services; Streamlit provides the user-facing prototype.</p>
+      <div class="flow-diagram" role="img" aria-label="Student notes flow through retrieval and a Guide agent, then Eval and Contest agents support an adaptive quiz session">
+        <div class="flow-node"><strong>Notes / PDF</strong><span>Student-provided material</span></div><span class="flow-arrow" aria-hidden="true">→</span>
+        <div class="flow-node"><strong>RAG retrieval</strong><span>ChromaDB context</span></div><span class="flow-arrow" aria-hidden="true">→</span>
+        <div class="flow-node"><strong>Guide agent</strong><span>Builds a learning session</span></div><span class="flow-arrow" aria-hidden="true">→</span>
+        <div class="flow-node"><strong>Eval + Contest</strong><span>Feedback and practice</span></div>
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="constraints-title">
+      <h2 id="constraints-title">Constraints &amp; trade-offs</h2>
+      <div class="case-two-col">
+        <article class="case-panel"><h3>Grounding vs. flexibility</h3><p>Retrieval gives the model relevant source context, but answer quality still depends on document extraction and retrieval quality. A generated answer should not be treated as automatically correct.</p></article>
+        <article class="case-panel"><h3>Agent responsibilities</h3><p>Guide, Eval and Contest separate session flow, evaluation and question practice. The added structure makes roles clearer but requires explicit coordination between them.</p></article>
+        <article class="case-panel"><h3>Adaptation signal</h3><p>The Adaptive Engine uses learner performance to tune difficulty, rather than relying on a fixed sequence of questions.</p></article>
+        <article class="case-panel"><h3>Prototype boundary</h3><p>The repository describes an application prototype; published deployment, usage and learning-outcome benchmarks are not available.</p></article>
+      </div>
+    </section>
+
+    <section class="case-section" aria-labelledby="results-title">
+      <h2 id="results-title">Results &amp; lessons</h2>
+      <div class="metric-grid">
+        <div class="metric"><strong>3</strong><span>documented agents: Guide, Eval and Contest</span></div>
+        <div class="metric"><strong>1</strong><span>retrieval-backed learning flow built around a learner's own material</span></div>
+        <div class="metric"><strong>0</strong><span>published production usage or learning-outcome benchmarks</span></div>
+      </div>
+      <p class="evidence-note">The project description states that notes and PDFs can become interactive revision sessions in seconds. No independent timing study or learner-outcome measurements are published, so no performance claim is made here.</p>
+      <p>The main design lesson is to treat generated content as a learning aid with traceable source context, and to keep retrieval, orchestration and adaptive difficulty as separate concerns.</p>
+    </section>
+
+    <footer class="case-footer"><a href="../index.html#projects">← Back to portfolio</a><span>Built by Kamal Gouaiche</span><a href="mailto:gouaichekamal@gmail.com">Discuss a project →</a></footer>
+  </main>
+</body>
+</html>
